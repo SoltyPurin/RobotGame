@@ -14,8 +14,10 @@ public class PlayerMove : MonoBehaviour
     private float _speed = 50;
     [SerializeField, Header("重力")]
     private float _downForce = 5;
-    [SerializeField, Header("カメラ")]
-    private GameObject _camera = default;
+    [SerializeField, Header("通常カメラ")]
+    private GameObject _normalCamera = default;
+    [SerializeField,Header("ロックオンカメラ")]
+    private GameObject _lockOnCamera = default;
 
     private RaycastHit _hit;
     private float _verticalValue = 0.0f;
@@ -25,12 +27,14 @@ public class PlayerMove : MonoBehaviour
     private Quaternion _targeRotation = default;
 
     private InputAction _moveInput;
+    private LockOn _lockOn = default;
 
     private void Start()
     {
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
         _targeRotation = transform.rotation;
+        _lockOn = GetComponent<LockOn>();
     }
     private void Update()
     {
@@ -43,8 +47,13 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 moveForward = cameraForward * _verticalValue + _camera.transform.right * _horizontalValue;
+        GameObject activeCamera = _normalCamera;
+        if(_lockOn.State == CameraState.LockOn)
+        {
+            activeCamera = _lockOnCamera;
+        }
+        Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
         //Vector3 v3Input = new Vector3(_horizontalValue, 0, _verticalValue);
         if(_v2MoveValue.sqrMagnitude > 0.01f)
         {
