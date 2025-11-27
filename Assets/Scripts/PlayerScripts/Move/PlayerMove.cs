@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     private float _horizontalValue = 0.0f;
     private float _sphereRadius = 0;
     private Vector2 _v2MoveValue = Vector2.zero;
+    private Quaternion _targeRotation = default;
 
     private InputAction _moveInput;
 
@@ -29,6 +30,7 @@ public class PlayerMove : MonoBehaviour
     {
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
+        _targeRotation = transform.rotation;
     }
     private void Update()
     {
@@ -47,7 +49,8 @@ public class PlayerMove : MonoBehaviour
         if(_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
-            _onBallRigidBody.rotation = targetRot;
+            Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
+            _onBallRigidBody.rotation = temp;
             _ballRigidBody.linearVelocity = moveForward * _speed;
             _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
         }

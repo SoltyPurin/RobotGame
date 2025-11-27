@@ -18,5 +18,9 @@ public class CreateFollowObj : MonoBehaviour
         _camera.LookAt = insta.transform;
         _lockOn = GetComponent<LockOnEnemy>();
         _lockOn.SetCenterObj(_centerObjScript);
+        GameObject cameraPoint = _camera.Follow.gameObject;
+        MoveCameraPoint movePoint = cameraPoint.GetComponent<MoveCameraPoint>();
+        GameObject player = GameObject.FindWithTag("Player");
+        movePoint.SetUp(insta, player);
     }
 }
