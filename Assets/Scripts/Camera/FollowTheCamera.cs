@@ -30,13 +30,5 @@ public class FollowTheCamera : MonoBehaviour
         Vector3 pos = direction + _cameraPos + decisionPos;
         transform.position = pos;
 
-
-        //float stopRotaDistance = Vector3.Distance(decisionPos, transform.position);
-        //if(stopRotaDistance >=2)
-        //{
-        //    transform.RotateAround(_followObj.transform.position, new Vector3(0, 1, 0), 0.5f);
-        //}
-
-
     }
 }

@@ -6,24 +6,21 @@ public class LockOnEnemy : MonoBehaviour
 {
     private GameObject[] _enemys = default;
     private InputAction _lockOnButton;
-    private GameObject _camera = default;
     private CinemachineCamera _cineCamera = default;
     private bool _isLockOn = false;
+    private bool _isSetCalled = false;
+
+    private CenterObj _centerObj;
+    public void SetCenterObj(in CenterObj script)
+    {
+        _centerObj = script;
+    }
 
     private void Start()
     {
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        _camera = GameObject.FindWithTag("MainCamera");
-        _cineCamera = _camera.GetComponent<CinemachineCamera>();
-        if( _camera == null)
-        {
-            Debug.Log("カメラが見当たらない");
-        }
-        else
-        {
-            Debug.Log("カメラはある");
-        }
-            _lockOnButton = InputSystem.actions.FindAction("LockOn");
+        _cineCamera = GetComponent<CinemachineCamera>();
+        _lockOnButton = InputSystem.actions.FindAction("LockOn");
     }
     private void LateUpdate()
     {
@@ -34,17 +31,22 @@ public class LockOnEnemy : MonoBehaviour
 
         if (!_isLockOn)
         {
-            _camera.transform.rotation = Quaternion.Euler(10,0,0);  
+            _isSetCalled = false;
+            transform.rotation = Quaternion.Euler(10,0,0);  
             return;
         }
-
-        Debug.Log("ロックオン");
-        SetTartgetProtocol();
+        if (!_isSetCalled)
+        {
+            _isSetCalled = true;
+            Debug.Log("ロックオン");
+            SetTartgetProtocol();
+        }
     }
 
     private void SetTartgetProtocol()
     {
         _cineCamera.LookAt = _enemys[0].transform;
+        _centerObj.SetTarget(_enemys[0]);
         //_camera.transform.LookAt(_enemys[0].transform);
     }
 }
