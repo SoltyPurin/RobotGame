@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     private float _speed = 50;
     [SerializeField, Header("重力")]
     private float _downForce = 5;
+    [SerializeField, Header("カメラ")]
+    private GameObject _camera = default;
 
     private RaycastHit _hit;
     private float _verticalValue = 0.0f;
@@ -34,18 +36,19 @@ public class PlayerMove : MonoBehaviour
         _verticalValue = _v2MoveValue.y;
         _horizontalValue = _v2MoveValue.x;
         Physics.Raycast(_ballRigidBody.position, Vector3.down, out _hit, _sphereRadius);
-        Debug.Log($"Move: {_v2MoveValue}");
 
     }
 
     private void FixedUpdate()
     {
-        Vector3 v3Input = new Vector3(_horizontalValue, 0, _verticalValue);
+        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 moveForward = cameraForward * _verticalValue + _camera.transform.right * _horizontalValue;
+        //Vector3 v3Input = new Vector3(_horizontalValue, 0, _verticalValue);
         if(_v2MoveValue.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRot = Quaternion.LookRotation(v3Input, Vector3.up);
+            Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             _onBallRigidBody.rotation = targetRot;
-            _ballRigidBody.linearVelocity = v3Input * _speed;
+            _ballRigidBody.linearVelocity = moveForward * _speed;
             _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
         }
         else
@@ -53,27 +56,6 @@ public class PlayerMove : MonoBehaviour
             _ballRigidBody.linearVelocity *=0.9f;
         }
 
-        //Vector3 curSpeed = Vector3.Lerp(_ballRigidBody.linearVelocity, this.gameObject.transform.forward * _verticalValue * _speed, _accelarationValue);
-        //_ballRigidBody.linearVelocity = curSpeed;
-        //_onBallRigidBody.AddTorque(Vector3.up * (_horizontalValue * _turningSpeed));
-
-
-        ////Lerpは現状の回転量と目的の回転量で、現状はRigidBody.rotationで出る
-        ////第一は上物のrotation、第二は↓のやつ
-        //Quaternion rota = Quaternion.Slerp(_onBallRigidBody.transform.rotation, Quaternion.FromToRotation(_onBallRigidBody.transform.up, _hit.normal) * _onBallRigidBody.transform.rotation, 1);
-        //_onBallRigidBody.MoveRotation(rota);
-
-        //Vector3 inputDir = new Vector3(_moveValue.x, 0f, _moveValue.y).normalized;
-        //if(inputDir.x <= 0.1f && inputDir.z <= 0.1f)
-        //{
-        //    Debug.Log("入力ナシ");
-        //    return;
-        //}
-        //Quaternion.LookRotation(inputDir);
-        //float angle = Mathf.Atan2(inputDir.z, inputDir.x) * Mathf.Rad2Deg;
-        //Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
-
-        //_onBallRigidBody.rotation = Quaternion.Slerp(_onBallRigidBody.rotation, targetRotation, 0.02f);
 
     }
 

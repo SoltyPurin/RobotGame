@@ -7,12 +7,14 @@ public class LockOnEnemy : MonoBehaviour
     private GameObject[] _enemys = default;
     private InputAction _lockOnButton;
     private GameObject _camera = default;
+    private CinemachineCamera _cineCamera = default;
     private bool _isLockOn = false;
 
     private void Start()
     {
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
         _camera = GameObject.FindWithTag("MainCamera");
+        _cineCamera = _camera.GetComponent<CinemachineCamera>();
         if( _camera == null)
         {
             Debug.Log("ÉJÉÅÉâÇ™å©ìñÇΩÇÁÇ»Ç¢");
@@ -23,7 +25,7 @@ public class LockOnEnemy : MonoBehaviour
         }
             _lockOnButton = InputSystem.actions.FindAction("LockOn");
     }
-    private void Update()
+    private void LateUpdate()
     {
         if (_lockOnButton.WasPressedThisFrame())
         {
@@ -42,6 +44,7 @@ public class LockOnEnemy : MonoBehaviour
 
     private void SetTartgetProtocol()
     {
-        _camera.transform.LookAt(_enemys[0].transform);
+        _cineCamera.LookAt = _enemys[0].transform;
+        //_camera.transform.LookAt(_enemys[0].transform);
     }
 }
