@@ -984,7 +984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac1cb3f24bedf341985eebee84d4ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jump
-  _jumpForce: 10
+  _jumpForce: 5000
 --- !u!114 &1625607255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,8 +1280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decabf0cc92bad144a5a445cef4a1afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveCameraPoint
-  _playerObj: {fileID: 0}
-  _centerObj: {fileID: 0}
 --- !u!137 &7154448230086397316
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

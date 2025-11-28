@@ -18,6 +18,15 @@ public class Jump : MonoBehaviour
 
     private void Update()
     {
-        
+        if (_jumpButton.WasPressedThisFrame())
+        {
+            JumpProtocol();
+        }
+    }
+
+    private void JumpProtocol()
+    {
+        Debug.Log("ƒWƒƒƒ“ƒv");
+        _onBallRigidBody.AddForce(transform.up *  _jumpForce);
     }
 }
