@@ -48,6 +48,7 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         GameObject activeCamera = _normalCamera;
+        Vector3 curVelocity = _ballRigidBody.linearVelocity;
         if(_lockOn.State == CameraState.LockOn)
         {
             activeCamera = _lockOnCamera;
@@ -60,14 +61,16 @@ public class PlayerMove : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
             _onBallRigidBody.rotation = temp;
-            _ballRigidBody.linearVelocity = moveForward * _speed;
-            _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
+            Vector3 useVelocity = moveForward * _speed;
+            useVelocity.y = curVelocity.y;
+            _ballRigidBody.linearVelocity = useVelocity;
         }
         else
         {
             _ballRigidBody.linearVelocity *=0.9f;
         }
 
+        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
 
     }
 
