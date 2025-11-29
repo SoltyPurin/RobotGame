@@ -25,6 +25,11 @@ public class PlayerMove : MonoBehaviour
     private float _sphereRadius = 0;
     private Vector2 _v2MoveValue = Vector2.zero;
     private Quaternion _targeRotation = default;
+    private Vector3 _useVelocity = Vector3.zero;
+    public Vector3 UseVelocity
+    {
+        get { return _useVelocity; }
+    }
 
     private InputAction _moveInput;
     private LockOn _lockOn = default;
@@ -61,9 +66,9 @@ public class PlayerMove : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
             _onBallRigidBody.rotation = temp;
-            Vector3 useVelocity = moveForward * _speed;
-            useVelocity.y = curVelocity.y;
-            _ballRigidBody.linearVelocity = useVelocity;
+            _useVelocity = moveForward * _speed;
+            _useVelocity.y = curVelocity.y;
+            _ballRigidBody.linearVelocity = _useVelocity;
         }
         else
         {
