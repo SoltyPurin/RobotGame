@@ -52,16 +52,21 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MoveProtocol();
+    }
+
+    private void MoveProtocol()
+    {
         GameObject activeCamera = _normalCamera;
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
-        if(_lockOn.State == CameraState.LockOn)
+        if (_lockOn.State == CameraState.LockOn)
         {
             activeCamera = _lockOnCamera;
         }
         Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
         //Vector3 v3Input = new Vector3(_horizontalValue, 0, _verticalValue);
-        if(_v2MoveValue.sqrMagnitude > 0.01f)
+        if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
@@ -72,11 +77,10 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            _ballRigidBody.linearVelocity *=0.9f;
+            _ballRigidBody.linearVelocity *= 0.9f;
         }
 
         _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
-
     }
 
 }
