@@ -1,149 +1,425 @@
 fileFormatVersion: 2
 guid: 83cd66f35327ca4468e112f88ccf9b33
-timeCreated: 1516291809
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: ankle_lf_jnt
-    100002: ankle_rt_jnt
-    100004: armpistonA_lf_up_aim_jnt
-    100006: armpistonA_rt_up_aim_jnt
-    100008: armpistonB_lf_up_aim_jnt
-    100010: armpistonB_rt_up_aim_jnt
-    100012: ball_lf_jnt
-    100014: ball_rt_jnt
-    100016: bicep_lf_jnt
-    100018: bicep_rt_jnt
-    100020: body_jnt
-    100022: elbow_lf_jnt
-    100024: elbow_rt_jnt
-    100026: elbowext_lf_jnt
-    100028: elbowext_rt_jnt
-    100030: fingerA1_lf_jnt
-    100032: fingerB1_lf_jnt
-    100034: fingerC1_lf_jnt
-    100036: head_jnt
-    100038: heel_lf_jnt
-    100040: heel_rt_jnt
-    100042: hip_lf_jnt
-    100044: hip_rt_jnt
-    100046: knee1_lf_jnt
-    100048: knee1_rt_jnt
-    100050: knee2_lf_jnt
-    100052: knee2_rt_jnt
-    100054: kneepiston_lf_jnt
-    100056: kneepiston_rt_jnt
-    100058: legpiston_lf_dn_aim_jnt
-    100060: legpiston_lf_up_aim_jnt
-    100062: legpiston_lf_up_CON_jnt
-    100064: legpiston_rt_dn_aim_jnt
-    100066: legpiston_rt_up_aim_jnt
-    100068: legpiston_rt_up_CON_jnt
-    100070: pelvis_jnt
-    100072: persp1Shape
-    100074: perspShape
-    100076: //RootNode
-    100078: robotCOG
-    100080: shdr_lf_jnt
-    100082: shdr_rt_jnt
-    100084: shdrpistonA_lf_up_aim_jnt
-    100086: shdrpistonA_rt_up_aim_jnt
-    100088: shdrpistonB_lf_up_aim_jnt
-    100090: shdrpistonB_rt_up_aim_jnt
-    100092: shdrpistonC_lf_up_aim_jnt
-    100094: shdrpistonC_rt_up_aim_jnt
-    100096: thumb1_lf_jnt
-    100098: U3DMesh
-    100100: U3DRoot
-    100102: waist_jnt
-    100104: wrist1_lf_jnt
-    100106: wrist2_lf_jnt
-    400000: ankle_lf_jnt
-    400002: ankle_rt_jnt
-    400004: armpistonA_lf_up_aim_jnt
-    400006: armpistonA_rt_up_aim_jnt
-    400008: armpistonB_lf_up_aim_jnt
-    400010: armpistonB_rt_up_aim_jnt
-    400012: ball_lf_jnt
-    400014: ball_rt_jnt
-    400016: bicep_lf_jnt
-    400018: bicep_rt_jnt
-    400020: body_jnt
-    400022: elbow_lf_jnt
-    400024: elbow_rt_jnt
-    400026: elbowext_lf_jnt
-    400028: elbowext_rt_jnt
-    400030: fingerA1_lf_jnt
-    400032: fingerB1_lf_jnt
-    400034: fingerC1_lf_jnt
-    400036: head_jnt
-    400038: heel_lf_jnt
-    400040: heel_rt_jnt
-    400042: hip_lf_jnt
-    400044: hip_rt_jnt
-    400046: knee1_lf_jnt
-    400048: knee1_rt_jnt
-    400050: knee2_lf_jnt
-    400052: knee2_rt_jnt
-    400054: kneepiston_lf_jnt
-    400056: kneepiston_rt_jnt
-    400058: legpiston_lf_dn_aim_jnt
-    400060: legpiston_lf_up_aim_jnt
-    400062: legpiston_lf_up_CON_jnt
-    400064: legpiston_rt_dn_aim_jnt
-    400066: legpiston_rt_up_aim_jnt
-    400068: legpiston_rt_up_CON_jnt
-    400070: pelvis_jnt
-    400072: persp1Shape
-    400074: perspShape
-    400076: //RootNode
-    400078: robotCOG
-    400080: shdr_lf_jnt
-    400082: shdr_rt_jnt
-    400084: shdrpistonA_lf_up_aim_jnt
-    400086: shdrpistonA_rt_up_aim_jnt
-    400088: shdrpistonB_lf_up_aim_jnt
-    400090: shdrpistonB_rt_up_aim_jnt
-    400092: shdrpistonC_lf_up_aim_jnt
-    400094: shdrpistonC_rt_up_aim_jnt
-    400096: thumb1_lf_jnt
-    400098: U3DMesh
-    400100: U3DRoot
-    400102: waist_jnt
-    400104: wrist1_lf_jnt
-    400106: wrist2_lf_jnt
-    2000000: persp1Shape
-    2000002: perspShape
-    2100000: robot_mat
-    4300000: U3DMesh
-    7400000: idle
-    7400002: shoot
-    7400004: walkforward
-    7400006: walkbackward
-    7400008: stepright
-    7400010: stepleft
-    7400012: jump
-    7400014: meleeA
-    7400016: meleeB
-    7400018: shutdown
-    7400020: restart
-    7400022: hit
-    7400024: death
-    7400026: revive
-    7400028: hit_02
-    7400030: idle_02
-    7400032: shoot_Fast
-    7400034: shoot_Fast_Around
-    7400036: shotSpray
-    7400038: shutdown_02
-    7400040: run
-    7400042: walkShotAround
-    7400044: walkShotFast
-    7400046: idleAlert
-    7400048: T-Pose
-    9500000: //RootNode
-    13700000: U3DMesh
+  serializedVersion: 24200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: ankle_lf_jnt
+  - first:
+      1: 100002
+    second: ankle_rt_jnt
+  - first:
+      1: 100004
+    second: armpistonA_lf_up_aim_jnt
+  - first:
+      1: 100006
+    second: armpistonA_rt_up_aim_jnt
+  - first:
+      1: 100008
+    second: armpistonB_lf_up_aim_jnt
+  - first:
+      1: 100010
+    second: armpistonB_rt_up_aim_jnt
+  - first:
+      1: 100012
+    second: ball_lf_jnt
+  - first:
+      1: 100014
+    second: ball_rt_jnt
+  - first:
+      1: 100016
+    second: bicep_lf_jnt
+  - first:
+      1: 100018
+    second: bicep_rt_jnt
+  - first:
+      1: 100020
+    second: body_jnt
+  - first:
+      1: 100022
+    second: elbow_lf_jnt
+  - first:
+      1: 100024
+    second: elbow_rt_jnt
+  - first:
+      1: 100026
+    second: elbowext_lf_jnt
+  - first:
+      1: 100028
+    second: elbowext_rt_jnt
+  - first:
+      1: 100030
+    second: fingerA1_lf_jnt
+  - first:
+      1: 100032
+    second: fingerB1_lf_jnt
+  - first:
+      1: 100034
+    second: fingerC1_lf_jnt
+  - first:
+      1: 100036
+    second: head_jnt
+  - first:
+      1: 100038
+    second: heel_lf_jnt
+  - first:
+      1: 100040
+    second: heel_rt_jnt
+  - first:
+      1: 100042
+    second: hip_lf_jnt
+  - first:
+      1: 100044
+    second: hip_rt_jnt
+  - first:
+      1: 100046
+    second: knee1_lf_jnt
+  - first:
+      1: 100048
+    second: knee1_rt_jnt
+  - first:
+      1: 100050
+    second: knee2_lf_jnt
+  - first:
+      1: 100052
+    second: knee2_rt_jnt
+  - first:
+      1: 100054
+    second: kneepiston_lf_jnt
+  - first:
+      1: 100056
+    second: kneepiston_rt_jnt
+  - first:
+      1: 100058
+    second: legpiston_lf_dn_aim_jnt
+  - first:
+      1: 100060
+    second: legpiston_lf_up_aim_jnt
+  - first:
+      1: 100062
+    second: legpiston_lf_up_CON_jnt
+  - first:
+      1: 100064
+    second: legpiston_rt_dn_aim_jnt
+  - first:
+      1: 100066
+    second: legpiston_rt_up_aim_jnt
+  - first:
+      1: 100068
+    second: legpiston_rt_up_CON_jnt
+  - first:
+      1: 100070
+    second: pelvis_jnt
+  - first:
+      1: 100072
+    second: persp1Shape
+  - first:
+      1: 100074
+    second: perspShape
+  - first:
+      1: 100076
+    second: //RootNode
+  - first:
+      1: 100078
+    second: robotCOG
+  - first:
+      1: 100080
+    second: shdr_lf_jnt
+  - first:
+      1: 100082
+    second: shdr_rt_jnt
+  - first:
+      1: 100084
+    second: shdrpistonA_lf_up_aim_jnt
+  - first:
+      1: 100086
+    second: shdrpistonA_rt_up_aim_jnt
+  - first:
+      1: 100088
+    second: shdrpistonB_lf_up_aim_jnt
+  - first:
+      1: 100090
+    second: shdrpistonB_rt_up_aim_jnt
+  - first:
+      1: 100092
+    second: shdrpistonC_lf_up_aim_jnt
+  - first:
+      1: 100094
+    second: shdrpistonC_rt_up_aim_jnt
+  - first:
+      1: 100096
+    second: thumb1_lf_jnt
+  - first:
+      1: 100098
+    second: U3DMesh
+  - first:
+      1: 100100
+    second: U3DRoot
+  - first:
+      1: 100102
+    second: waist_jnt
+  - first:
+      1: 100104
+    second: wrist1_lf_jnt
+  - first:
+      1: 100106
+    second: wrist2_lf_jnt
+  - first:
+      4: 400000
+    second: ankle_lf_jnt
+  - first:
+      4: 400002
+    second: ankle_rt_jnt
+  - first:
+      4: 400004
+    second: armpistonA_lf_up_aim_jnt
+  - first:
+      4: 400006
+    second: armpistonA_rt_up_aim_jnt
+  - first:
+      4: 400008
+    second: armpistonB_lf_up_aim_jnt
+  - first:
+      4: 400010
+    second: armpistonB_rt_up_aim_jnt
+  - first:
+      4: 400012
+    second: ball_lf_jnt
+  - first:
+      4: 400014
+    second: ball_rt_jnt
+  - first:
+      4: 400016
+    second: bicep_lf_jnt
+  - first:
+      4: 400018
+    second: bicep_rt_jnt
+  - first:
+      4: 400020
+    second: body_jnt
+  - first:
+      4: 400022
+    second: elbow_lf_jnt
+  - first:
+      4: 400024
+    second: elbow_rt_jnt
+  - first:
+      4: 400026
+    second: elbowext_lf_jnt
+  - first:
+      4: 400028
+    second: elbowext_rt_jnt
+  - first:
+      4: 400030
+    second: fingerA1_lf_jnt
+  - first:
+      4: 400032
+    second: fingerB1_lf_jnt
+  - first:
+      4: 400034
+    second: fingerC1_lf_jnt
+  - first:
+      4: 400036
+    second: head_jnt
+  - first:
+      4: 400038
+    second: heel_lf_jnt
+  - first:
+      4: 400040
+    second: heel_rt_jnt
+  - first:
+      4: 400042
+    second: hip_lf_jnt
+  - first:
+      4: 400044
+    second: hip_rt_jnt
+  - first:
+      4: 400046
+    second: knee1_lf_jnt
+  - first:
+      4: 400048
+    second: knee1_rt_jnt
+  - first:
+      4: 400050
+    second: knee2_lf_jnt
+  - first:
+      4: 400052
+    second: knee2_rt_jnt
+  - first:
+      4: 400054
+    second: kneepiston_lf_jnt
+  - first:
+      4: 400056
+    second: kneepiston_rt_jnt
+  - first:
+      4: 400058
+    second: legpiston_lf_dn_aim_jnt
+  - first:
+      4: 400060
+    second: legpiston_lf_up_aim_jnt
+  - first:
+      4: 400062
+    second: legpiston_lf_up_CON_jnt
+  - first:
+      4: 400064
+    second: legpiston_rt_dn_aim_jnt
+  - first:
+      4: 400066
+    second: legpiston_rt_up_aim_jnt
+  - first:
+      4: 400068
+    second: legpiston_rt_up_CON_jnt
+  - first:
+      4: 400070
+    second: pelvis_jnt
+  - first:
+      4: 400072
+    second: persp1Shape
+  - first:
+      4: 400074
+    second: perspShape
+  - first:
+      4: 400076
+    second: //RootNode
+  - first:
+      4: 400078
+    second: robotCOG
+  - first:
+      4: 400080
+    second: shdr_lf_jnt
+  - first:
+      4: 400082
+    second: shdr_rt_jnt
+  - first:
+      4: 400084
+    second: shdrpistonA_lf_up_aim_jnt
+  - first:
+      4: 400086
+    second: shdrpistonA_rt_up_aim_jnt
+  - first:
+      4: 400088
+    second: shdrpistonB_lf_up_aim_jnt
+  - first:
+      4: 400090
+    second: shdrpistonB_rt_up_aim_jnt
+  - first:
+      4: 400092
+    second: shdrpistonC_lf_up_aim_jnt
+  - first:
+      4: 400094
+    second: shdrpistonC_rt_up_aim_jnt
+  - first:
+      4: 400096
+    second: thumb1_lf_jnt
+  - first:
+      4: 400098
+    second: U3DMesh
+  - first:
+      4: 400100
+    second: U3DRoot
+  - first:
+      4: 400102
+    second: waist_jnt
+  - first:
+      4: 400104
+    second: wrist1_lf_jnt
+  - first:
+      4: 400106
+    second: wrist2_lf_jnt
+  - first:
+      20: 2000000
+    second: persp1Shape
+  - first:
+      20: 2000002
+    second: perspShape
+  - first:
+      21: 2100000
+    second: robot_mat
+  - first:
+      43: 4300000
+    second: U3DMesh
+  - first:
+      74: 7400000
+    second: idle
+  - first:
+      74: 7400002
+    second: shoot
+  - first:
+      74: 7400004
+    second: walkforward
+  - first:
+      74: 7400006
+    second: walkbackward
+  - first:
+      74: 7400008
+    second: stepright
+  - first:
+      74: 7400010
+    second: stepleft
+  - first:
+      74: 7400012
+    second: jump
+  - first:
+      74: 7400014
+    second: meleeA
+  - first:
+      74: 7400016
+    second: meleeB
+  - first:
+      74: 7400018
+    second: shutdown
+  - first:
+      74: 7400020
+    second: restart
+  - first:
+      74: 7400022
+    second: hit
+  - first:
+      74: 7400024
+    second: death
+  - first:
+      74: 7400026
+    second: revive
+  - first:
+      74: 7400028
+    second: hit_02
+  - first:
+      74: 7400030
+    second: idle_02
+  - first:
+      74: 7400032
+    second: shoot_Fast
+  - first:
+      74: 7400034
+    second: shoot_Fast_Around
+  - first:
+      74: 7400036
+    second: shotSpray
+  - first:
+      74: 7400038
+    second: shutdown_02
+  - first:
+      74: 7400040
+    second: run
+  - first:
+      74: 7400042
+    second: walkShotAround
+  - first:
+      74: 7400044
+    second: walkShotFast
+  - first:
+      74: 7400046
+    second: idleAlert
+  - first:
+      74: 7400048
+    second: T-Pose
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: U3DMesh
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -151,7 +427,7 @@ ModelImporter:
       name: robot_mat
     second: {fileID: 2100000, guid: 42cd6e886b62b6e45b57ea4e4e30e1b8, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 2
     materialLocation: 0
@@ -160,14 +436,14 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -182,32 +458,52 @@ ModelImporter:
     globalScale: 0.1
     meshCompression: 0
     addColliders: 1
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 0
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -217,14 +513,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

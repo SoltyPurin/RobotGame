@@ -12,14 +12,13 @@ public class Jump : MonoBehaviour
 
     private int _jumpCount = 0;
 
-    public void JumpProtocol()
+    public virtual void JumpProtocol()
     {
         if (_jumpCount >= _canJumpCount)
         {
             return;
         }
 
-        Debug.Log("ƒWƒƒƒ“ƒv");
         _jumpCount++;
         _ballRigidBody.AddForce(transform.up *  _jumpForce,ForceMode.Impulse);
     }

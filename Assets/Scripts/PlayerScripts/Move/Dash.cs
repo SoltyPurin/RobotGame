@@ -8,10 +8,10 @@ public class Dash : MonoBehaviour
     [SerializeField, Header("ダッシュ力")]
     private float _dashPower = 10f;
 
-    public void DashProtocol(Vector3 velocity)
+    public void DashProtocol(Vector3 direction)
     {
         Debug.Log("ダッシュ");
-        velocity.y = 0;
-        _ballRigidBody.AddForce(velocity * _dashPower, ForceMode.Impulse);
+        direction.y = 0;
+        _ballRigidBody.AddForce(direction * _dashPower, ForceMode.Impulse);
     }
 }
