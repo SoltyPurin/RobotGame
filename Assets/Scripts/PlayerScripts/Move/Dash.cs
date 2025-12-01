@@ -8,24 +8,10 @@ public class Dash : MonoBehaviour
     [SerializeField, Header("ダッシュ力")]
     private float _dashPower = 10f;
 
-    private InputAction _dashButton = default;
-    private PlayerMove _move = default;
-    private void Start()
-    {
-        _dashButton = InputSystem.actions.FindAction("Dash");
-        _move = GetComponent<PlayerMove>();
-    }
-    private void Update()
-    {
-        if (_dashButton.WasPressedThisFrame())
-        {
-            DashProtocol();
-        }
-    }
-
-    private void DashProtocol()
+    public void DashProtocol(Vector3 velocity)
     {
         Debug.Log("ダッシュ");
-        _ballRigidBody.AddForce(_move.UseVelocity * _dashPower, ForceMode.Impulse);
+        velocity.y = 0;
+        _ballRigidBody.AddForce(velocity * _dashPower, ForceMode.Impulse);
     }
 }

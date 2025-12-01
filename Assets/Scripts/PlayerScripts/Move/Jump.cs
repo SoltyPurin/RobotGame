@@ -10,29 +10,15 @@ public class Jump : MonoBehaviour
     [SerializeField,Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
 
-    private InputAction _jumpButton;
-
     private int _jumpCount = 0;
 
-    private void Start()
+    public void JumpProtocol()
     {
-        _jumpButton = InputSystem.actions.FindAction("Jump");
-    }
-
-    private void Update()
-    {
-        if(_jumpCount >= _canJumpCount)
+        if (_jumpCount >= _canJumpCount)
         {
             return;
         }
-        if (_jumpButton.WasPressedThisFrame())
-        {
-            JumpProtocol();
-        }
-    }
 
-    private void JumpProtocol()
-    {
         Debug.Log("ジャンプ");
         _jumpCount++;
         _ballRigidBody.AddForce(transform.up *  _jumpForce,ForceMode.Impulse);

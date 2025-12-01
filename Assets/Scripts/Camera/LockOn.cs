@@ -15,7 +15,6 @@ public class LockOn : MonoBehaviour
     [SerializeField, Header("ロックオンカメラ")]
     private CinemachineCamera _lockOnCamera = default;
 
-    private InputAction _lockOnButton = default;
     private SearchNearEnemy _nearEnemy = default;
     private CameraState _cameraState = CameraState.Normal;
     public CameraState State
@@ -25,19 +24,11 @@ public class LockOn : MonoBehaviour
 
     private void Start()
     {
-        _lockOnButton = InputSystem.actions.FindAction("LockOn");
         _nearEnemy = this.gameObject.AddComponent<SearchNearEnemy>();
     }
 
-    private void Update()
-    {
-        if (_lockOnButton.WasPressedThisFrame())
-        {
-            ChangeCamera();
-        }
-    }
 
-    private void ChangeCamera()
+    public void ChangeCamera()
     {
         Debug.Log("視点切り替え");
         switch (_cameraState)

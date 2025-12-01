@@ -43,11 +43,14 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        _v2MoveValue = _moveInput.ReadValue<Vector2>();
-        _verticalValue = _v2MoveValue.y;
-        _horizontalValue = _v2MoveValue.x;
         Physics.Raycast(_ballRigidBody.position, Vector3.down, out _hit, _sphereRadius);
 
+    }
+    public void InputProtocol(Vector2 input)
+    {
+        _v2MoveValue = input;
+        _verticalValue = _v2MoveValue.y;
+        _horizontalValue = _v2MoveValue.x;
     }
 
     private void FixedUpdate()

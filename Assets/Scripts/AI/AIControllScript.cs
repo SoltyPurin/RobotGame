@@ -40,4 +40,9 @@ public class AIControllScript : MonoBehaviour
                 break;  
         }
     }
+
+    public void ThinkNextMove()
+    {
+
+    }
 }

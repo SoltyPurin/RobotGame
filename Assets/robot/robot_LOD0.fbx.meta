@@ -1,0 +1,231 @@
+fileFormatVersion: 2
+guid: 83cd66f35327ca4468e112f88ccf9b33
+timeCreated: 1516291809
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: ankle_lf_jnt
+    100002: ankle_rt_jnt
+    100004: armpistonA_lf_up_aim_jnt
+    100006: armpistonA_rt_up_aim_jnt
+    100008: armpistonB_lf_up_aim_jnt
+    100010: armpistonB_rt_up_aim_jnt
+    100012: ball_lf_jnt
+    100014: ball_rt_jnt
+    100016: bicep_lf_jnt
+    100018: bicep_rt_jnt
+    100020: body_jnt
+    100022: elbow_lf_jnt
+    100024: elbow_rt_jnt
+    100026: elbowext_lf_jnt
+    100028: elbowext_rt_jnt
+    100030: fingerA1_lf_jnt
+    100032: fingerB1_lf_jnt
+    100034: fingerC1_lf_jnt
+    100036: head_jnt
+    100038: heel_lf_jnt
+    100040: heel_rt_jnt
+    100042: hip_lf_jnt
+    100044: hip_rt_jnt
+    100046: knee1_lf_jnt
+    100048: knee1_rt_jnt
+    100050: knee2_lf_jnt
+    100052: knee2_rt_jnt
+    100054: kneepiston_lf_jnt
+    100056: kneepiston_rt_jnt
+    100058: legpiston_lf_dn_aim_jnt
+    100060: legpiston_lf_up_aim_jnt
+    100062: legpiston_lf_up_CON_jnt
+    100064: legpiston_rt_dn_aim_jnt
+    100066: legpiston_rt_up_aim_jnt
+    100068: legpiston_rt_up_CON_jnt
+    100070: pelvis_jnt
+    100072: persp1Shape
+    100074: perspShape
+    100076: //RootNode
+    100078: robotCOG
+    100080: shdr_lf_jnt
+    100082: shdr_rt_jnt
+    100084: shdrpistonA_lf_up_aim_jnt
+    100086: shdrpistonA_rt_up_aim_jnt
+    100088: shdrpistonB_lf_up_aim_jnt
+    100090: shdrpistonB_rt_up_aim_jnt
+    100092: shdrpistonC_lf_up_aim_jnt
+    100094: shdrpistonC_rt_up_aim_jnt
+    100096: thumb1_lf_jnt
+    100098: U3DMesh
+    100100: U3DRoot
+    100102: waist_jnt
+    100104: wrist1_lf_jnt
+    100106: wrist2_lf_jnt
+    400000: ankle_lf_jnt
+    400002: ankle_rt_jnt
+    400004: armpistonA_lf_up_aim_jnt
+    400006: armpistonA_rt_up_aim_jnt
+    400008: armpistonB_lf_up_aim_jnt
+    400010: armpistonB_rt_up_aim_jnt
+    400012: ball_lf_jnt
+    400014: ball_rt_jnt
+    400016: bicep_lf_jnt
+    400018: bicep_rt_jnt
+    400020: body_jnt
+    400022: elbow_lf_jnt
+    400024: elbow_rt_jnt
+    400026: elbowext_lf_jnt
+    400028: elbowext_rt_jnt
+    400030: fingerA1_lf_jnt
+    400032: fingerB1_lf_jnt
+    400034: fingerC1_lf_jnt
+    400036: head_jnt
+    400038: heel_lf_jnt
+    400040: heel_rt_jnt
+    400042: hip_lf_jnt
+    400044: hip_rt_jnt
+    400046: knee1_lf_jnt
+    400048: knee1_rt_jnt
+    400050: knee2_lf_jnt
+    400052: knee2_rt_jnt
+    400054: kneepiston_lf_jnt
+    400056: kneepiston_rt_jnt
+    400058: legpiston_lf_dn_aim_jnt
+    400060: legpiston_lf_up_aim_jnt
+    400062: legpiston_lf_up_CON_jnt
+    400064: legpiston_rt_dn_aim_jnt
+    400066: legpiston_rt_up_aim_jnt
+    400068: legpiston_rt_up_CON_jnt
+    400070: pelvis_jnt
+    400072: persp1Shape
+    400074: perspShape
+    400076: //RootNode
+    400078: robotCOG
+    400080: shdr_lf_jnt
+    400082: shdr_rt_jnt
+    400084: shdrpistonA_lf_up_aim_jnt
+    400086: shdrpistonA_rt_up_aim_jnt
+    400088: shdrpistonB_lf_up_aim_jnt
+    400090: shdrpistonB_rt_up_aim_jnt
+    400092: shdrpistonC_lf_up_aim_jnt
+    400094: shdrpistonC_rt_up_aim_jnt
+    400096: thumb1_lf_jnt
+    400098: U3DMesh
+    400100: U3DRoot
+    400102: waist_jnt
+    400104: wrist1_lf_jnt
+    400106: wrist2_lf_jnt
+    2000000: persp1Shape
+    2000002: perspShape
+    2100000: robot_mat
+    4300000: U3DMesh
+    7400000: idle
+    7400002: shoot
+    7400004: walkforward
+    7400006: walkbackward
+    7400008: stepright
+    7400010: stepleft
+    7400012: jump
+    7400014: meleeA
+    7400016: meleeB
+    7400018: shutdown
+    7400020: restart
+    7400022: hit
+    7400024: death
+    7400026: revive
+    7400028: hit_02
+    7400030: idle_02
+    7400032: shoot_Fast
+    7400034: shoot_Fast_Around
+    7400036: shotSpray
+    7400038: shutdown_02
+    7400040: run
+    7400042: walkShotAround
+    7400044: walkShotFast
+    7400046: idleAlert
+    7400048: T-Pose
+    9500000: //RootNode
+    13700000: U3DMesh
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: robot_mat
+    second: {fileID: 2100000, guid: 42cd6e886b62b6e45b57ea4e4e30e1b8, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 2
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
