@@ -49,8 +49,6 @@ public class LeftAttack : MonoBehaviour
     private Vector3 FinalDestination(Vector3 direction,float moveSpeed)
     {
         Vector3 finalDestination = _onBallRigidBody.position + direction * _dashSpeed * _rushTime;
-        //finalDestination.y = 0;
-        Debug.Log("目的地は" + finalDestination);
         return finalDestination;
     }
 
@@ -60,13 +58,20 @@ public class LeftAttack : MonoBehaviour
         if (obj.CompareTag("Enemy"))
         {
             _isTouchTheEnemy = true;
-            if(_anim == null)
-            {
-                Debug.Log("アニメーターがない");
-            }
             _anim.LeftATKProtocol();
             _state.ChangeNormalState();
-
+            EnemyToDamageProtocol(obj);
         }
+    }
+
+    private void EnemyToDamageProtocol(GameObject enemy)
+    {
+        EnemyTakeDamage enDamage = enemy.GetComponent<EnemyTakeDamage>();
+        if(enDamage == null)
+        {
+            return;
+        }
+
+        enDamage.TakeDamage(_targetDirection);
     }
 }
