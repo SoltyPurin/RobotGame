@@ -20,7 +20,7 @@ public class LeftAttack : MonoBehaviour
     public void SetTargetAndRushStart(Transform target)
     {
         _canRush = true;
-        _targetDirection = (this.transform.position - target.position).normalized;
+        _targetDirection = (target.position- _onBallRigidBody.position).normalized;
         _targetPos = FinalDestination(_targetDirection, _dashSpeed);
         _state.ChangeLeftAttackState();
         StopRush();
@@ -31,7 +31,7 @@ public class LeftAttack : MonoBehaviour
         {
             return;
         }
-        _onBallRigidBody.MovePosition(Vector3.MoveTowards(this.transform.position, _targetPos, _dashSpeed * Time.fixedDeltaTime));
+        _onBallRigidBody.MovePosition(Vector3.MoveTowards(_onBallRigidBody.position, _targetPos, _dashSpeed * Time.fixedDeltaTime));
     }
 
     private async void StopRush()
@@ -48,7 +48,9 @@ public class LeftAttack : MonoBehaviour
 
     private Vector3 FinalDestination(Vector3 direction,float moveSpeed)
     {
-        Vector3 finalDestination = this.transform.position - direction * _dashSpeed * _rushTime;
+        Vector3 finalDestination = _onBallRigidBody.position + direction * _dashSpeed * _rushTime;
+        //finalDestination.y = 0;
+        Debug.Log("–Ú“I’n‚Í" + finalDestination);
         return finalDestination;
     }
 
