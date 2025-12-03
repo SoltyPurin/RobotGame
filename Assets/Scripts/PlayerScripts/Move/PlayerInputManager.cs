@@ -19,6 +19,8 @@ public class PlayerInputManager : MonoBehaviour
     private PlayerMove _move = default;
     [SerializeField, Header("攻撃のスクリプト")]
     private AttackScript _attack = default;
+    [SerializeField, Header("アニメーターのスクリプト")]
+    private PlayerAnimationPlayScript _anim = default;
 
     private void Start()
     {
@@ -32,10 +34,20 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
-        _move.InputProtocol(_moveInput.ReadValue<Vector2>());
+        Vector2 input = _moveInput.ReadValue<Vector2>();
+        _move.InputProtocol(input); 
+        if(input.magnitude <= 0)
+        {
+            _anim.IdleAnim();
+        }
+        else
+        {
+            _anim.MoveAnim();
+        }
         if (_jumpButton.WasPressedThisFrame())
         {
             _jump.JumpProtocol();
+            _anim.JumpAnim();
         }
         if (_lockOnButton.WasPressedThisFrame())
         {
@@ -48,10 +60,12 @@ public class PlayerInputManager : MonoBehaviour
         if (_rightWeaponInput.WasPressedThisFrame())
         {
             _attack.RightAttack();
+            _anim.RightAttackAnim();
         }
         if (_leftWeaponInput.WasPressedThisFrame())
         {
-            _attack.LeftAttack();
+            _attack.LeftAttack(_lockOn.CurrentTargetObject());
+            _anim.LeftATKRush();
         }
     }
 }

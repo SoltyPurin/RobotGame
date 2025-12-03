@@ -24,7 +24,6 @@ public class PlayerMove : MonoBehaviour
     private float _horizontalValue = 0.0f;
     private float _sphereRadius = 0;
     private Vector2 _v2MoveValue = Vector2.zero;
-    private Quaternion _targeRotation = default;
     private Vector3 _useVelocity = Vector3.zero;
     public Vector3 UseVelocity
     {
@@ -38,7 +37,6 @@ public class PlayerMove : MonoBehaviour
     {
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
-        _targeRotation = transform.rotation;
         _lockOn = GetComponent<LockOn>();
     }
     private void Update()
