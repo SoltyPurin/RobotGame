@@ -59,7 +59,7 @@ public class PlayerInputManager : MonoBehaviour
         }
         if (_rightWeaponInput.WasPressedThisFrame())
         {
-            _attack.RightAttack();
+            _attack.RightAttack(_lockOn.CurrentTargetObject());
             _anim.RightAttackAnim();
         }
         if (_leftWeaponInput.WasPressedThisFrame())

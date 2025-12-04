@@ -13,6 +13,10 @@ public class LeftAttack : MonoBehaviour
     private PlayerAnimationPlayScript _anim = default;
     [SerializeField,Header("ステートのマネージャー")]
     private PlayerStateManager _state;
+    [SerializeField, Header("与えるダメージ")]
+    private float _damageValue = 50f;
+    [SerializeField, Header("吹き飛ばし力")]
+    private float _blowAwayPower = 50f;
     private Vector3 _targetDirection = Vector3.zero;
     private Vector3 _targetPos = Vector3.zero;
     private bool _canRush = false;
@@ -54,6 +58,10 @@ public class LeftAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(_state.CurrentPlayerState != PlayerState.e_PlayerState.LeftAttack)
+        {
+            return;
+        }
         GameObject obj = other.gameObject;
         if (obj.CompareTag("Enemy"))
         {
@@ -72,6 +80,6 @@ public class LeftAttack : MonoBehaviour
             return;
         }
 
-        enDamage.TakeDamage(_targetDirection);
+         enDamage.TakeDamage(_targetDirection,_damageValue,_blowAwayPower);
     }
 }
