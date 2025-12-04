@@ -5151,6 +5151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd289e72ee1e1c4c9fff73363f4bec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RightAttack
+  _bulletAliveTime: 5
 --- !u!1 &1793790584
 GameObject:
   m_ObjectHideFlags: 0
@@ -5385,7 +5386,7 @@ GameObject:
   - component: {fileID: 1955075538}
   m_Layer: 0
   m_Name: BulletPool
-  m_TagString: Untagged
+  m_TagString: BulletPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

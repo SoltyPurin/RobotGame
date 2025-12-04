@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using System.Collections;
 
 public class BulletPool : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public void ActiveBullet(Vector3 targetDir)
+    public void ActiveBullet(Vector3 targetDir,float bulletAliveTime)
     {
         if(_currentActiveBulletIndex >= _bulletList.Count)
         {
@@ -34,6 +36,13 @@ public class BulletPool : MonoBehaviour
 
         _bulletList[_currentActiveBulletIndex].SetActive(true);
         _bulletMove[_currentActiveBulletIndex].StartMove(targetDir);
+        StartCoroutine(DeActiveBullet(bulletAliveTime,_currentActiveBulletIndex));
         _currentActiveBulletIndex++;
+    }
+
+    private IEnumerator DeActiveBullet(float aliveTime,int activeBulletIndex)
+    {
+        yield return new WaitForSeconds(aliveTime);
+        _bulletList[activeBulletIndex].SetActive(false);
     }
 }
