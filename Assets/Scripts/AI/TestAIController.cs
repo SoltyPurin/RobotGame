@@ -35,6 +35,7 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
+        _ctx = new EnemyContext();
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
         _ctx.MoveSpeed = _aiMoveSpeed;
@@ -47,6 +48,7 @@ public class TestAIController : MonoBehaviour
     private void Update()
     {
         stateMachine.Update(); // 現在の状態のUpdateメソッドを呼び出す
+        _ctx.Transform = this.transform;
 
     }
 

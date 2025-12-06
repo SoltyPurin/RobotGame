@@ -8092,6 +8092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d47c0276e8d3648be2e5c53950cc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestAIController
+  _onBallRigidBody: {fileID: 1658885609}
+  _ballRigidBody: {fileID: 904216353}
   _moveMaxDistance: 10
   _nearTargetPosDistance: 5
   _aiMoveSpeed: 50

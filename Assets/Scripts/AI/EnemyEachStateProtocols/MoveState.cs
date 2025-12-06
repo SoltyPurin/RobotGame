@@ -24,18 +24,18 @@ public class MoveState : MonoBehaviour, IEnemyState
         Debug.Log("ˆÚ“®’†");
 
         Vector3 targetPos = _controller.CalcTargetPos();
-        float distance = Vector3.Distance(targetPos, this.transform.position);
-        Vector3 moveDirection = (targetPos - this.transform.position).normalized;
-        Vector3 curVelocity = _ballRigidBody.linearVelocity;
+        float distance = Vector3.Distance(targetPos, _ctx.Transform.position);
+        Vector3 moveDirection = (targetPos - _ctx.Transform.position).normalized;
+        Vector3 curVelocity = _ctx.BallRigidBody.linearVelocity;
         if (distance > _controller.NearTargetPosDistance)
         {
             Debug.Log("ˆÚ“®’†");
             Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
-            Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
-            _onBallRigidBody.rotation = temp;
-            Vector3 useVelocity = moveDirection * _controller.AIMoveSpeed;
+            Quaternion temp = Quaternion.RotateTowards(_ctx.OnBallRigidbody.rotation, targetRot, 600 * Time.fixedDeltaTime);
+            _ctx.OnBallRigidbody.rotation = temp;
+            Vector3 useVelocity = moveDirection * _ctx.Controller.AIMoveSpeed;
             useVelocity.y = curVelocity.y;
-            _ballRigidBody.linearVelocity = useVelocity;
+            _ctx.BallRigidBody.linearVelocity = useVelocity;
 
         }
         else
