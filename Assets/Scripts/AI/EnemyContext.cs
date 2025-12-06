@@ -7,5 +7,6 @@ public class EnemyContext
     public Rigidbody BallRigidBody;
     public TestAIController Controller;
     public float MoveSpeed;
+    public float DashPower;
     // ‚Ù‚©‹¤’Ê‚Å‚Á‚Ä‚¨‚«‚½‚¢‚à‚Ì
 }

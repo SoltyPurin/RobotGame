@@ -21,6 +21,8 @@ public class TestAIController : MonoBehaviour
     {
         get { return _aiMoveSpeed; }
     }
+    [SerializeField, Header("ダッシュ力")]
+    private float _dashPower = 10;
 
 
     private StateMachine stateMachine; // プレイヤーの状態を管理するStateMachine
@@ -41,6 +43,7 @@ public class TestAIController : MonoBehaviour
         _ctx.MoveSpeed = _aiMoveSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
         _ctx.BallRigidBody = _ballRigidBody;
+        _ctx.DashPower = _dashPower;
         stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }

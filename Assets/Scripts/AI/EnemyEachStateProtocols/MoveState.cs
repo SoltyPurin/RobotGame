@@ -9,7 +9,6 @@ public class MoveState : MonoBehaviour, IEnemyState
     private EnemyContext _ctx;
     public void Enter(in TestAIController controller, in EnemyContext ctx)
     {
-        Debug.Log("コントローラー設定");
         _controller = controller;
         _ctx = ctx;
     }
@@ -21,8 +20,6 @@ public class MoveState : MonoBehaviour, IEnemyState
             Debug.Log("コントローラーない");
             return;
         }
-        Debug.Log("移動中");
-
         Vector3 targetPos = _controller.CalcTargetPos();
         float distance = Vector3.Distance(targetPos, _ctx.Transform.position);
         Vector3 moveDirection = (targetPos - _ctx.Transform.position).normalized;
@@ -47,7 +44,7 @@ public class MoveState : MonoBehaviour, IEnemyState
 
 public void Exit()
     {
-
+        _controller.ThinkNextMove();
     }
 
 }

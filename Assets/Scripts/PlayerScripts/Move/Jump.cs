@@ -4,13 +4,13 @@ using UnityEngine.InputSystem;
 public class Jump : MonoBehaviour
 {
     [SerializeField, Header("ジャンプ力")]
-    private float _jumpForce = 10f;
+    protected float _jumpForce = 10f;
     [SerializeField, Header("何回ジャンプできるか")]
-    private int _canJumpCount = 2;
+    protected int _canJumpCount = 2;
     [SerializeField,Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
 
-    private int _jumpCount = 0;
+    protected int _jumpCount = 0;
 
     public virtual void JumpProtocol()
     {
