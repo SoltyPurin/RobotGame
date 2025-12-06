@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EnemyBlowAway : MonoBehaviour
+public class BlowAway : MonoBehaviour
 {
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;

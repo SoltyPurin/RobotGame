@@ -20,7 +20,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField, Header("攻撃のスクリプト")]
     private AttackScript _attack = default;
     [SerializeField, Header("アニメーターのスクリプト")]
-    private PlayerAnimationPlayScript _anim = default;
+    private PlayAnimationScript _anim = default;
 
     private void Start()
     {

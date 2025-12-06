@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853035646889169222}
+  - component: {fileID: -3732365167393119488}
   - component: {fileID: 1547755772834496641}
   - component: {fileID: 8146611071234778589}
   - component: {fileID: 1175953716573196655}
-  - component: {fileID: -3732365167393119488}
   - component: {fileID: 3682235616340386628}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,6 +36,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3732365167393119488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830061048586155014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e898e271d97c4c54b8fe225cd0d5cb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletMove
+  _rigidBody: {fileID: 3682235616340386628}
+  _moveSpeed: 90
 --- !u!33 &1547755772834496641
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -113,19 +127,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3732365167393119488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830061048586155014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e898e271d97c4c54b8fe225cd0d5cb7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletMove
-  _rigidBody: {fileID: 3682235616340386628}
 --- !u!54 &3682235616340386628
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 25
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

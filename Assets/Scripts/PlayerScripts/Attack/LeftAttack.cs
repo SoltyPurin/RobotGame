@@ -10,7 +10,7 @@ public class LeftAttack : MonoBehaviour
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
     [SerializeField,Header("アニメーション再生のスクリプト")]
-    private PlayerAnimationPlayScript _anim = default;
+    private PlayAnimationScript _anim = default;
     [SerializeField,Header("ステートのマネージャー")]
     private PlayerStateManager _state;
     [SerializeField, Header("与えるダメージ")]
@@ -80,6 +80,6 @@ public class LeftAttack : MonoBehaviour
             return;
         }
 
-         enDamage.TakeDamage(_targetDirection,_damageValue,_blowAwayPower);
+         enDamage.MeleeTakeDamage(_targetDirection,_damageValue,_blowAwayPower);
     }
 }

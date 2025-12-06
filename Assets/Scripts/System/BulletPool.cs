@@ -27,7 +27,8 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public void ActiveBullet(Vector3 targetDir,float bulletAliveTime)
+    public void ActiveBullet(Vector3 targetDir,float bulletAliveTime,
+        Vector3 startPoint,int bulletDamage,float blowAwayPower)
     {
         if(_currentActiveBulletIndex >= _bulletList.Count)
         {
@@ -35,7 +36,8 @@ public class BulletPool : MonoBehaviour
         }
 
         _bulletList[_currentActiveBulletIndex].SetActive(true);
-        _bulletMove[_currentActiveBulletIndex].StartMove(targetDir);
+        _bulletList[_currentActiveBulletIndex].transform.position = startPoint;
+        _bulletMove[_currentActiveBulletIndex].StartMove(targetDir,bulletDamage,blowAwayPower);
         StartCoroutine(DeActiveBullet(bulletAliveTime,_currentActiveBulletIndex));
         _currentActiveBulletIndex++;
     }

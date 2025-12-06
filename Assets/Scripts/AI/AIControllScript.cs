@@ -1,28 +1,37 @@
 using UnityEngine;
 
-public enum EnemyState
+public enum EnemyStateTemp
 {
     Move,
     Jump,
-    Attack,
+    RightAttack,
+    LeftAttack,
     Dash,
+    Think,
 }
 
 public class AIControllScript : MonoBehaviour
 {
-    private EnemyState _state = EnemyState.Move;
-    public EnemyState State
+    [SerializeField]
+    private EnemyStateTemp _state = EnemyStateTemp.Move;
+    public EnemyStateTemp State
     {
         set {  _state = value; }
     }
     private AIMove _move = default;
     private Jump _jump = default;
     private Dash _dash = default;
+    [SerializeField,Header("射撃のスクリプト")]
+    private RightAttack _rightAttack = default;
     private Vector3 _targetPos = default;
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
     [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
     private float _nearTargetPosDistance = 5;
+    [SerializeField, Header("アニメーション再生のスクリプト")]
+    private PlayAnimationScript _anim = default;
+    [SerializeField, Header("一回の射撃で何発撃つか")]
+    private int _shootCount = 3;
 
     private bool _isTargetCalculated = false;
 
@@ -40,21 +49,35 @@ public class AIControllScript : MonoBehaviour
     {
         switch (_state)
         {
-            case EnemyState.Move:
+            case EnemyStateTemp.Move:
                 _move.MoveProtocol(CalcTargetPos(),_nearTargetPosDistance);
+                _anim.MoveAnim();
                 break;
 
-            case EnemyState.Jump:
+            case EnemyStateTemp.Jump:
                 _jump.JumpProtocol();
                 break;
 
-            case EnemyState.Attack:
+            case EnemyStateTemp.RightAttack:
+                for(int i =0; i< _shootCount; i++)
+                {
+                    _rightAttack.ShootProtocol(_playerObj.transform);
+                    _anim.RightAttackAnim();
+                }
+                _state = EnemyStateTemp .Think;
                 break;
 
-            case EnemyState.Dash:
+            case EnemyStateTemp.LeftAttack:
+                break;
+
+            case EnemyStateTemp.Dash:
                 _dash.DashProtocol(_targetPos.normalized);
-                _state = EnemyState.Jump;
+                _anim.JumpAnim();
+                _state = EnemyStateTemp.Jump;
                 break;  
+
+            default:
+                break;
         }
     }
 
@@ -63,16 +86,7 @@ public class AIControllScript : MonoBehaviour
         Debug.Log("次の行動を考えるよ");
         _isTargetCalculated = false;
         float distance = Vector3.Distance(this.transform.position, _playerObj.transform.position);
-        if(distance < 10)
-        {
-            _state = EnemyState.Dash;
-            Debug.Log("敵のステートはダッシュ");
-        }
-        else
-        {
-            _state = EnemyState.Move;
-            Debug.Log("敵のステートは移動");
-        }
+
     }
 
     private Vector3 CalcTargetPos()

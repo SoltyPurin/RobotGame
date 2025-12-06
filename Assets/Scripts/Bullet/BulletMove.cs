@@ -4,23 +4,29 @@ public class BulletMove : MonoBehaviour
 {
     [SerializeField, Header("ÉäÉWÉbÉhÉ{ÉfÉB")]
     private Rigidbody _rigidBody = default;
-    [SerializeField, Header("èeíeÇÃë¨ìx")]
+    [SerializeField, Header("èeíeÇÃç≈èâÇÃóÕ")]
     private float _moveSpeed = 50f;
-    private float _currentAliveTime = 0;
-    private bool _canMove = false;
-    private Vector3 _targetDirection = Vector3.zero;
-    public void StartMove(Vector3 targetDir)
+    private int _bulletDamage = default;
+    public int BulletDamage
     {
-        _targetDirection = targetDir;
-        _canMove = true;
+        get { return _bulletDamage; }
     }
 
-    private void FixedUpdate()
+    private Vector3 _bulletDirection = Vector3.zero;
+    public Vector3 BulletDirection
     {
-        if (!_canMove)
-        {
-            return;
-        }
-        _rigidBody.linearVelocity = _targetDirection * _moveSpeed * Time.fixedDeltaTime;
+        get { return _bulletDirection; }
     }
+    private float _blowAwayPower = 0;
+    public float BlowAwayPower
+    {
+        get { return _blowAwayPower; }
+    }
+    public void StartMove(Vector3 targetDir,int damage,float blowAwayPower)
+    {
+        _bulletDamage = damage;
+        _blowAwayPower = blowAwayPower;
+        _rigidBody.AddForce(targetDir * _moveSpeed,ForceMode.Impulse);
+    }
+
 }

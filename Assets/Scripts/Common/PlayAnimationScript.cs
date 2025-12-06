@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAnimationPlayScript : MonoBehaviour
+public class PlayAnimationScript : MonoBehaviour
 {
     [SerializeField, Header("アニメーター")]
     private Animator _animator = default;

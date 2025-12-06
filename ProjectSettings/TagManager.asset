@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Melee
   - BulletPool
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AIMove : MonoBehaviour
+public class AIMove : MonoBehaviour/*,IEnemyState*/
 {
     [SerializeField, Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
@@ -16,7 +16,6 @@ public class AIMove : MonoBehaviour
     private void FixedUpdate()
     {
         _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
-
     }
     public void MoveProtocol(Vector3 targetPos,float moveDistance)
     {
