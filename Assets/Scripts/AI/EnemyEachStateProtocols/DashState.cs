@@ -16,8 +16,8 @@ public class DashState : IEnemyState
         Vector3 targetPos = _controller.CalcTargetPos();
         Vector3 direction = (targetPos - _ctx.Transform.position).normalized;
         direction.y = 0;
-        _ballRigidBody.AddForce(direction * _ctx.DashPower, ForceMode.Impulse);
-        Exit();
+        _ctx.BallRigidBody.AddForce(direction * _ctx.DashPower, ForceMode.Impulse);
+        _controller.ThinkNextMove();
     }
 
     public void Update()
@@ -27,7 +27,6 @@ public class DashState : IEnemyState
 
     public void Exit()
     {
-        _controller.ThinkNextMove();
     }
 
 }

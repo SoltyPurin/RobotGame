@@ -5,6 +5,7 @@ public class JumpState : Jump, IEnemyState
     private TestAIController _controller;
     private Rigidbody _onBallRigidBody;
     private Rigidbody _ballRigidBody;
+    private EnemyDetectGround _ground;
 
     private EnemyContext _ctx;
 
@@ -12,24 +13,20 @@ public class JumpState : Jump, IEnemyState
     {
         _controller = controller;
         _ctx = ctx;
-        if (_jumpCount >= _canJumpCount)
-        {
-            return;
-        }
-
-        _jumpCount++;
-        _ctx.BallRigidBody.AddForce(_ctx.Transform.up * _jumpForce, ForceMode.Impulse);
-        Exit();
+        _ground = _ctx.Ground;
+        _ctx.BallRigidBody.AddForce(_ctx.Transform.up * _ctx.JumpPower, ForceMode.Impulse);
     }
 
     public void Update()
     {
-
+        if(_ground.IsTouchTheGround)
+        {
+            _controller.ThinkNextMove();
+        }
     }
 
     public void Exit()
     {
-       _controller.ThinkNextMove();
     }
 
 }

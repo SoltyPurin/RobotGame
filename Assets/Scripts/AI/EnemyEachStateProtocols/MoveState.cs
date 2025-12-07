@@ -38,13 +38,13 @@ public class MoveState : MonoBehaviour, IEnemyState
         else
         {
             Debug.Log("–Ú“I’n‚É“ž’…");
-            Exit();
+            _controller.ThinkNextMove();
+
         }
-}
+    }
 
 public void Exit()
     {
-        _controller.ThinkNextMove();
     }
 
 }

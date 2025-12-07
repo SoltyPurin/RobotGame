@@ -4084,6 +4084,7 @@ GameObject:
   - component: {fileID: 904216354}
   - component: {fileID: 904216353}
   - component: {fileID: 904216352}
+  - component: {fileID: 904216355}
   m_Layer: 7
   m_Name: MoveBall
   m_TagString: Untagged
@@ -4170,7 +4171,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!135 &904216354
 SphereCollider:
@@ -4193,6 +4194,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &904216355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904216349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6214c8581ba299f40a6605094343415d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDetectGround
 --- !u!1 &909567845
 GameObject:
   m_ObjectHideFlags: 0
@@ -8021,10 +8034,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1658885613}
+  - component: {fileID: 1658885609}
+  - component: {fileID: 1658885610}
   - component: {fileID: 1658885611}
   - component: {fileID: 1658885614}
-  - component: {fileID: 1658885610}
-  - component: {fileID: 1658885609}
   m_Layer: 7
   m_Name: StateMachineAI
   m_TagString: Enemy
@@ -8094,9 +8107,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestAIController
   _onBallRigidBody: {fileID: 1658885609}
   _ballRigidBody: {fileID: 904216353}
+  _detectGround: {fileID: 904216355}
   _moveMaxDistance: 10
   _nearTargetPosDistance: 5
   _aiMoveSpeed: 50
+  _dashPower: 50
+  _jumpPower: 100
+  _stopTime: 1
 --- !u!4 &1658885613
 Transform:
   m_ObjectHideFlags: 0
