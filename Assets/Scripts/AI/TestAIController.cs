@@ -12,7 +12,7 @@ public class TestAIController : MonoBehaviour
     [SerializeField, Header("アニメーション再生のスクリプト")]
     private PlayAnimationScript _anim = default;
     [SerializeField, Header("被弾のスクリプト")]
-    private EnemyTakeDamage _takeDamage = default;
+    private TakeDamageScript _takeDamage = default;
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
     [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
@@ -21,8 +21,8 @@ public class TestAIController : MonoBehaviour
     private float _rushSpeed = 40f;
     [SerializeField, Header("突進時間")]
     private float _rushTime = 1.4f;
-    [SerializeField, Header("与えるダメージ")]
-    private float _damageValue = 50f;
+    [SerializeField, Header("近接で与えるダメージ")]
+    private float _meleeDamageValue = 50f;
     [SerializeField, Header("吹き飛ばし力")]
     private float _blowAwayPower = 50f;
 
@@ -68,6 +68,8 @@ public class TestAIController : MonoBehaviour
         _ctx.RushSpeed = _rushSpeed;
         _ctx.RushTime = _rushTime;
         _ctx.Animation = _anim;
+        _ctx.BlowAwayPower = _blowAwayPower;
+        _ctx.MeleeDamage = _meleeDamageValue;
         _ctx.PlayerTransform = GameObject.FindWithTag("Player").transform;
         stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         stateMachine.ChangeState(new JumpState(),this,_ctx); // 初期状態を設定

@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyDetectBullet : MonoBehaviour
 {
     [SerializeField, Header("被弾スクリプト")]
-    private EnemyTakeDamage _takeDamage = default;
+    private TakeDamageScript _takeDamage = default;
 
     private void OnTriggerEnter(Collider other)
     {

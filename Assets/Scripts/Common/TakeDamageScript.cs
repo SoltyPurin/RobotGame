@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyTakeDamage : MonoBehaviour
+public class TakeDamageScript : MonoBehaviour
 {
     [SerializeField, Header("吹き飛びのスクリプト")]
     private BlowAway _blowAway = default;
@@ -12,11 +12,11 @@ public class EnemyTakeDamage : MonoBehaviour
     {
         get { return _isBlowning; }
     }
-    public void MeleeTakeDamage(Vector3 playerDirection,float damage,float blowAwayPower)
+    public void MeleeTakeDamage(Vector3 attackDirection,float damage,float blowAwayPower)
     {
         _isBlowning = true;
         Debug.Log("近接攻撃喰らった");
-         _blowAway.BlowAwayProtocol(playerDirection, blowAwayPower);
+         _blowAway.BlowAwayProtocol(attackDirection, blowAwayPower);
         _anim.TakeDamageAnim();
     }
 

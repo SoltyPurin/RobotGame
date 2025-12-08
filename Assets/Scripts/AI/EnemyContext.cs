@@ -15,5 +15,7 @@ public class EnemyContext
     public float StopTime;
     public float RushSpeed;
     public float RushTime;
+    public float BlowAwayPower;
+    public float MeleeDamage;
     // ‚Ù‚©‹¤’Ê‚Å‚Á‚Ä‚¨‚«‚½‚¢‚à‚Ì
 }

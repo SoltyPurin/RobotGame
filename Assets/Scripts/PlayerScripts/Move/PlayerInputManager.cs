@@ -21,7 +21,8 @@ public class PlayerInputManager : MonoBehaviour
     private AttackScript _attack = default;
     [SerializeField, Header("アニメーターのスクリプト")]
     private PlayAnimationScript _anim = default;
-
+    [SerializeField, Header("被弾のスクリプト")]
+    private TakeDamageScript _takeDamage = default;
     private void Start()
     {
         _dashButton = InputSystem.actions.FindAction("Dash");
@@ -34,6 +35,15 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        if (_lockOnButton.WasPressedThisFrame())
+        {
+            _lockOn.ChangeCamera();
+        }
+
+        if (_takeDamage.IsBlowning)
+        {
+            return;
+        }
         Vector2 input = _moveInput.ReadValue<Vector2>();
         _move.InputProtocol(input); 
         if(input.magnitude <= 0)
@@ -48,10 +58,6 @@ public class PlayerInputManager : MonoBehaviour
         {
             _jump.JumpProtocol();
             _anim.JumpAnim();
-        }
-        if (_lockOnButton.WasPressedThisFrame())
-        {
-            _lockOn.ChangeCamera();
         }
         if(_dashButton.WasPressedThisFrame())
         {

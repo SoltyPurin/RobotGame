@@ -1997,7 +1997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc337730581b120409d28e40e9a78291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnAnimEvent
-  _takeDamage: {fileID: 1658885617}
+  _takeDamage: {fileID: 1658885619}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,7 +4525,7 @@ Transform:
   m_GameObject: {fileID: 949176738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15.874941, z: -12.676019}
+  m_LocalPosition: {x: 0, y: 15.17, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4720,7 +4720,7 @@ Transform:
   m_GameObject: {fileID: 972872684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15.874941, z: -12.676019}
+  m_LocalPosition: {x: 0, y: 15.17, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4743,61 +4743,28 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   m_ControllerManager:
     Controllers:
-    - Name: Look Orbit X
-      Owner: {fileID: 972872694}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-        Gain: 1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
-    - Name: Look Orbit Y
-      Owner: {fileID: 972872694}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-        Gain: -1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
-    - Name: Orbit Scale
-      Owner: {fileID: 972872694}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: 5082991133974614888, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
-        Gain: -1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0
-        DecelTime: 0
     - Name: Look X (Pan)
       Owner: {fileID: 972872693}
       Enabled: 1
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-        Gain: 1
+        Gain: 60
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
     - Name: Look Y (Tilt)
       Owner: {fileID: 972872693}
       Enabled: 1
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-        Gain: -1
+        Gain: -60
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
 --- !u!114 &972872693
@@ -4843,60 +4810,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 972872684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineOrbitalFollow
-  TargetOffset: {x: 0, y: 7, z: -6}
-  TrackerSettings:
-    BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
-    AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
-    QuaternionDamping: 1
-  OrbitStyle: 0
-  Radius: 7
-  Orbits:
-    Top:
-      Radius: 2
-      Height: 5
-    Center:
-      Radius: 4
-      Height: 2.25
-    Bottom:
-      Radius: 2.5
-      Height: 0.1
-    SplineCurvature: 0.5
-  RecenteringTarget: 2
-  HorizontalAxis:
-    Value: 0
-    Center: 0
-    Range: {x: -180, y: 180}
-    Wrap: 1
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
-  VerticalAxis:
-    Value: 17.5
-    Center: 17.5
-    Range: {x: -10, y: 45}
-    Wrap: 0
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
-  RadialAxis:
-    Value: 1
-    Center: 1
-    Range: {x: 1, y: 1}
-    Wrap: 0
-    Recentering:
-      Enabled: 0
-      Wait: 1
-      Time: 2
-    Restrictions: 0
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
+  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  ShoulderOffset: {x: 0, y: 8, z: -8}
+  VerticalArmLength: 0.4
+  CameraSide: 1
+  CameraDistance: 2
+  AvoidObstacles:
+    Enabled: 0
+    CollisionFilter:
+      serializedVersion: 2
+      m_Bits: 1
+    IgnoreTag: 
+    CameraRadius: 0.2
+    DampingIntoCollision: 0
+    DampingFromCollision: 0.5
 --- !u!1 &1000204353
 GameObject:
   m_ObjectHideFlags: 0
@@ -5842,6 +5772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTakeDamage
   _blowAway: {fileID: 1080662099}
   _anim: {fileID: 1080662101}
+  _isBlowning: 0
 --- !u!114 &1080662099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7713,6 +7644,7 @@ GameObject:
   - component: {fileID: 1625607259}
   - component: {fileID: 1625607261}
   - component: {fileID: 1625607262}
+  - component: {fileID: 1625607263}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -7870,6 +7802,7 @@ MonoBehaviour:
   _move: {fileID: 1625607251}
   _attack: {fileID: 1625607258}
   _anim: {fileID: 1625607259}
+  _takeDamage: {fileID: 1625607263}
 --- !u!114 &1625607258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7922,7 +7855,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 1625607253}
-  _stopFlame: 30
+  _stopFlame: 45
+--- !u!114 &1625607263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625607249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cb4d3baefd6434884a5d5d6146e826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeDamageScript
+  _blowAway: {fileID: 1625607262}
+  _anim: {fileID: 1625607259}
 --- !u!1 &1626044026
 GameObject:
   m_ObjectHideFlags: 0
@@ -8121,7 +8068,7 @@ GameObject:
   - component: {fileID: 1658885618}
   - component: {fileID: 1658885615}
   - component: {fileID: 1658885616}
-  - component: {fileID: 1658885617}
+  - component: {fileID: 1658885619}
   - component: {fileID: 1658885610}
   - component: {fileID: 1658885609}
   m_Layer: 7
@@ -8225,20 +8172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 1658885609}
   _stopFlame: 45
---- !u!114 &1658885617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1658885608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c387253e0e97eff4b910fe1ca457659e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyTakeDamage
-  _blowAway: {fileID: 1658885616}
-  _anim: {fileID: 1658885615}
 --- !u!114 &1658885618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8255,17 +8188,31 @@ MonoBehaviour:
   _ballRigidBody: {fileID: 904216353}
   _detectGround: {fileID: 904216355}
   _anim: {fileID: 1658885615}
-  _takeDamage: {fileID: 1658885617}
+  _takeDamage: {fileID: 1658885619}
   _moveMaxDistance: 50
   _nearTargetPosDistance: 2
   _rushSpeed: 40
   _rushTime: 1.4
-  _damageValue: 50
+  _meleeDamageValue: 50
   _blowAwayPower: 50
   _aiMoveSpeed: 50
   _dogdePower: 10
   _jumpPower: 10
   _stopTime: 1
+--- !u!114 &1658885619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658885608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cb4d3baefd6434884a5d5d6146e826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeDamageScript
+  _blowAway: {fileID: 1658885616}
+  _anim: {fileID: 1658885615}
 --- !u!1 &1663454854
 GameObject:
   m_ObjectHideFlags: 0
@@ -11544,6 +11491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4944311429771606}
   - component: {fileID: 95208862736071552}
+  - component: {fileID: 95208862736071553}
   m_Layer: 0
   m_Name: robot_LOD0
   m_TagString: Untagged
@@ -13781,6 +13729,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &95208862736071553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696034657270778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc337730581b120409d28e40e9a78291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimEvent
+  _takeDamage: {fileID: 1625607263}
 --- !u!137 &137065947783348818
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

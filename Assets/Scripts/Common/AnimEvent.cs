@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class EnAnimEvent : MonoBehaviour
+public class AnimEvent : MonoBehaviour
 {
     [SerializeField, Header("被弾スクリプト")]
-    private EnemyTakeDamage _takeDamage = default;
+    private TakeDamageScript _takeDamage = default;
 
     public void EndDamageProtocol()
     {

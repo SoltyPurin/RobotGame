@@ -34,14 +34,35 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
             return;
         }
         RaycastHit hit;
-        if (Physics.BoxCast(_ctx.OnBallRigidbody.transform.position, (Vector3.one * 0.5f), new Vector3(0, -1, 0), out hit, Quaternion.identity, 1))
+        if (Physics.BoxCast(
+        _ctx.OnBallRigidbody.transform.position,
+        Vector3.one * 0.5f,
+        _targetDirection,                
+        out hit,
+        Quaternion.identity,
+        2f))                            
         {
-            Debug.Log("“–‚½‚Á‚½");
-            //hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = new Color(1, 0.7f, 0.7f, 0.1f);
+            GameObject hitObj = hit.collider.gameObject;
+            if (hitObj.CompareTag("Player"))
+            {
+                _isTouchTheEnemy = true;
+                _anim.LeftATKProtocol();
+                EnemyToDamageProtocol(hitObj);
+            }
         }
         _ctx.OnBallRigidbody.MovePosition(Vector3.MoveTowards(_ctx.OnBallRigidbody.position, _targetPos, _ctx.RushSpeed * Time.fixedDeltaTime));
 
         Debug.Log("ƒ_ƒ“ƒoƒCƒ“");
+    }
+    private void EnemyToDamageProtocol(GameObject enemy)
+    {
+        TakeDamageScript enDamage = enemy.GetComponent<TakeDamageScript>();
+        if (enDamage == null)
+        {
+            return;
+        }
+
+        enDamage.MeleeTakeDamage(_targetDirection, _ctx.MeleeDamage,_ctx.BlowAwayPower);
     }
 
     private async void StopRush()
@@ -69,7 +90,13 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
     }
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + new Vector3(0, -1, 0), Vector3.one);
+        if (_ctx != null && _ctx.OnBallRigidbody != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(
+                _ctx.OnBallRigidbody.position + _targetDirection * 1f,
+                Vector3.one
+            );
+        }
     }
 }

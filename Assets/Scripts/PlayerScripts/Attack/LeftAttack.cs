@@ -74,7 +74,7 @@ public class LeftAttack : MonoBehaviour
 
     private void EnemyToDamageProtocol(GameObject enemy)
     {
-        EnemyTakeDamage enDamage = enemy.GetComponent<EnemyTakeDamage>();
+        TakeDamageScript enDamage = enemy.GetComponent<TakeDamageScript>();
         if(enDamage == null)
         {
             return;
