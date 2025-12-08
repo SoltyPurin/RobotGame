@@ -19,8 +19,8 @@ public class BlowAway : MonoBehaviour
         {
             await UniTask.DelayFrame(1); 
         }
-        Debug.Log("‚«”ò‚ñ‚¾");
 
         _onBallRigidBody.AddForce(direction * blowAwayPower, ForceMode.Impulse);
+        Debug.Log("‚«”ò‚Ñ•ûŒü‹y‚Ñ—Í" + direction * blowAwayPower);
     }
 }

@@ -9,10 +9,23 @@ public class TestAIController : MonoBehaviour
     private Rigidbody _ballRigidBody = default;
     [SerializeField, Header("地面の検知")]
     private EnemyDetectGround _detectGround = default;
+    [SerializeField, Header("アニメーション再生のスクリプト")]
+    private PlayAnimationScript _anim = default;
+    [SerializeField, Header("被弾のスクリプト")]
+    private EnemyTakeDamage _takeDamage = default;
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
     [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
     private float _nearTargetPosDistance = 5;
+    [SerializeField, Header("ダッシュ時の速度")]
+    private float _rushSpeed = 40f;
+    [SerializeField, Header("突進時間")]
+    private float _rushTime = 1.4f;
+    [SerializeField, Header("与えるダメージ")]
+    private float _damageValue = 50f;
+    [SerializeField, Header("吹き飛ばし力")]
+    private float _blowAwayPower = 50f;
+
     public float NearTargetPosDistance
     {
         get { return _nearTargetPosDistance; }
@@ -23,8 +36,8 @@ public class TestAIController : MonoBehaviour
     {
         get { return _aiMoveSpeed; }
     }
-    [SerializeField, Header("ダッシュ力")]
-    private float _dashPower = 10;
+    [SerializeField, Header("回避力")]
+    private float _dogdePower = 10;
     [SerializeField, Header("ジャンプ力")]
     private float _jumpPower = 10;
     [SerializeField, Header("待機状態の待機時間")]
@@ -39,8 +52,6 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
-    private int _testCurrentMoveIndex = 0;
-
 
     private void Start()
     {
@@ -50,10 +61,14 @@ public class TestAIController : MonoBehaviour
         _ctx.MoveSpeed = _aiMoveSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
         _ctx.BallRigidBody = _ballRigidBody;
-        _ctx.DashPower = _dashPower;
+        _ctx.DodgePower = _dogdePower;
         _ctx.JumpPower = _jumpPower;
         _ctx.StopTime = _stopTime;
         _ctx.Ground = _detectGround;
+        _ctx.RushSpeed = _rushSpeed;
+        _ctx.RushTime = _rushTime;
+        _ctx.Animation = _anim;
+        _ctx.PlayerTransform = GameObject.FindWithTag("Player").transform;
         stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         stateMachine.ChangeState(new JumpState(),this,_ctx); // 初期状態を設定
         _playerObj = GameObject.FindWithTag("Player");
@@ -61,6 +76,14 @@ public class TestAIController : MonoBehaviour
 
     private void Update()
     {
+        Quaternion rota = transform.rotation;
+        rota.x = 0;
+        rota.z = 0;
+        transform.rotation = rota;
+        if (_takeDamage.IsBlowning)
+        {
+            return;
+        }
         stateMachine.Update(); // 現在の状態のUpdateメソッドを呼び出す
         _ctx.Transform = this.transform;
 
@@ -70,14 +93,25 @@ public class TestAIController : MonoBehaviour
     {
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
-        if(distance > 50)
-        {
-            stateMachine.ChangeState(new MoveState(), this, _ctx); // 初期状態を設定
-        }
-        else
-        {
-            stateMachine.ChangeState(new JumpState(), this, _ctx); // 初期状態を設定
-        }
+
+        stateMachine.ChangeState(new LeftAttackState(),this,_ctx);
+        _anim.LeftATKRush();
+        //if(distance >20 && distance < 10)
+        //{
+
+        //}
+
+        //if (_isJumpCallOnce)
+        //{
+        //    stateMachine.ChangeState(new MoveState(), this, _ctx);
+        //    _anim.MoveAnim();
+        //}
+        //else
+        //{
+        //    stateMachine.ChangeState(new JumpState(), this, _ctx);
+        //    _anim.JumpAnim();
+        //    _isJumpCallOnce = true;
+        //}
     }
 
     public Vector3 CalcTargetPos()
