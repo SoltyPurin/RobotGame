@@ -65,7 +65,7 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
             return;
         }
 
-        enDamage.MeleeTakeDamage(_targetDirection, _ctx.MeleeDamage,_ctx.BlowAwayPower);
+        enDamage.MeleeTakeDamage(_targetDirection, _ctx.MeleeDamage,_ctx.MeleeBlowAwayPower);
     }
 
     private async void StopRush()

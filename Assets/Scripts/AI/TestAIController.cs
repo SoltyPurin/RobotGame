@@ -23,8 +23,14 @@ public class TestAIController : MonoBehaviour
     private float _rushTime = 1.4f;
     [SerializeField, Header("近接で与えるダメージ")]
     private float _meleeDamageValue = 50f;
-    [SerializeField, Header("吹き飛ばし力")]
-    private float _blowAwayPower = 50f;
+    [SerializeField, Header("近接攻撃の吹き飛ばし力")]
+    private float _meleeBlowAwayPower = 50f;
+    [SerializeField, Header("射撃で与えるダメージ")]
+    private float _bulletDamageValue = 50f;
+    [SerializeField, Header("射撃での吹き飛ばし力")]
+    private float _bulletBlowAwayPower = 50;
+    [SerializeField, Header("銃弾の生存時間")]
+    private float _bulletAliveTime = 5;
 
     public float NearTargetPosDistance
     {
@@ -44,7 +50,7 @@ public class TestAIController : MonoBehaviour
     private float _stopTime = 1;
 
 
-    private StateMachine stateMachine; // プレイヤーの状態を管理するStateMachine
+    private StateMachine _stateMachine; // プレイヤーの状態を管理するStateMachine
 
     private bool _isTargetCalculated = false;
 
@@ -52,6 +58,8 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
+
+    private bool _isAttacked = false;
 
     private void Start()
     {
@@ -69,25 +77,29 @@ public class TestAIController : MonoBehaviour
         _ctx.RushSpeed = _rushSpeed;
         _ctx.RushTime = _rushTime;
         _ctx.Animation = _anim;
-        _ctx.BlowAwayPower = _blowAwayPower;
+        _ctx.MeleeBlowAwayPower = _meleeBlowAwayPower;
         _ctx.MeleeDamage = _meleeDamageValue;
         _ctx.PlayerTransform = _playerObj.transform;
-        stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
-        stateMachine.ChangeState(new JumpState(),this,_ctx); // 初期状態を設定
+        _ctx.Pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
+        _ctx.BulletBlowAwayPower = _bulletBlowAwayPower;
+        _ctx.BulletAliveTime = _bulletAliveTime;
+        _ctx.BulletDamage = _bulletDamageValue;
+        _stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
+        _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }
 
     private void Update()
     {
         _ctx.PlayerTransform = _playerObj.transform;
-        //Quaternion rota = transform.rotation;
-        //rota.x = 0;
-        //rota.z = 0;
-        //transform.rotation = rota;
+        Quaternion rota = transform.rotation;
+        rota.x = 0;
+        rota.z = 0;
+        transform.rotation = rota;
         if (_takeDamage.IsBlowning)
         {
             return;
         }
-        stateMachine.Update(); // 現在の状態のUpdateメソッドを呼び出す
+        _stateMachine.Update(); // 現在の状態のUpdateメソッドを呼び出す
         _ctx.Transform = this.transform;
 
     }
@@ -97,8 +109,32 @@ public class TestAIController : MonoBehaviour
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
 
-        stateMachine.ChangeState(new LeftAttackState(),this,_ctx);
-        _anim.LeftATKRush();
+        if (_isAttacked)
+        {
+            if(distance > 20)
+            {
+                _stateMachine.ChangeState(new MoveState(), this, _ctx);
+            }
+            else
+            {
+                _stateMachine.ChangeState(new JumpState(), this, _ctx);
+            }
+            _isAttacked = false;
+        }
+        else
+        {
+            if (distance > 50)
+            {
+                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            }
+            else
+            {
+                _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+            }
+            _isAttacked = true;
+        }
+
+
         //if(distance >20 && distance < 10)
         //{
 

@@ -8191,7 +8191,10 @@ MonoBehaviour:
   _rushSpeed: 40
   _rushTime: 1.4
   _meleeDamageValue: 50
-  _blowAwayPower: 50
+  _meleeBlowAwayPower: 50
+  _bulletDamageValue: 50
+  _bulletBlowAwayPower: 50
+  _bulletAliveTime: 5
   _aiMoveSpeed: 50
   _dogdePower: 10
   _jumpPower: 10

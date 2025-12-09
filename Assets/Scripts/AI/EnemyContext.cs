@@ -9,13 +9,17 @@ public class EnemyContext
     public TestAIController Controller;
     public EnemyDetectGround Ground;
     public PlayAnimationScript Animation;
+    public BulletPool Pool;
     public float MoveSpeed;
     public float DodgePower;
     public float JumpPower;
     public float StopTime;
     public float RushSpeed;
     public float RushTime;
-    public float BlowAwayPower;
+    public float MeleeBlowAwayPower;
     public float MeleeDamage;
+    public float BulletBlowAwayPower;
+    public float BulletDamage;
+    public float BulletAliveTime;
     // ÇŸÇ©ã§í Ç≈éùÇ¡ÇƒÇ®Ç´ÇΩÇ¢Ç‡ÇÃ
 }
