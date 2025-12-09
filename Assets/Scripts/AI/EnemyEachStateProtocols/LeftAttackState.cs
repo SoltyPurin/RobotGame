@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class LeftAttackState : MonoBehaviour,IEnemyState
 {
@@ -22,6 +23,8 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
         _anim.LeftATKRush();
         Vector3 target = _ctx.PlayerTransform.position;
         _targetDirection = (target- _ctx.OnBallRigidbody.position).normalized;
+        Quaternion targetRot = Quaternion.LookRotation(_targetDirection, Vector3.up);
+        _ctx.OnBallRigidbody.rotation = targetRot;
         _targetPos = FinalDestination(_targetDirection, _ctx.RushSpeed);
         StopRush();
 

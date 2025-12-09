@@ -21,6 +21,5 @@ public class BlowAway : MonoBehaviour
         }
 
         _onBallRigidBody.AddForce(direction * blowAwayPower, ForceMode.Impulse);
-        Debug.Log("‚«”ò‚Ñ•ûŒü‹y‚Ñ—Í" + direction * blowAwayPower);
     }
 }

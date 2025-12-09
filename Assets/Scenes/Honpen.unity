@@ -5770,9 +5770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c387253e0e97eff4b910fe1ca457659e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTakeDamage
-  _blowAway: {fileID: 1080662099}
-  _anim: {fileID: 1080662101}
-  _isBlowning: 0
 --- !u!114 &1080662099
 MonoBehaviour:
   m_ObjectHideFlags: 0

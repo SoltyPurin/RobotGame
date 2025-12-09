@@ -55,6 +55,7 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
+        _playerObj = GameObject.FindWithTag("Player");
         _ctx = new EnemyContext();
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
@@ -70,18 +71,18 @@ public class TestAIController : MonoBehaviour
         _ctx.Animation = _anim;
         _ctx.BlowAwayPower = _blowAwayPower;
         _ctx.MeleeDamage = _meleeDamageValue;
-        _ctx.PlayerTransform = GameObject.FindWithTag("Player").transform;
+        _ctx.PlayerTransform = _playerObj.transform;
         stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         stateMachine.ChangeState(new JumpState(),this,_ctx); // 初期状態を設定
-        _playerObj = GameObject.FindWithTag("Player");
     }
 
     private void Update()
     {
-        Quaternion rota = transform.rotation;
-        rota.x = 0;
-        rota.z = 0;
-        transform.rotation = rota;
+        _ctx.PlayerTransform = _playerObj.transform;
+        //Quaternion rota = transform.rotation;
+        //rota.x = 0;
+        //rota.z = 0;
+        //transform.rotation = rota;
         if (_takeDamage.IsBlowning)
         {
             return;
