@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mask
+  m_Mask: 00000000000000000100000000000000000000000000000001000000000000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: U3DRoot
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt/ankle_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt/ankle_lf_jnt/ball_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt/ankle_lf_jnt/heel_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt/kneepiston_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/knee1_lf_jnt/knee2_lf_jnt/legpiston_lf_dn_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/legpiston_lf_up_CON_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_lf_jnt/legpiston_lf_up_CON_jnt/legpiston_lf_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/ankle_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/ankle_rt_jnt/ball_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/ankle_rt_jnt/heel_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/kneepiston_rt_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/legpiston_rt_dn_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/legpiston_rt_up_CON_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/legpiston_rt_up_CON_jnt/legpiston_rt_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/head_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/armpistonA_lf_up_aim_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/armpistonB_lf_up_aim_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/elbowext_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt/wrist2_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt/wrist2_lf_jnt/fingerA1_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt/wrist2_lf_jnt/fingerB1_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt/wrist2_lf_jnt/fingerC1_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_lf_jnt/bicep_lf_jnt/elbow_lf_jnt/wrist1_lf_jnt/wrist2_lf_jnt/thumb1_lf_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt/armpistonA_rt_up_aim_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt/armpistonB_rt_up_aim_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt/bicep_rt_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt/bicep_rt_jnt/elbow_rt_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdr_rt_jnt/bicep_rt_jnt/elbow_rt_jnt/elbowext_rt_jnt
+    m_Weight: 1
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonA_lf_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonA_rt_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonB_lf_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonB_rt_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonC_lf_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/robotCOG/waist_jnt/body_jnt/shdrpistonC_rt_up_aim_jnt
+    m_Weight: 0
+  - m_Path: U3DRoot/U3DMesh
+    m_Weight: 1

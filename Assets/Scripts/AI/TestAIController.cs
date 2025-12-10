@@ -90,11 +90,13 @@ public class TestAIController : MonoBehaviour
 
     private void Update()
     {
+
         _ctx.PlayerTransform = _playerObj.transform;
         Quaternion rota = transform.rotation;
         rota.x = 0;
         rota.z = 0;
         transform.rotation = rota;
+        Debug.Log("IsBlowning = " + _takeDamage.IsBlowning);
         if (_takeDamage.IsBlowning)
         {
             return;
@@ -106,6 +108,7 @@ public class TestAIController : MonoBehaviour
 
     public void ThinkNextMove()
     {
+        Debug.Log("éüÇÃçsìÆÇçlÇ¶ÇÈ");
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveState : MonoBehaviour, IEnemyState
+public class MoveState : IEnemyState
 {
     private TestAIController _controller;
     private Rigidbody _onBallRigidBody;
@@ -11,6 +11,7 @@ public class MoveState : MonoBehaviour, IEnemyState
     {
         _controller = controller;
         _ctx = ctx;
+        _ctx.Animation.MoveAnim();
     }
 
     public void Update()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleState : MonoBehaviour,IEnemyState
+public class IdleState : IEnemyState
 {
     private float _stopTime;
     private float _currentTime = 0;

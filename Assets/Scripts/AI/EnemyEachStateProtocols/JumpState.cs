@@ -23,7 +23,9 @@ public class JumpState : Jump, IEnemyState
 
     public void Update()
     {
-        if(_ground.IsTouchTheGround)
+        Debug.Log("JumpState.Update “®‚¢‚Ä‚é");
+        Debug.Log("Ú’n”»’è = " + _ground.IsTouchTheGround);
+        if (_ground.IsTouchTheGround)
         {
             _controller.ThinkNextMove();
             Exit();

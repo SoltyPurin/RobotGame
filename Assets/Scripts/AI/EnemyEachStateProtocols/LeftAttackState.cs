@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class LeftAttackState : MonoBehaviour,IEnemyState
+public class LeftAttackState : IEnemyState
 {
     private Vector3 _targetDirection = Vector3.zero;
     private Vector3 _targetPos = Vector3.zero;
@@ -12,6 +12,7 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
     private EnemyDetectGround _ground;
     private EnemyContext _ctx;
     private PlayAnimationScript _anim;
+    private bool _stopRushRunning = false;
 
 
     public void Enter(in TestAIController controller, in EnemyContext ctx)
@@ -70,6 +71,8 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
 
     private async void StopRush()
     {
+        if (_stopRushRunning) return;   
+        _stopRushRunning = true;
         await UniTask.WaitForSeconds(_ctx.RushTime);
         _canRush = false;
         if (!_isTouchTheEnemy)
@@ -91,7 +94,7 @@ public class LeftAttackState : MonoBehaviour,IEnemyState
         Vector3 finalDestination = _ctx.OnBallRigidbody.position + direction * _ctx.RushSpeed * _ctx.RushTime;
         return finalDestination;
     }
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (_ctx != null && _ctx.OnBallRigidbody != null)
         {
