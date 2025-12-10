@@ -8,18 +8,33 @@ public class BlowAway : MonoBehaviour
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("ヒットストップさせるフレーム数")]
     private float _stopFlame = 30;
+
+    private float _currentStopTime = 0;
+    private bool _canHitStop = false;
+
+    private Vector3 _direction = Vector3.zero;
+    private float _blowAwayPower = 0;
     public void BlowAwayProtocol(Vector3 direction,float blowAwayPower)
     {
-        HitStop(direction, blowAwayPower);
+        _direction = direction;
+        _blowAwayPower=blowAwayPower;
+        _canHitStop = true;
+        Time.timeScale = 0.3f;
     }
 
-    private async UniTask HitStop(Vector3 direction, float blowAwayPower)
+    private void Update()
     {
-        for (int i = 0; i < _stopFlame; i++)
+        if (!_canHitStop)
         {
-            await UniTask.DelayFrame(1); 
+            return;
         }
-
-        _onBallRigidBody.AddForce(direction * blowAwayPower, ForceMode.Impulse);
+        Debug.Log("ヒットストップ");
+        _currentStopTime += Time.unscaledDeltaTime;
+        if( _currentStopTime > 0.3f)
+        {
+            Time.timeScale = 1;
+            _canHitStop = false;
+            _onBallRigidBody.AddForce(_direction * _blowAwayPower, ForceMode.Impulse);
+        }
     }
 }
