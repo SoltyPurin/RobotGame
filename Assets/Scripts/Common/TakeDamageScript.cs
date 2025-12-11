@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class TakeDamageScript : MonoBehaviour
@@ -6,6 +9,11 @@ public class TakeDamageScript : MonoBehaviour
     private BlowAway _blowAway = default;
     [SerializeField, Header("アニメーション再生のスクリプト")]
     private PlayAnimationScript _anim = default;
+    [SerializeField, Header("近接攻撃の硬直時間")]
+    private float _meleeBlowAwayTime = 1;
+    [SerializeField, Header("射撃攻撃の硬直時間")]
+    private float _shootBlowAwayTime = 0.3f;
+
 
     private bool _isBlowning = false;
     public bool IsBlowning
@@ -18,6 +26,7 @@ public class TakeDamageScript : MonoBehaviour
         Debug.Log("近接攻撃喰らった");
          _blowAway.BlowAwayProtocol(attackDirection, blowAwayPower);
         _anim.TakeDamageAnim();
+        ReleaseBlowAway(_meleeBlowAwayTime);
     }
 
     public void ShootTakeDamage(Vector3 bulletDirection,float damage,float blowAwayPower)
@@ -26,11 +35,14 @@ public class TakeDamageScript : MonoBehaviour
         Debug.Log("射撃喰らった");
         _blowAway.BlowAwayProtocol(bulletDirection, blowAwayPower);
         _anim.TakeDamageAnim();
-
+        ReleaseBlowAway(_shootBlowAwayTime);
     }
 
-    public void EndBlowAway()
+    private IEnumerator ReleaseBlowAway(float blowingTime)
     {
+        yield return new WaitForSecondsRealtime(blowingTime);
+        Debug.Log("硬直解除");
         _isBlowning = false;
+
     }
 }

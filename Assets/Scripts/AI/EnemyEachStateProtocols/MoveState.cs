@@ -16,18 +16,12 @@ public class MoveState : IEnemyState
 
     public void Update()
     {
-        if(_controller == null)
-        {
-            Debug.Log("コントローラーない");
-            return;
-        }
         Vector3 targetPos = _controller.CalcTargetPos();
         float distance = Vector3.Distance(targetPos, _ctx.Transform.position);
         Vector3 moveDirection = (targetPos - _ctx.Transform.position).normalized;
         Vector3 curVelocity = _ctx.BallRigidBody.linearVelocity;
         if (distance > _controller.NearTargetPosDistance)
         {
-            Debug.Log("移動中");
             Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_ctx.OnBallRigidbody.rotation, targetRot, 600 * Time.fixedDeltaTime);
             _ctx.OnBallRigidbody.rotation = temp;
@@ -38,7 +32,6 @@ public class MoveState : IEnemyState
         }
         else
         {
-            Debug.Log("目的地に到着");
             _controller.ThinkNextMove();
 
         }

@@ -17,6 +17,7 @@ public class EnemyDetectBullet : MonoBehaviour
 
     private void CallTakeDamageMethod(GameObject bullet)
     {
+        Debug.Log("èeíeãÚÇÁÇ¡ÇΩ");
         BulletMove bulletMove = bullet.GetComponent<BulletMove>();
         Vector3 bulletDirection = bulletMove.BulletDirection;
         int damage = bulletMove.BulletDamage;

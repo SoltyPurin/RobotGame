@@ -90,7 +90,6 @@ public class TestAIController : MonoBehaviour
 
     private void Update()
     {
-
         _ctx.PlayerTransform = _playerObj.transform;
         Quaternion rota = transform.rotation;
         rota.x = 0;
@@ -108,7 +107,6 @@ public class TestAIController : MonoBehaviour
 
     public void ThinkNextMove()
     {
-        Debug.Log("Ÿ‚Ìs“®‚ğl‚¦‚é");
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
 
