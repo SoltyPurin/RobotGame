@@ -5848,6 +5848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBlowAway
   _onBallRigidBody: {fileID: 1080662094}
   _stopFlame: 45
+  _camera: {fileID: 0}
 --- !u!114 &1080662100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7927,6 +7928,7 @@ MonoBehaviour:
   _attack: {fileID: 1625607258}
   _anim: {fileID: 1625607259}
   _takeDamage: {fileID: 1625607263}
+  _meleeAttack: {fileID: 1033681176}
 --- !u!114 &1625607258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7980,6 +7982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 1625607253}
   _stopFlame: 45
+  _camera: {fileID: 0}
 --- !u!114 &1625607263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8281,6 +8284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 1658885609}
   _stopFlame: 45
+  _camera: {fileID: 0}
 --- !u!114 &1658885618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8307,6 +8311,7 @@ MonoBehaviour:
   _bulletDamageValue: 50
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 5
+  _shootPoint: {fileID: 1724066634}
   _aiMoveSpeed: 50
   _dogdePower: 10
   _jumpPower: 10
@@ -8597,7 +8602,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1724066634}
-  - component: {fileID: 1724066635}
   m_Layer: 6
   m_Name: ShootAttackPoint
   m_TagString: Untagged
@@ -8620,21 +8624,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1658885613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1724066635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724066633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cd289e72ee1e1c4c9fff73363f4bec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RightAttack
-  _bulletAliveTime: 5
-  _bulletDamage: 50
-  _blowAwayPower: 50
 --- !u!1 &1726906245
 GameObject:
   m_ObjectHideFlags: 0
