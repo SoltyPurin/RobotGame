@@ -23,6 +23,8 @@ public class PlayerInputManager : MonoBehaviour
     private PlayAnimationScript _anim = default;
     [SerializeField, Header("被弾のスクリプト")]
     private TakeDamageScript _takeDamage = default;
+    [SerializeField, Header("近接攻撃のスクリプト")]
+    private LeftAttack _meleeAttack = default;
     private void Start()
     {
         _dashButton = InputSystem.actions.FindAction("Dash");
@@ -41,6 +43,10 @@ public class PlayerInputManager : MonoBehaviour
         }
 
         if (_takeDamage.IsBlowning)
+        {
+            return;
+        }
+        if (_meleeAttack.IsRushing)
         {
             return;
         }

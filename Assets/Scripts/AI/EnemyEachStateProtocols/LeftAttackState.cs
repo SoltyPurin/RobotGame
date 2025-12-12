@@ -56,7 +56,6 @@ public class LeftAttackState : IEnemyState
         }
         _ctx.OnBallRigidbody.MovePosition(Vector3.MoveTowards(_ctx.OnBallRigidbody.position, _targetPos, _ctx.RushSpeed * Time.fixedDeltaTime));
 
-        Debug.Log("ƒ_ƒ“ƒoƒCƒ“");
     }
     private void EnemyToDamageProtocol(GameObject enemy)
     {

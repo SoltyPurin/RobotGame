@@ -9,13 +9,11 @@ public class AttackScript : MonoBehaviour
 
     public void RightAttack(Transform target)
     {
-        Debug.Log("‰Eè‚ÅUŒ‚");
         _shootScript.ShootProtocol(target);
     }
 
     public void LeftAttack(Transform target)
     {
-        Debug.Log("¶è‚ÅUŒ‚");
         _meleeScript.SetTargetAndRushStart(target);
     }
 }

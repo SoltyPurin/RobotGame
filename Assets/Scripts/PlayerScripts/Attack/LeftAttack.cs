@@ -20,6 +20,10 @@ public class LeftAttack : MonoBehaviour
     private Vector3 _targetDirection = Vector3.zero;
     private Vector3 _targetPos = Vector3.zero;
     private bool _canRush = false;
+    public bool IsRushing
+    {
+        get { return _canRush; }
+    }
     private bool _isTouchTheEnemy = false;
     public void SetTargetAndRushStart(Transform target)
     {

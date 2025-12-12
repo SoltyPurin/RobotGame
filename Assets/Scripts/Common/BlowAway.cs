@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class BlowAway : MonoBehaviour
@@ -8,12 +9,18 @@ public class BlowAway : MonoBehaviour
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("ヒットストップさせるフレーム数")]
     private float _stopFlame = 30;
+    [SerializeField, Header("カメラ")]
+    private CinemachineCamera _camera;
 
     private float _currentStopTime = 0;
     private bool _canHitStop = false;
 
     private Vector3 _direction = Vector3.zero;
     private float _blowAwayPower = 0;
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
     public void BlowAwayProtocol(Vector3 direction,float blowAwayPower)
     {
         _direction = direction;

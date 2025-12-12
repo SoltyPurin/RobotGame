@@ -16,8 +16,8 @@ public class RightAttackState : IEnemyState
         float aliveTime = _ctx.BulletAliveTime;
         int damage = (int)_ctx.BulletDamage;
         float power = _ctx.BulletBlowAwayPower;
-        Vector3 targetDIr = (_ctx.PlayerTransform.position - _ctx.Transform.position).normalized;
-        _ctx.Pool.ActiveBullet(targetDIr, aliveTime, _ctx.Transform.position, damage, power);
+        Vector3 targetDIr = (_ctx.PlayerTransform.position - _ctx.ShootPoint.position).normalized;
+        _ctx.Pool.ActiveBullet(targetDIr, aliveTime, _ctx.ShootPoint.position, damage, power);
         //controller.ThinkNextMove();
     }
 

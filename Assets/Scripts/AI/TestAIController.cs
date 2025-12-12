@@ -31,6 +31,8 @@ public class TestAIController : MonoBehaviour
     private float _bulletBlowAwayPower = 50;
     [SerializeField, Header("銃弾の生存時間")]
     private float _bulletAliveTime = 5;
+    [SerializeField, Header("射撃開始地点")]
+    private Transform _shootPoint = default;
 
     public float NearTargetPosDistance
     {
@@ -84,6 +86,7 @@ public class TestAIController : MonoBehaviour
         _ctx.BulletBlowAwayPower = _bulletBlowAwayPower;
         _ctx.BulletAliveTime = _bulletAliveTime;
         _ctx.BulletDamage = _bulletDamageValue;
+        _ctx.ShootPoint = _shootPoint;
         _stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }
@@ -95,7 +98,6 @@ public class TestAIController : MonoBehaviour
         rota.x = 0;
         rota.z = 0;
         transform.rotation = rota;
-        Debug.Log("IsBlowning = " + _takeDamage.IsBlowning);
         if (_takeDamage.IsBlowning)
         {
             return;

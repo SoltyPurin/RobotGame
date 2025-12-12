@@ -4690,7 +4690,6 @@ GameObject:
   m_Component:
   - component: {fileID: 950650531}
   - component: {fileID: 950650533}
-  - component: {fileID: 950650532}
   m_Layer: 0
   m_Name: robot_LOD0
   m_TagString: Untagged
@@ -4714,19 +4713,6 @@ Transform:
   - {fileID: 1443351668}
   m_Father: {fileID: 396738205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &950650532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950650530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc337730581b120409d28e40e9a78291, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnimEvent
-  _takeDamage: {fileID: 1625607263}
 --- !u!95 &950650533
 Animator:
   serializedVersion: 7
@@ -7782,6 +7768,7 @@ GameObject:
   - component: {fileID: 1625607261}
   - component: {fileID: 1625607262}
   - component: {fileID: 1625607263}
+  - component: {fileID: 1625607264}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -8009,6 +7996,19 @@ MonoBehaviour:
   _anim: {fileID: 1625607259}
   _meleeBlowAwayTime: 1
   _shootBlowAwayTime: 0.3
+--- !u!114 &1625607264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625607249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d784f9917c479144082f0295bc32cdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectBullet
+  _takeDamage: {fileID: 1625607263}
 --- !u!1 &1626044026
 GameObject:
   m_ObjectHideFlags: 0
@@ -8177,6 +8177,7 @@ GameObject:
   - component: {fileID: 1658885615}
   - component: {fileID: 1658885616}
   - component: {fileID: 1658885619}
+  - component: {fileID: 1658885620}
   - component: {fileID: 1658885610}
   - component: {fileID: 1658885609}
   m_Layer: 7
@@ -8326,6 +8327,19 @@ MonoBehaviour:
   _anim: {fileID: 1658885615}
   _meleeBlowAwayTime: 1
   _shootBlowAwayTime: 0.3
+--- !u!114 &1658885620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658885608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d784f9917c479144082f0295bc32cdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectBullet
+  _takeDamage: {fileID: 1658885619}
 --- !u!1 &1663894092
 GameObject:
   m_ObjectHideFlags: 0

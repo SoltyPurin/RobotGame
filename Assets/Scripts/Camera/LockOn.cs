@@ -34,7 +34,6 @@ public class LockOn : MonoBehaviour
 
     public void ChangeCamera()
     {
-        Debug.Log("‹“_Ø‚è‘Ö‚¦");
         switch (_cameraState)
         {
             case CameraState.Normal:

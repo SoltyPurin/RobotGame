@@ -9,7 +9,6 @@ public class JumpState : Jump, IEnemyState
 
     public void Enter(in TestAIController controller, in EnemyContext ctx)
     {
-        Debug.Log("ジャンプ呼び出し");
         _controller = controller;
         _ctx = ctx; 
         _ground = _ctx.Ground;
@@ -23,8 +22,6 @@ public class JumpState : Jump, IEnemyState
 
     public void Update()
     {
-        Debug.Log("JumpState.Update 動いてる");
-        Debug.Log("接地判定 = " + _ground.IsTouchTheGround);
         if (_ground.IsTouchTheGround)
         {
             _controller.ThinkNextMove();

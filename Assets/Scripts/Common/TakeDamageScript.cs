@@ -14,34 +14,38 @@ public class TakeDamageScript : MonoBehaviour
     [SerializeField, Header("éÀåÇçUåÇÇÃçdíºéûä‘")]
     private float _shootBlowAwayTime = 0.3f;
 
+    private CameraShake _shake = default;
+
 
     private bool _isBlowning = false;
     public bool IsBlowning
     {
         get { return _isBlowning; }
     }
+
+    private void Start()
+    {
+        _shake = GameObject.FindFirstObjectByType<CameraShake>();
+    }
     public void MeleeTakeDamage(Vector3 attackDirection,float damage,float blowAwayPower)
     {
         _isBlowning = true;
-        Debug.Log("ãﬂê⁄çUåÇãÚÇÁÇ¡ÇΩ");
          _blowAway.BlowAwayProtocol(attackDirection, blowAwayPower);
         _anim.TakeDamageAnim();
-        ReleaseBlowAway(_meleeBlowAwayTime);
+        StartCoroutine(ReleaseBlowAway(_meleeBlowAwayTime));
     }
 
     public void ShootTakeDamage(Vector3 bulletDirection,float damage,float blowAwayPower)
     {
         _isBlowning = true;
-        Debug.Log("éÀåÇãÚÇÁÇ¡ÇΩ");
         _blowAway.BlowAwayProtocol(bulletDirection, blowAwayPower);
         _anim.TakeDamageAnim();
-        ReleaseBlowAway(_shootBlowAwayTime);
+        StartCoroutine(ReleaseBlowAway(_shootBlowAwayTime));
     }
 
     private IEnumerator ReleaseBlowAway(float blowingTime)
     {
-        yield return new WaitForSecondsRealtime(blowingTime);
-        Debug.Log("çdíºâèú");
+        yield return new WaitForSeconds(blowingTime);
         _isBlowning = false;
 
     }
