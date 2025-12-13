@@ -22,5 +22,6 @@ public class EnemyContext
     public float BulletBlowAwayPower;
     public float BulletDamage;
     public float BulletAliveTime;
+    public float Gravity;
     // ‚Ù‚©‹¤’Ê‚Å‚Á‚Ä‚¨‚«‚½‚¢‚à‚Ì
 }

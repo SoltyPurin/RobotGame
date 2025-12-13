@@ -16,6 +16,7 @@ public class MoveState : IEnemyState
 
     public void Update()
     {
+        _ctx.BallRigidBody.AddForce(-_ctx.Transform.up * _ctx.Gravity * _ctx.BallRigidBody.mass);
         Vector3 targetPos = _controller.CalcTargetPos();
         float distance = Vector3.Distance(targetPos, _ctx.Transform.position);
         Vector3 moveDirection = (targetPos - _ctx.Transform.position).normalized;

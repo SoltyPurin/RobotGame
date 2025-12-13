@@ -31,6 +31,8 @@ public class TestAIController : MonoBehaviour
     private float _bulletBlowAwayPower = 50;
     [SerializeField, Header("銃弾の生存時間")]
     private float _bulletAliveTime = 5;
+    [SerializeField, Header("重力")]
+    private float _gravity = 150;
     [SerializeField, Header("射撃開始地点")]
     private Transform _shootPoint = default;
 
@@ -87,6 +89,7 @@ public class TestAIController : MonoBehaviour
         _ctx.BulletAliveTime = _bulletAliveTime;
         _ctx.BulletDamage = _bulletDamageValue;
         _ctx.ShootPoint = _shootPoint;
+        _ctx.Gravity = _gravity;
         _stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }
@@ -165,6 +168,7 @@ public class TestAIController : MonoBehaviour
         Vector3 curPos = this.transform.position;
         curPos.x += Random.Range(-_moveMaxDistance, _moveMaxDistance);
         curPos.z += Random.Range(-_moveMaxDistance, _moveMaxDistance);
+        curPos = ReturnGroundPos(curPos.x, curPos.z);
         _isTargetCalculated = true;
         _targetPos = curPos;
         return curPos;
@@ -174,6 +178,15 @@ public class TestAIController : MonoBehaviour
     {
         float distance = Vector3.Distance(_playerObj.transform.position, this.transform.position);
         return distance;
+    }
+
+    private Vector3 ReturnGroundPos(float x,float z)
+    {
+        RaycastHit hit;
+        Vector3 startPoint = new Vector3(x,transform.position.y + 1,z);
+        Physics.Raycast(startPoint,Vector3.down, out hit, Mathf.Infinity);
+        startPoint = hit.point;
+        return startPoint;
     }
     private void OnDrawGizmos()
     {

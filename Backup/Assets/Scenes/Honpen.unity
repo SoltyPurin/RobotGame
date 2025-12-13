@@ -8381,7 +8381,7 @@ MonoBehaviour:
   _anim: {fileID: 1658885615}
   _takeDamage: {fileID: 1658885619}
   _moveMaxDistance: 50
-  _nearTargetPosDistance: 2
+  _nearTargetPosDistance: 10
   _rushSpeed: 40
   _rushTime: 1.4
   _meleeDamageValue: 50
@@ -8389,6 +8389,7 @@ MonoBehaviour:
   _bulletDamageValue: 50
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 5
+  _gravity: 150
   _shootPoint: {fileID: 1724066634}
   _aiMoveSpeed: 50
   _dogdePower: 10
