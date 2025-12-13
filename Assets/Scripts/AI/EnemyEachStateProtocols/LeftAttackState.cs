@@ -33,10 +33,15 @@ public class LeftAttackState : IEnemyState
 
     public void Update()
     {
+        Vector3 target = _ctx.PlayerTransform.position;
+        _targetDirection = (target - _ctx.OnBallRigidbody.position).normalized;
+        Quaternion targetRot = Quaternion.LookRotation(_targetDirection, Vector3.up);
+        _ctx.OnBallRigidbody.rotation = targetRot;
         if (!_canRush)
         {
             return;
         }
+        //OnDrawGizmos();
         RaycastHit hit;
         if (Physics.BoxCast(
         _ctx.OnBallRigidbody.transform.position,

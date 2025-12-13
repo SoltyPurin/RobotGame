@@ -37,14 +37,28 @@ public class BulletPool : MonoBehaviour
 
         _bulletList[_currentActiveBulletIndex].SetActive(true);
         _bulletList[_currentActiveBulletIndex].transform.position = startPoint;
-        _bulletMove[_currentActiveBulletIndex].StartMove(targetDir,bulletDamage,blowAwayPower);
-        StartCoroutine(DeActiveBullet(bulletAliveTime,_currentActiveBulletIndex));
+        _bulletMove[_currentActiveBulletIndex].StartMove(targetDir,bulletDamage,blowAwayPower,_currentActiveBulletIndex);
+        StartCoroutine(LifeTimeDeActiveBullet(bulletAliveTime,_currentActiveBulletIndex));
         _currentActiveBulletIndex++;
     }
 
-    private IEnumerator DeActiveBullet(float aliveTime,int activeBulletIndex)
+    private IEnumerator LifeTimeDeActiveBullet(float aliveTime,int activeBulletIndex)
     {
         yield return new WaitForSeconds(aliveTime);
-        _bulletList[activeBulletIndex].SetActive(false);
+        if (_bulletList[activeBulletIndex].activeInHierarchy)
+        {
+            _bulletList[activeBulletIndex].SetActive(false);
+        }
+    }
+
+    public void DeActiveBullet(GameObject bullet)
+    {
+        if (bullet.activeInHierarchy)
+        {
+            Debug.Log("èeíeçÌèú");
+            BulletMove bMove = bullet.GetComponent<BulletMove>();
+            int index = bMove.BulletIndex;
+            _bulletList[index].SetActive(false);
+        }
     }
 }

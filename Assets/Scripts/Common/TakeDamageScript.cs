@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Threading;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class TakeDamageScript : MonoBehaviour
@@ -13,8 +14,12 @@ public class TakeDamageScript : MonoBehaviour
     private float _meleeBlowAwayTime = 1;
     [SerializeField, Header("éÀåÇçUåÇÇÃçdíºéûä‘")]
     private float _shootBlowAwayTime = 0.3f;
+    [SerializeField, Header("ãﬂê⁄çUåÇêHÇÁÇ¡ÇΩéûÇÃóhÇÍ")]
+    private float _meleeDuration = 1;
+    [SerializeField, Header("éÀåÇçUåÇêHÇÁÇ¡ÇΩéûÇÃóhÇÍ")]
+    private float _shootDuration = 0.5f;
 
-    private CameraShake _shake = default;
+    private CinemachineImpulseSource _shake = default;
 
 
     private bool _isBlowning = false;
@@ -23,9 +28,11 @@ public class TakeDamageScript : MonoBehaviour
         get { return _isBlowning; }
     }
 
+
+
     private void Start()
     {
-        _shake = GameObject.FindFirstObjectByType<CameraShake>();
+        _shake = GetComponent<CinemachineImpulseSource>();
     }
     public void MeleeTakeDamage(Vector3 attackDirection,float damage,float blowAwayPower)
     {
@@ -33,6 +40,11 @@ public class TakeDamageScript : MonoBehaviour
          _blowAway.BlowAwayProtocol(attackDirection, blowAwayPower);
         _anim.TakeDamageAnim();
         StartCoroutine(ReleaseBlowAway(_meleeBlowAwayTime));
+        if(_shake != null)
+        {
+            Debug.Log("ãﬂê⁄çUåÇêHÇÁÇ¡ÇΩ");
+            _shake.GenerateImpulseWithForce(_meleeDuration);
+        }
     }
 
     public void ShootTakeDamage(Vector3 bulletDirection,float damage,float blowAwayPower)
@@ -41,6 +53,10 @@ public class TakeDamageScript : MonoBehaviour
         _blowAway.BlowAwayProtocol(bulletDirection, blowAwayPower);
         _anim.TakeDamageAnim();
         StartCoroutine(ReleaseBlowAway(_shootBlowAwayTime));
+        if (_shake != null)
+        {
+            _shake.GenerateImpulseWithForce(_shootDuration);
+        }
     }
 
     private IEnumerator ReleaseBlowAway(float blowingTime)

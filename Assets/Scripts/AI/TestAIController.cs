@@ -94,15 +94,15 @@ public class TestAIController : MonoBehaviour
     private void Update()
     {
         _ctx.PlayerTransform = _playerObj.transform;
-        Quaternion rota = transform.rotation;
-        rota.x = 0;
-        rota.z = 0;
-        transform.rotation = rota;
+        Vector3 eur = transform.eulerAngles;
+        eur.x = 0;
+        eur.z = 0;
+        transform.rotation = Quaternion.Euler(eur);
         if (_takeDamage.IsBlowning)
         {
             return;
         }
-        _stateMachine.Update(); // 現在の状態のUpdateメソッドを呼び出す
+        _stateMachine.FixedUpdate(); 
         _ctx.Transform = this.transform;
 
     }
@@ -126,14 +126,14 @@ public class TestAIController : MonoBehaviour
         }
         else
         {
-            if (distance > 50)
-            {
-                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
-            }
-            else
-            {
+            //if (distance > 50)
+            //{
+            //    _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            //}
+            //else
+            //{
                 _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
-            }
+            //}
             _isAttacked = true;
         }
 
@@ -175,5 +175,17 @@ public class TestAIController : MonoBehaviour
         float distance = Vector3.Distance(_playerObj.transform.position, this.transform.position);
         return distance;
     }
+    private void OnDrawGizmos()
+    {
+        // 再生中しか意味がないのでガード
+        if (!Application.isPlaying) return;
 
+        // ターゲット座標
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(_targetPos, 0.5f);
+
+        // 現在位置 → ターゲットへの線
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, _targetPos);
+    }
 }

@@ -19,6 +19,10 @@ public class LockOn : MonoBehaviour
 
     private SearchNearEnemy _nearEnemy = default;
     private Transform _targetTransform = default;
+    public Transform TargetTransform
+    {
+        get { return _targetTransform; }
+    }
     private CameraState _cameraState = CameraState.Normal;
     public CameraState State
     {

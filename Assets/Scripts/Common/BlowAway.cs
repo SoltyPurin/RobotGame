@@ -9,9 +9,6 @@ public class BlowAway : MonoBehaviour
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("ヒットストップさせるフレーム数")]
     private float _stopFlame = 30;
-    [SerializeField, Header("カメラ")]
-    private CinemachineCamera _camera;
-
     private float _currentStopTime = 0;
     private bool _canHitStop = false;
 
@@ -35,7 +32,7 @@ public class BlowAway : MonoBehaviour
         {
             return;
         }
-        Debug.Log("ヒットストップ");
+        //Debug.Log("ヒットストップ");
         _currentStopTime += Time.unscaledDeltaTime;
         if( _currentStopTime > 0.3f)
         {

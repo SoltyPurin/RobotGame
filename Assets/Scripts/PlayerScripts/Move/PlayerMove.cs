@@ -18,6 +18,10 @@ public class PlayerMove : MonoBehaviour
     private GameObject _normalCamera = default;
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
+    [SerializeField, Header("ロックオンのスクリプト")]
+    private LockOn _lockOnScript = default;
+    [SerializeField, Header("ロボットの見た目")]
+    private GameObject _danbine = default;
 
     private RaycastHit _hit;
     private float _verticalValue = 0.0f;
@@ -60,13 +64,51 @@ public class PlayerMove : MonoBehaviour
     {
         GameObject activeCamera = _normalCamera;
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
-        if (_lockOn.State == CameraState.LockOn)
+        switch (_lockOn.State)
         {
-            activeCamera = _lockOnCamera;
+            case CameraState.Normal:
+                activeCamera = _normalCamera;
+                NormalProtocol(activeCamera,curVelocity);
+                break;
+
+            case CameraState.LockOn:
+                activeCamera = _lockOnCamera;
+                LockOnMoveProtocol(activeCamera, curVelocity);
+                break;  
         }
+        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
+    }
+
+    private void LockOnMoveProtocol(GameObject activeCamera, Vector3 curVelocity)
+    {
+        Vector3 targetPos = _lockOn.TargetTransform.position;
+        Vector3 dir = targetPos - _onBallRigidBody.position;
+        dir.y = 0f;
+
         Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
-        //Vector3 v3Input = new Vector3(_horizontalValue, 0, _verticalValue);
+        Vector3 rotationInput = new Vector3(_horizontalValue,0, _verticalValue);
+        if (_v2MoveValue.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
+            _danbine.transform.localRotation = targetRot;
+            Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
+            _onBallRigidBody.MoveRotation(rot);
+            _useVelocity = moveForward * _speed;
+            _useVelocity.y = curVelocity.y;
+            _ballRigidBody.linearVelocity = _useVelocity;
+        }
+        else
+        {
+            _ballRigidBody.linearVelocity *= 0.9f;
+        }
+    }
+
+    private void NormalProtocol(GameObject activeCamera,Vector3 curVelocity)
+    {
+        Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
+        _danbine.transform.localRotation = Quaternion.Euler(Vector3.zero);
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
@@ -80,8 +122,6 @@ public class PlayerMove : MonoBehaviour
         {
             _ballRigidBody.linearVelocity *= 0.9f;
         }
-
-        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
     }
 
 }

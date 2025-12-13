@@ -4,6 +4,13 @@ public class DetectBullet : MonoBehaviour
 {
     [SerializeField, Header("被弾スクリプト")]
     private TakeDamageScript _takeDamage = default;
+    private BulletPool _pool = default;
+
+    private void Start()
+    {
+        _pool = GameObject.FindAnyObjectByType<BulletPool>();
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,5 +29,6 @@ public class DetectBullet : MonoBehaviour
         int damage = bulletMove.BulletDamage;
         float blowAway = bulletMove.BlowAwayPower;
         _takeDamage.ShootTakeDamage(bulletDirection, damage, blowAway);
+        _pool.DeActiveBullet(bullet);
     }
 }
