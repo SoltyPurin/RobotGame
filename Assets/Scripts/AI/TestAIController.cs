@@ -126,10 +126,17 @@ public class TestAIController : MonoBehaviour
         {
             if(distance > 20)
             {
+                Debug.Log("ˆÚ“®");
                 _stateMachine.ChangeState(new MoveState(), this, _ctx);
             }
+            else if(distance <=19 && distance > 10)
+            {
+                Debug.Log("‰ñ”ð");
+                _stateMachine.ChangeState(new DashState(), this, _ctx);
+            } 
             else
             {
+                Debug.Log("ƒWƒƒƒ“ƒv");
                 _stateMachine.ChangeState(new JumpState(), this, _ctx);
             }
             _isAttacked = false;
