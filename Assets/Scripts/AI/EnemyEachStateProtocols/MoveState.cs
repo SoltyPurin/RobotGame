@@ -20,12 +20,13 @@ public class MoveState : IEnemyState
         Vector3 targetPos = _controller.CalcTargetPos();
         float distance = Vector3.Distance(targetPos, _ctx.Transform.position);
         Vector3 moveDirection = (targetPos - _ctx.Transform.position).normalized;
+        Vector3 lookDir = moveDirection;
+        lookDir.y = 0;
         Vector3 curVelocity = _ctx.BallRigidBody.linearVelocity;
         if (distance > _controller.NearTargetPosDistance)
         {
-            Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
-            Quaternion temp = Quaternion.RotateTowards(_ctx.OnBallRigidbody.rotation, targetRot, 600 * Time.fixedDeltaTime);
-            _ctx.OnBallRigidbody.rotation = temp;
+            Quaternion targetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+            _ctx.OnBallRigidbody.rotation = targetRot;
             Vector3 useVelocity = moveDirection * _ctx.Controller.AIMoveSpeed;
             useVelocity.y = curVelocity.y;
             _ctx.BallRigidBody.linearVelocity = useVelocity;

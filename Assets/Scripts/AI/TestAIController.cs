@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,11 +23,11 @@ public class TestAIController : MonoBehaviour
     [SerializeField, Header("突進時間")]
     private float _rushTime = 1.4f;
     [SerializeField, Header("近接で与えるダメージ")]
-    private float _meleeDamageValue = 50f;
+    private int _meleeDamageValue = 50;
     [SerializeField, Header("近接攻撃の吹き飛ばし力")]
     private float _meleeBlowAwayPower = 50f;
     [SerializeField, Header("射撃で与えるダメージ")]
-    private float _bulletDamageValue = 50f;
+    private int _bulletDamageValue = 50;
     [SerializeField, Header("射撃での吹き飛ばし力")]
     private float _bulletBlowAwayPower = 50;
     [SerializeField, Header("銃弾の生存時間")]
@@ -35,6 +36,10 @@ public class TestAIController : MonoBehaviour
     private float _gravity = 150;
     [SerializeField, Header("射撃開始地点")]
     private Transform _shootPoint = default;
+    [SerializeField, Header("近接攻撃の判定の大きさ")]
+    private Vector3 _meleeRangeSize;
+    [SerializeField, Header("近接判定の中心座標")]
+    private Vector3 _meleeRangeCenter;
 
     public float NearTargetPosDistance
     {
@@ -90,6 +95,8 @@ public class TestAIController : MonoBehaviour
         _ctx.BulletDamage = _bulletDamageValue;
         _ctx.ShootPoint = _shootPoint;
         _ctx.Gravity = _gravity;
+        _ctx.MeleeRangeSize = _meleeRangeSize;
+        _ctx.MeleeRangeCenter = _meleeRangeCenter;
         _stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
         _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }
@@ -129,34 +136,18 @@ public class TestAIController : MonoBehaviour
         }
         else
         {
-            //if (distance > 50)
-            //{
-            //    _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
-            //}
-            //else
-            //{
-                _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
-            //}
+            ShootAsync().Forget();
             _isAttacked = true;
         }
+    }
 
-
-        //if(distance >20 && distance < 10)
-        //{
-
-        //}
-
-        //if (_isJumpCallOnce)
-        //{
-        //    stateMachine.ChangeState(new MoveState(), this, _ctx);
-        //    _anim.MoveAnim();
-        //}
-        //else
-        //{
-        //    stateMachine.ChangeState(new JumpState(), this, _ctx);
-        //    _anim.JumpAnim();
-        //    _isJumpCallOnce = true;
-        //}
+    private async UniTaskVoid ShootAsync()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            await UniTask.Delay(1);
+        }
     }
 
     public Vector3 CalcTargetPos()
@@ -200,5 +191,18 @@ public class TestAIController : MonoBehaviour
         // 現在位置 → ターゲットへの線
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, _targetPos);
+
+
+        Vector3 target = _playerObj.transform.position;
+        Vector3 targetDir = (target - _onBallRigidBody.position).normalized;
+        Vector3 attackRangeCenter = _onBallRigidBody.transform.position;
+        attackRangeCenter.y += _meleeRangeCenter.y;
+        attackRangeCenter.z += _meleeRangeCenter.z;
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireCube(
+            attackRangeCenter + targetDir * 1f,
+            _meleeRangeSize);
+
     }
 }

@@ -18,10 +18,12 @@ public class EnemyContext
     public float RushSpeed;
     public float RushTime;
     public float MeleeBlowAwayPower;
-    public float MeleeDamage;
+    public int MeleeDamage;
     public float BulletBlowAwayPower;
-    public float BulletDamage;
+    public int BulletDamage;
     public float BulletAliveTime;
     public float Gravity;
+    public Vector3 MeleeRangeSize;
+    public Vector3 MeleeRangeCenter;
     // ÇŸÇ©ã§í Ç≈éùÇ¡ÇƒÇ®Ç´ÇΩÇ¢Ç‡ÇÃ
 }

@@ -35,7 +35,9 @@ public class LeftAttackState : IEnemyState
     {
         Vector3 target = _ctx.PlayerTransform.position;
         _targetDirection = (target - _ctx.OnBallRigidbody.position).normalized;
-        Quaternion targetRot = Quaternion.LookRotation(_targetDirection, Vector3.up);
+        Vector3 lookDir = _targetDirection;
+        lookDir.y = 0;
+        Quaternion targetRot = Quaternion.LookRotation(lookDir, Vector3.up);
         _ctx.OnBallRigidbody.rotation = targetRot;
         if (!_canRush)
         {
@@ -43,9 +45,11 @@ public class LeftAttackState : IEnemyState
         }
         //OnDrawGizmos();
         RaycastHit hit;
-        if (Physics.BoxCast(
-        _ctx.OnBallRigidbody.transform.position,
-        Vector3.one * 0.5f,
+        Vector3 attackRangeCenter = _ctx.OnBallRigidbody.transform.localPosition;
+        attackRangeCenter.y += _ctx.MeleeRangeCenter.y;
+        attackRangeCenter.z += _ctx.MeleeRangeCenter.z;
+        if (Physics.BoxCast(attackRangeCenter,
+        _ctx.MeleeRangeSize * 0.5f,
         _targetDirection,                
         out hit,
         Quaternion.identity,
@@ -97,16 +101,5 @@ public class LeftAttackState : IEnemyState
     {
         Vector3 finalDestination = _ctx.OnBallRigidbody.position + direction * _ctx.RushSpeed * _ctx.RushTime;
         return finalDestination;
-    }
-    private void OnDrawGizmos()
-    {
-        if (_ctx != null && _ctx.OnBallRigidbody != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(
-                _ctx.OnBallRigidbody.position + _targetDirection * 1f,
-                Vector3.one
-            );
-        }
     }
 }

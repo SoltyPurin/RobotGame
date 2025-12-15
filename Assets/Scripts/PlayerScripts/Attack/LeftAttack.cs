@@ -14,7 +14,7 @@ public class LeftAttack : MonoBehaviour
     [SerializeField,Header("ステートのマネージャー")]
     private PlayerStateManager _state;
     [SerializeField, Header("与えるダメージ")]
-    private float _damageValue = 50f;
+    private int _damageValue = 50;
     [SerializeField, Header("吹き飛ばし力")]
     private float _blowAwayPower = 50f;
     private Vector3 _targetDirection = Vector3.zero;
