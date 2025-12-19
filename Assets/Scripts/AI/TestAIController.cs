@@ -12,10 +12,6 @@ public class TestAIController : MonoBehaviour
     private Rigidbody _ballRigidBody = default;
     [SerializeField, Header("地面の検知")]
     private EnemyDetectGround _detectGround = default;
-    [SerializeField, Header("アニメーション再生のスクリプト")]
-    private PlayAnimationScript _anim = default;
-    [SerializeField, Header("被弾のスクリプト")]
-    private TakeDamageScript _takeDamage = default;
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
     [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
@@ -71,11 +67,15 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
+    private TakeDamageScript _takeDamage = default;
+    private PlayAnimationScript _anim = default;
 
     private bool _isAttacked = false;
 
     private void Start()
     {
+        _takeDamage = GetComponent<TakeDamageScript>();
+        _anim = GetComponent<PlayAnimationScript>();
         _playerObj = GameObject.FindWithTag("Player");
         _ctx = new EnemyContext();
         _ctx.Transform = this.transform;

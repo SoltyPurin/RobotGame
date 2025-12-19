@@ -3,28 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
+    [SerializeField, Header("近接攻撃のスクリプト")]
+    private LeftAttack _meleeAttack = default;
+
     private InputAction _dashButton = default;
     private InputAction _jumpButton = default;
     private InputAction _lockOnButton = default;
     private InputAction _moveInput = default;
     private InputAction _rightWeaponInput = default;
     private InputAction _leftWeaponInput = default;
-    [SerializeField, Header("ジャンプのスクリプト")]
     private Jump _jump = default;
-    [SerializeField, Header("ロックオンのスクリプト")]
     private LockOn _lockOn = default;
-    [SerializeField, Header("ダッシュのスクリプト")]
     private Dash _dash = default;
-    [SerializeField,Header("移動のスクリプト")]
     private PlayerMove _move = default;
-    [SerializeField, Header("攻撃のスクリプト")]
     private AttackScript _attack = default;
-    [SerializeField, Header("アニメーターのスクリプト")]
     private PlayAnimationScript _anim = default;
-    [SerializeField, Header("被弾のスクリプト")]
     private TakeDamageScript _takeDamage = default;
-    [SerializeField, Header("近接攻撃のスクリプト")]
-    private LeftAttack _meleeAttack = default;
     private void Start()
     {
         _dashButton = InputSystem.actions.FindAction("Dash");
@@ -33,6 +27,13 @@ public class PlayerInputManager : MonoBehaviour
         _moveInput = InputSystem.actions.FindAction("Move");
         _rightWeaponInput = InputSystem.actions.FindAction("RightAttack");
         _leftWeaponInput = InputSystem.actions.FindAction("LeftAttack");
+        _jump = GetComponent<Jump>();
+        _lockOn = GetComponent<LockOn>();
+        _dash = GetComponent<Dash>();
+        _move = GetComponent<PlayerMove>();
+        _attack = GetComponent<AttackScript>();
+        _anim = GetComponent<PlayAnimationScript>();
+        _takeDamage = GetComponent<TakeDamageScript>();
     }
 
     private void Update()

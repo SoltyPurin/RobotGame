@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class DetectBullet : MonoBehaviour
 {
-    [SerializeField, Header("被弾スクリプト")]
     private TakeDamageScript _takeDamage = default;
     private BulletPool _pool = default;
 
     private void Start()
     {
         _pool = GameObject.FindAnyObjectByType<BulletPool>();
-
+        _takeDamage = GetComponent<TakeDamageScript>();
     }
 
     private void OnTriggerEnter(Collider other)
