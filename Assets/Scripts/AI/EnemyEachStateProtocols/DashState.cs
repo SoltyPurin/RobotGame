@@ -9,6 +9,8 @@ public class DashState : IEnemyState
 
     private EnemyContext _ctx;
 
+    private float _curDodgeTime = 0;
+
     public void Enter(in TestAIController controller, in EnemyContext ctx)
     {
         _controller = controller;
@@ -17,12 +19,16 @@ public class DashState : IEnemyState
         Vector3 direction = (targetPos - _ctx.Transform.position).normalized;
         direction.y = 0;
         _ctx.BallRigidBody.AddForce(direction * _ctx.DodgePower, ForceMode.Impulse);
-        _controller.ThinkNextMove();
+        Debug.Log("“G‚ª‰ñ”ð");
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-
+        _curDodgeTime += Time.deltaTime;
+        if(_curDodgeTime >= _ctx.DodgeTime)
+        {
+            _controller.ThinkNextMove();
+        }
     }
 
     public void Exit()

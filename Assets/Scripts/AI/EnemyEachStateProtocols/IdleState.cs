@@ -14,7 +14,7 @@ public class IdleState : IEnemyState
         _stopTime = _ctx.StopTime;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         Debug.Log("’âŽ~’†");
         _currentTime += Time.deltaTime;

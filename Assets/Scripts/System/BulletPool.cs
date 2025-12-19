@@ -28,7 +28,7 @@ public class BulletPool : MonoBehaviour
     }
 
     public void ActiveBullet(Vector3 targetDir,float bulletAliveTime,
-        Vector3 startPoint,int bulletDamage,float blowAwayPower)
+        Vector3 startPoint,int bulletDamage,float blowAwayPower,string bulletTag)
     {
         if(_currentActiveBulletIndex >= _bulletList.Count)
         {
@@ -36,6 +36,7 @@ public class BulletPool : MonoBehaviour
         }
 
         _bulletList[_currentActiveBulletIndex].SetActive(true);
+        _bulletList[_currentActiveBulletIndex].tag = bulletTag;
         _bulletList[_currentActiveBulletIndex].transform.position = startPoint;
         _bulletMove[_currentActiveBulletIndex].StartMove(targetDir,bulletDamage,blowAwayPower,_currentActiveBulletIndex);
         StartCoroutine(LifeTimeDeActiveBullet(bulletAliveTime,_currentActiveBulletIndex));

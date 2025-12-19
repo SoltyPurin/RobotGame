@@ -16,7 +16,7 @@ public class DetectBullet : MonoBehaviour
     {
         GameObject obj = other.gameObject;
 
-        if (obj.CompareTag("Bullet"))
+        if (obj.CompareTag("PLBullet") || obj.CompareTag("ENBullet"))
         {
             CallTakeDamageMethod(obj);
         }

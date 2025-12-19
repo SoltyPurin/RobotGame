@@ -8751,6 +8751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d47c0276e8d3648be2e5c53950cc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestAIController
+  _dodgeRange: 5
   _onBallRigidBody: {fileID: 1658885609}
   _ballRigidBody: {fileID: 904216353}
   _detectGround: {fileID: 904216355}
@@ -8770,7 +8771,8 @@ MonoBehaviour:
   _meleeRangeSize: {x: 15, y: 12, z: 10}
   _meleeRangeCenter: {x: 0, y: 4, z: -4}
   _aiMoveSpeed: 50
-  _dogdePower: 10
+  _dodgePower: 100
+  _dodgeTime: 0.5
   _jumpPower: 10
   _stopTime: 1
 --- !u!114 &1658885619

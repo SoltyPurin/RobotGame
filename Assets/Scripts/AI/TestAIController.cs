@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class TestAIController : MonoBehaviour
 {
+    [SerializeField, Header("どれくらい弾が近づいたら回避するか")]
+    private float _dodgeRange = 5f;
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
     [SerializeField,Header("ボールのリジッドボディ")]
@@ -52,7 +54,9 @@ public class TestAIController : MonoBehaviour
         get { return _aiMoveSpeed; }
     }
     [SerializeField, Header("回避力")]
-    private float _dogdePower = 10;
+    private float _dodgePower = 10;
+    [SerializeField, Header("回避時間")]
+    private float _dodgeTime = 0.5f;
     [SerializeField, Header("ジャンプ力")]
     private float _jumpPower = 10;
     [SerializeField, Header("待機状態の待機時間")]
@@ -79,7 +83,8 @@ public class TestAIController : MonoBehaviour
         _ctx.MoveSpeed = _aiMoveSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
         _ctx.BallRigidBody = _ballRigidBody;
-        _ctx.DodgePower = _dogdePower;
+        _ctx.DodgePower = _dodgePower;
+        _ctx.DodgeTime = _dodgeTime;
         _ctx.JumpPower = _jumpPower;
         _ctx.StopTime = _stopTime;
         _ctx.Ground = _detectGround;
@@ -121,19 +126,20 @@ public class TestAIController : MonoBehaviour
     {
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
+        if (IsNearBullet())
+        {
+            Debug.Log("回避");
+            _stateMachine.ChangeState(new DashState(), this, _ctx);
+        }
+
 
         if (_isAttacked)
         {
-            if(distance > 20)
+            if (distance > 20)
             {
                 Debug.Log("移動");
                 _stateMachine.ChangeState(new MoveState(), this, _ctx);
             }
-            else if(distance <=19 && distance > 10)
-            {
-                Debug.Log("回避");
-                _stateMachine.ChangeState(new DashState(), this, _ctx);
-            } 
             else
             {
                 Debug.Log("ジャンプ");
@@ -154,6 +160,33 @@ public class TestAIController : MonoBehaviour
         {
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
             await UniTask.Delay(1);
+        }
+    }
+
+    private bool IsNearBullet()
+    {
+        GameObject[] plBullets = GameObject.FindGameObjectsWithTag("PLBullet");
+        if(plBullets.Length == 0)
+        {
+            return false;
+        }
+        float nearDistance = Vector3.Distance(plBullets[0].transform.position,transform.position);
+        for(int i = 1; i < plBullets.Length; i++)
+        {
+            float calcDistance = Vector3.Distance(plBullets[i].transform.position, transform.position);
+            if(nearDistance > calcDistance)
+            {
+                nearDistance = calcDistance;
+            }
+        }
+
+        if(nearDistance < _dodgeRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

@@ -14,7 +14,7 @@ public class MoveState : IEnemyState
         _ctx.Animation.MoveAnim();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         _ctx.BallRigidBody.AddForce(-_ctx.Transform.up * _ctx.Gravity * _ctx.BallRigidBody.mass);
         Vector3 targetPos = _controller.CalcTargetPos();

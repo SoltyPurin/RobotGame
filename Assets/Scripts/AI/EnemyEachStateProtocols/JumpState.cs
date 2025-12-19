@@ -20,7 +20,7 @@ public class JumpState : Jump, IEnemyState
         _ctx.BallRigidBody.AddForce(_ctx.Transform.up * _ctx.JumpPower, ForceMode.Impulse);
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (_ground.IsTouchTheGround)
         {

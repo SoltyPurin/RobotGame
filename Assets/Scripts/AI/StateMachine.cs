@@ -15,6 +15,6 @@ public class StateMachine : MonoBehaviour
 
     public void FixedUpdate()
     {
-        _currentState?.Update();  // 現在の状態のUpdateメソッドを呼び出す
+        _currentState?.FixedUpdate();  // 現在の状態のUpdateメソッドを呼び出す
     }
 }

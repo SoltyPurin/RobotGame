@@ -31,7 +31,7 @@ public class LeftAttackState : IEnemyState
 
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         Vector3 target = _ctx.PlayerTransform.position;
         _targetDirection = (target - _ctx.OnBallRigidbody.position).normalized;

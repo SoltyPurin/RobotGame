@@ -7,7 +7,7 @@ public interface IEnemyState
     /// <summary>
     /// –ˆƒtƒŒ[ƒ€‚Ìˆ—
     /// </summary>
-    void Update(); 
+    void FixedUpdate(); 
     /// <summary>
     /// ó‘Ô‚©‚ço‚é‚Ìˆ—
     /// </summary>

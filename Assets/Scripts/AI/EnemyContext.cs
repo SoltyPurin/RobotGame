@@ -13,6 +13,7 @@ public class EnemyContext
     public BulletPool Pool;
     public float MoveSpeed;
     public float DodgePower;
+    public float DodgeTime;
     public float JumpPower;
     public float StopTime;
     public float RushSpeed;
