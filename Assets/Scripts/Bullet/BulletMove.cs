@@ -30,9 +30,12 @@ public class BulletMove : MonoBehaviour
     }
     public void StartMove(Vector3 targetDir,int damage,float blowAwayPower,int index)
     {
+        _rigidBody.linearVelocity = Vector3.zero;
+        _rigidBody.angularVelocity = Vector3.zero;
         _bulletDamage = damage;
         _blowAwayPower = blowAwayPower;
-        _rigidBody.AddForce(targetDir * _moveSpeed,ForceMode.Impulse);
+        _bulletDirection = targetDir;
+        _rigidBody.AddForce(_bulletDirection * _moveSpeed,ForceMode.Impulse);
         _bulletIndex = index;
     }
 
