@@ -16,7 +16,7 @@ public class TestAIController : MonoBehaviour
     private float _moveMaxDistance = 10;
     [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
     private float _nearTargetPosDistance = 5;
-    [SerializeField, Header("ダッシュ時の速度")]
+    [SerializeField, Header("突進時の速度")]
     private float _rushSpeed = 40f;
     [SerializeField, Header("突進時間")]
     private float _rushTime = 1.4f;
@@ -49,7 +49,7 @@ public class TestAIController : MonoBehaviour
     {
         get { return _aiMoveSpeed; }
     }
-    [SerializeField, Header("回避力")]
+    [SerializeField, Header("回避時に与える力")]
     private float _dodgePower = 10;
     [SerializeField, Header("回避時間")]
     private float _dodgeTime = 0.5f;
@@ -106,7 +106,7 @@ public class TestAIController : MonoBehaviour
         _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _ctx.PlayerTransform = _playerObj.transform;
         Vector3 eur = transform.eulerAngles;
@@ -128,8 +128,8 @@ public class TestAIController : MonoBehaviour
         float distance = CalcTargetDistance();
         if (IsNearBullet())
         {
-            Debug.Log("回避");
             _stateMachine.ChangeState(new DashState(), this, _ctx);
+            return;
         }
 
 
@@ -149,17 +149,8 @@ public class TestAIController : MonoBehaviour
         }
         else
         {
-            ShootAsync().Forget();
-            _isAttacked = true;
-        }
-    }
-
-    private async UniTaskVoid ShootAsync()
-    {
-        for(int i = 0; i < 3; i++)
-        {
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
-            await UniTask.Delay(1);
+            _isAttacked = true;
         }
     }
 

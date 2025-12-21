@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DetectBullet : MonoBehaviour
+public class EnemyDetectBullet : MonoBehaviour
 {
     private TakeDamageScript _takeDamage = default;
     private BulletPool _pool = default;
@@ -15,7 +15,7 @@ public class DetectBullet : MonoBehaviour
     {
         GameObject obj = other.gameObject;
 
-        if (obj.CompareTag("PLBullet") || obj.CompareTag("ENBullet"))
+        if (obj.CompareTag("PLBullet"))
         {
             CallTakeDamageMethod(obj);
         }
