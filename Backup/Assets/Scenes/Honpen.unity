@@ -5107,6 +5107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
   _meleeAttack: {fileID: 1033681176}
+  _shootCoolTime: 1
 --- !u!114 &1625607258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5548,8 +5549,9 @@ MonoBehaviour:
   _aiMoveSpeed: 50
   _dodgePower: 50
   _dodgeTime: 0.5
-  _jumpPower: 10
+  _jumpPower: 100
   _stopTime: 1
+  _moveCountUntilJump: 3
 --- !u!114 &1658885620
 MonoBehaviour:
   m_ObjectHideFlags: 0

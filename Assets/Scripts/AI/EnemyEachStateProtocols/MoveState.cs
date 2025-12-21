@@ -11,7 +11,10 @@ public class MoveState : IEnemyState
     {
         _controller = controller;
         _ctx = ctx;
-        _ctx.Animation.MoveAnim();
+        if (_ctx.Ground.IsTouchTheGround)
+        {
+            _ctx.Animation.MoveAnim();
+        }
     }
 
     public void FixedUpdate()

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletMove
   _rigidBody: {fileID: 3682235616340386628}
-  _moveSpeed: 120
+  _moveSpeed: 240
 --- !u!33 &1547755772834496641
 MeshFilter:
   m_ObjectHideFlags: 0

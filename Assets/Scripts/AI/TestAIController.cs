@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,6 +58,8 @@ public class TestAIController : MonoBehaviour
     private float _jumpPower = 10;
     [SerializeField, Header("待機状態の待機時間")]
     private float _stopTime = 1;
+    [SerializeField, Header("何回移動したら飛ぶようにするか")]
+    private int _moveCountUntilJump = 3;
 
 
     private StateMachine _stateMachine; // プレイヤーの状態を管理するStateMachine
@@ -71,6 +74,8 @@ public class TestAIController : MonoBehaviour
     private PlayAnimationScript _anim = default;
 
     private bool _isAttacked = false;
+
+    private int _moveCount = 0;
 
     private void Start()
     {
@@ -135,23 +140,52 @@ public class TestAIController : MonoBehaviour
 
         if (_isAttacked)
         {
-            if (distance > 20)
+            MoveThinkProtocol(distance);
+        }
+        else
+        {
+            AttackThinkProtocol(distance);
+        }
+    }
+
+    public void AttackThinkProtocol(float distance)
+    {
+        if (distance > 30)
+        {
+            Debug.Log("射撃");
+            _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+        }
+        else
+        {
+            Debug.Log("近接");
+            _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+        }
+        _isAttacked = true;
+    }
+
+    private void MoveThinkProtocol(float distance)
+    {
+        if (distance > 20)
+        {
+            if (_moveCount < _moveCountUntilJump)
             {
                 Debug.Log("移動");
                 _stateMachine.ChangeState(new MoveState(), this, _ctx);
+                _moveCount++;
             }
             else
             {
                 Debug.Log("ジャンプ");
                 _stateMachine.ChangeState(new JumpState(), this, _ctx);
+                _moveCount = 0;
             }
-            _isAttacked = false;
         }
         else
         {
-            _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
-            _isAttacked = true;
+            Debug.Log("ジャンプ");
+            _stateMachine.ChangeState(new JumpState(), this, _ctx);
         }
+        _isAttacked = false;
     }
 
     private bool IsNearBullet()
@@ -196,7 +230,7 @@ public class TestAIController : MonoBehaviour
         return curPos;
     }
 
-    private float CalcTargetDistance()
+    public float CalcTargetDistance()
     {
         float distance = Vector3.Distance(_playerObj.transform.position, this.transform.position);
         return distance;

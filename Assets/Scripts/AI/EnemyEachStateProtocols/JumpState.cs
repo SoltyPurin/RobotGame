@@ -7,11 +7,14 @@ public class JumpState : Jump, IEnemyState
 
     private EnemyContext _ctx;
 
+    private float _jumpCurrentTime = 0;
+
     public void Enter(in TestAIController controller, in EnemyContext ctx)
     {
         _controller = controller;
         _ctx = ctx; 
         _ground = _ctx.Ground;
+        _jumpCurrentTime = 0;
         _ctx.Animation.JumpAnim();
         if (!_ground.IsTouchTheGround)
         {
@@ -25,7 +28,15 @@ public class JumpState : Jump, IEnemyState
         if (_ground.IsTouchTheGround)
         {
             _controller.ThinkNextMove();
-            Exit();
+        }
+        else
+        {
+            _jumpCurrentTime += Time.fixedDeltaTime;
+            if (_jumpCurrentTime >= 1)
+            {
+                _controller.AttackThinkProtocol(_controller.CalcTargetDistance());
+                _jumpCurrentTime = 0;
+            }
         }
     }
 

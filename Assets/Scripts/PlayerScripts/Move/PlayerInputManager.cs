@@ -5,6 +5,8 @@ public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField, Header("近接攻撃のスクリプト")]
     private LeftAttack _meleeAttack = default;
+    [SerializeField, Header("射撃のクールタイム")]
+    private float _shootCoolTime = 1.0f;
 
     private InputAction _dashButton = default;
     private InputAction _jumpButton = default;
@@ -19,6 +21,8 @@ public class PlayerInputManager : MonoBehaviour
     private AttackScript _attack = default;
     private PlayAnimationScript _anim = default;
     private TakeDamageScript _takeDamage = default;
+
+    private float _prevInputTime = 0f;
     private void Start()
     {
         _dashButton = InputSystem.actions.FindAction("Dash");
@@ -34,6 +38,7 @@ public class PlayerInputManager : MonoBehaviour
         _attack = GetComponent<AttackScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _takeDamage = GetComponent<TakeDamageScript>();
+        _prevInputTime = Time.time;
     }
 
     private void Update()
@@ -72,13 +77,29 @@ public class PlayerInputManager : MonoBehaviour
         }
         if (_rightWeaponInput.WasPressedThisFrame())
         {
-            _attack.RightAttack(_lockOn.CurrentTargetObject());
-            _anim.RightAttackAnim();
+            float curInputTime = Time.time;
+            CallRightAttackProtocol(_prevInputTime,curInputTime);
         }
         if (_leftWeaponInput.WasPressedThisFrame())
         {
             _attack.LeftAttack(_lockOn.CurrentTargetObject());
             _anim.LeftATKRush();
+        }
+    }
+
+    private void CallRightAttackProtocol(float prevInputTime,float currentInputTime)
+    {
+        float timeDifference = currentInputTime - prevInputTime;
+        if (timeDifference > _shootCoolTime)
+        {
+            _attack.RightAttack(_lockOn.CurrentTargetObject());
+            _anim.RightAttackAnim();
+            _prevInputTime = currentInputTime;
+        }
+        else
+        {
+            float waitTime = 1 - timeDifference;
+            Debug.Log("あと" + waitTime + "秒必要");
         }
     }
 }

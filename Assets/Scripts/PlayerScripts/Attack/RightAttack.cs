@@ -17,6 +17,9 @@ public class RightAttack : MonoBehaviour
     public void ShootProtocol(Transform target)
     {
         Vector3 targetDIr = (target.position - transform.position).normalized;
-        _pool.ActiveBullet(targetDIr, _bulletAliveTime,transform.position,_bulletDamage,_blowAwayPower, "PLBullet");
+        for(int i =0; i<3; i++)
+        {
+            _pool.ActiveBullet(targetDIr, _bulletAliveTime, transform.position, _bulletDamage, _blowAwayPower, "PLBullet");
+        }
     }
 }
