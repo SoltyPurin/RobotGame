@@ -4,6 +4,7 @@ public class EnemyContext
 {
     public Transform Transform;
     public Transform PlayerTransform;
+    public Vector3 PlayerPosition;
     public Transform ShootPoint;
     public Rigidbody OnBallRigidbody;
     public Rigidbody BallRigidBody;

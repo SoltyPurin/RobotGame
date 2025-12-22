@@ -60,6 +60,10 @@ public class TestAIController : MonoBehaviour
     private float _stopTime = 1;
     [SerializeField, Header("何回移動したら飛ぶようにするか")]
     private int _moveCountUntilJump = 3;
+    [SerializeField, Header("何秒先読みするか")]
+    private float _sakiyomiTime = 1;
+    [SerializeField, Header("速度がどれくらい遅かったら先読みをやめるか")]
+    private float _sakiyomiStopSpeed = 10;
 
 
     private StateMachine _stateMachine; // プレイヤーの状態を管理するStateMachine
@@ -72,6 +76,7 @@ public class TestAIController : MonoBehaviour
     private GameObject _playerObj = default;
     private TakeDamageScript _takeDamage = default;
     private PlayAnimationScript _anim = default;
+    private Rigidbody _plRigidBody = default;
 
     private bool _isAttacked = false;
 
@@ -82,6 +87,7 @@ public class TestAIController : MonoBehaviour
         _takeDamage = GetComponent<TakeDamageScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _playerObj = GameObject.FindWithTag("Player");
+        _plRigidBody = _playerObj.GetComponent<Rigidbody>();
         _ctx = new EnemyContext();
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
@@ -99,6 +105,7 @@ public class TestAIController : MonoBehaviour
         _ctx.MeleeBlowAwayPower = _meleeBlowAwayPower;
         _ctx.MeleeDamage = _meleeDamageValue;
         _ctx.PlayerTransform = _playerObj.transform;
+        _ctx.PlayerPosition = _playerObj.transform.position;
         _ctx.Pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
         _ctx.BulletBlowAwayPower = _bulletBlowAwayPower;
         _ctx.BulletAliveTime = _bulletAliveTime;
@@ -114,6 +121,7 @@ public class TestAIController : MonoBehaviour
     private void FixedUpdate()
     {
         _ctx.PlayerTransform = _playerObj.transform;
+        _ctx.PlayerPosition = PredictionPlayerPos();
         Vector3 eur = transform.eulerAngles;
         eur.x = 0;
         eur.z = 0;
@@ -150,7 +158,7 @@ public class TestAIController : MonoBehaviour
 
     public void AttackThinkProtocol(float distance)
     {
-        if (distance > 30)
+        if (distance > 40)
         {
             Debug.Log("射撃");
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
@@ -188,6 +196,24 @@ public class TestAIController : MonoBehaviour
         _isAttacked = false;
     }
 
+    private Vector3 PredictionPlayerPos()
+    {
+        float speed = _plRigidBody.linearVelocity.magnitude;
+        if(speed < _sakiyomiStopSpeed)
+        {
+            Debug.Log("先読み辞めてます");
+            return _playerObj.transform.position;
+        }
+        else
+        {
+            Debug.Log("先読み中");
+            Vector3 moveDir = _plRigidBody.linearVelocity;
+            Vector3 plPos = _playerObj.transform.position;
+            Vector3 sakiyomiPos = plPos + moveDir * _sakiyomiTime;
+            return sakiyomiPos;
+
+        }
+    }
     private bool IsNearBullet()
     {
         GameObject[] plBullets = GameObject.FindGameObjectsWithTag("PLBullet");

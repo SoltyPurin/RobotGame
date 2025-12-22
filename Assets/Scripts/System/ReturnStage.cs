@@ -7,7 +7,7 @@ public class ReturnStage : MonoBehaviour
         GameObject obj = other.gameObject;
 
         Vector3 curPos = obj.transform.position;
-        curPos.y += 10f;
+        curPos.y += 100f;
         obj.transform.position = curPos;
     }
 }

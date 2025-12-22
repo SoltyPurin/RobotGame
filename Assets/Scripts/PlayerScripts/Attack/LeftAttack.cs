@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Collections;
 
 public class LeftAttack : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class LeftAttack : MonoBehaviour
         _targetDirection = (target.position- _onBallRigidBody.position).normalized;
         _targetPos = FinalDestination(_targetDirection, _dashSpeed);
         _state.ChangeLeftAttackState();
-        StopRush();
+        StartCoroutine(StopRush());
     }
     private void FixedUpdate()
     {
@@ -42,9 +43,9 @@ public class LeftAttack : MonoBehaviour
         _onBallRigidBody.MovePosition(Vector3.MoveTowards(_onBallRigidBody.position, _targetPos, _dashSpeed * Time.fixedDeltaTime));
     }
 
-    private async void StopRush()
+    private IEnumerator StopRush()
     {
-        await UniTask.WaitForSeconds(_rushTime);
+        yield return new WaitForSeconds(_rushTime);
         _canRush = false;
         if (!_isTouchTheEnemy)
         {

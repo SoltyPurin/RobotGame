@@ -18,8 +18,6 @@ public class PlayerMove : MonoBehaviour
     private GameObject _normalCamera = default;
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
-    [SerializeField, Header("ロックオンのスクリプト")]
-    private LockOn _lockOnScript = default;
     [SerializeField, Header("ロボットの見た目")]
     private GameObject _danbine = default;
 
@@ -33,7 +31,7 @@ public class PlayerMove : MonoBehaviour
     {
         get { return _useVelocity; }
     }
-
+    private GameObject _activeCamera = default;
     private InputAction _moveInput;
     private LockOn _lockOn = default;
 
@@ -42,6 +40,7 @@ public class PlayerMove : MonoBehaviour
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
         _lockOn = GetComponent<LockOn>();
+        _activeCamera = _lockOnCamera;
     }
     private void Update()
     {
@@ -62,20 +61,16 @@ public class PlayerMove : MonoBehaviour
 
     private void MoveProtocol()
     {
-        GameObject activeCamera = _normalCamera;
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
-        switch (_lockOn.State)
+        if(_lockOn.TargetTransform == null)
         {
-            case CameraState.Normal:
-                activeCamera = _normalCamera;
-                NormalProtocol(activeCamera,curVelocity);
-                break;
-
-            case CameraState.LockOn:
-                activeCamera = _lockOnCamera;
-                LockOnMoveProtocol(activeCamera, curVelocity);
-                break;  
+            NormalProtocol(_activeCamera, curVelocity);
         }
+        else
+        {
+            LockOnMoveProtocol(_activeCamera, curVelocity);
+        }
+
         _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
     }
 

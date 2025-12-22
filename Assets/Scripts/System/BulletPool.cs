@@ -19,7 +19,7 @@ public class BulletPool : MonoBehaviour
     {
         for(int i =0; i < _bulletGenerateCount; i++)
         {
-            GameObject bullet = Instantiate(_bullet, this.transform);
+            GameObject bullet = Instantiate(_bullet);
             _bulletList.Add(bullet);
             BulletMove move = bullet.GetComponent<BulletMove>();
             _bulletMove.Add(move);

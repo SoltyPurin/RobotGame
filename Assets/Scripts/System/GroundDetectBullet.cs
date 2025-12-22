@@ -14,6 +14,7 @@ public class GroundDetectBullet : MonoBehaviour
         GameObject colObj = collision.gameObject;
         if(colObj.CompareTag("ENBullet") || colObj.CompareTag("PLBullet"))
         {
+            Debug.Log("èeíeÇåüím");
             _bulletPool.DeActiveBullet(colObj);
         }
     }

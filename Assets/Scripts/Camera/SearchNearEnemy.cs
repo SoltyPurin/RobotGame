@@ -2,22 +2,25 @@ using UnityEngine;
 
 public class SearchNearEnemy : MonoBehaviour
 {
+    private GameObject[] _enemys;
+    private int _currentEnemyIndex = 0;
+    private void Awake()
+    {
+        _enemys = GameObject.FindGameObjectsWithTag("Enemy");
+    }
+    public void ChangeEnemyArray()
+    {
+        _enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        _currentEnemyIndex = 0;
+    }
     public GameObject SearchAndReturnNearEnemy()
     {
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        Vector3 curPos = this.transform.position;
-        float nearDistance = Vector3.Distance(curPos, enemys[0].transform.position);
-        int nearObjIndex = 0;
-        for(int i = 1; i < enemys.Length; i++)
+        _currentEnemyIndex++;
+        if(_currentEnemyIndex >= _enemys.Length)
         {
-            float curDistance = Vector3.Distance(curPos, enemys[i].transform.position);
-            if(curDistance < nearDistance)
-            {
-                nearDistance = curDistance;
-                nearObjIndex = i;
-            }
+            _currentEnemyIndex = 0;
         }
 
-        return enemys[nearObjIndex];
+        return _enemys[_currentEnemyIndex];
     }
 }
