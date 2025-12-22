@@ -241,9 +241,16 @@ public class TestAIController : MonoBehaviour
         RaycastHit underHit;
         RaycastHit upHit;
         Vector3 startPoint = new Vector3(x,transform.position.y + 1,z);
-        Physics.Raycast(startPoint,Vector3.down, out underHit, Mathf.Infinity);
-        Physics.Raycast(startPoint,Vector3.up, out upHit, Mathf.Infinity);
-        startPoint = underHit.point;
+        bool isHitDown = Physics.Raycast(startPoint,Vector3.down, out underHit, Mathf.Infinity);
+        bool isHitUp = Physics.Raycast(startPoint,Vector3.up, out upHit, Mathf.Infinity);
+        if (isHitDown)
+        {
+            startPoint = underHit.point;
+        }
+        else if (isHitUp)
+        {
+            startPoint = upHit.point;
+        }
         return startPoint;
     }
     private void OnDrawGizmos()
