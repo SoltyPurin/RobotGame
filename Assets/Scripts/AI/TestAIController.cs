@@ -238,10 +238,12 @@ public class TestAIController : MonoBehaviour
 
     private Vector3 ReturnGroundPos(float x,float z)
     {
-        RaycastHit hit;
+        RaycastHit underHit;
+        RaycastHit upHit;
         Vector3 startPoint = new Vector3(x,transform.position.y + 1,z);
-        Physics.Raycast(startPoint,Vector3.down, out hit, Mathf.Infinity);
-        startPoint = hit.point;
+        Physics.Raycast(startPoint,Vector3.down, out underHit, Mathf.Infinity);
+        Physics.Raycast(startPoint,Vector3.up, out upHit, Mathf.Infinity);
+        startPoint = underHit.point;
         return startPoint;
     }
     private void OnDrawGizmos()
