@@ -14,8 +14,6 @@ public class PlayerMove : MonoBehaviour
     private float _speed = 50;
     [SerializeField, Header("重力")]
     private float _downForce = 5;
-    [SerializeField, Header("通常カメラ")]
-    private GameObject _normalCamera = default;
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
     [SerializeField, Header("ロボットの見た目")]

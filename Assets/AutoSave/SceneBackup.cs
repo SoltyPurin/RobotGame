@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -15,3 +16,4 @@ public class SceneBackup : UnityEditor.AssetModificationProcessor
 		return paths;
 	}
 }
+#endif

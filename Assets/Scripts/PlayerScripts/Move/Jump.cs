@@ -9,6 +9,8 @@ public class Jump : MonoBehaviour
     protected int _canJumpCount = 2;
     [SerializeField,Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
+    [SerializeField, Header("エフェクト")]
+    private PlayerEffectPlay _effect = default;
 
     protected int _jumpCount = 0;
 
@@ -18,7 +20,7 @@ public class Jump : MonoBehaviour
         {
             return;
         }
-
+        _effect.PlayThrusterEffect();
         _jumpCount++;
         _ballRigidBody.AddForce(transform.up *  _jumpForce,ForceMode.Impulse);
     }
