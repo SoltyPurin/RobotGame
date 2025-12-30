@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class DeathManager : MonoBehaviour
 {
+    [SerializeField, Header("ロックオンのカメラ")]
+    private CinemachineThirdPersonFollow _camera = default;
     private int _enemyCount = 0;
     private LockOn _lockOn = default;
     private SearchNearEnemy _nearEnemy = default;
@@ -28,8 +31,14 @@ public class DeathManager : MonoBehaviour
     {
         if(hp <= 0)
         {
-            SceneManager.LoadScene("DeathResult");
+            StartCoroutine(PlayerDeathDelay());
         }
+    }
+
+    private IEnumerator PlayerDeathDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("DeathResult");
     }
 
     public void EnemyCheckHP(int hp)
@@ -40,23 +49,28 @@ public class DeathManager : MonoBehaviour
         }
         if(hp <= 0)
         {
+            Time.timeScale = 0.2f;
             _canJudge = false;
             _enemyCount--;
             StartCoroutine(ReturnTimeScale());
             Debug.Log("残りの敵の数" + _enemyCount);
-            if(_enemyCount <= 0)
-            {
-                SceneManager.LoadScene("WinResult");
-            }
+
         }
     }
 
     private IEnumerator ReturnTimeScale()
     {
+        _camera.ShoulderOffset.z = 165;
         _nearEnemy.ChangeEnemyArray();
         _lockOn.ChangeCamera();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1;
+        _camera.ShoulderOffset.z = 0;
         _canJudge = true;
+        if (_enemyCount <= 0)
+        {
+            SceneManager.LoadScene("WinResult");
+        }
+
     }
 }

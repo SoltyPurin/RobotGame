@@ -8,6 +8,8 @@ public class RightAttack : MonoBehaviour
     private int _bulletDamage = 50;
     [SerializeField, Header("吹き飛ばし力")]
     private float _blowAwayPower = 50f;
+    [SerializeField, Header("音を再生するスクリプト")]
+    private PlayerSoundPlayScript _soundPlay = default;
     private BulletPool _pool = default;
 
     private void Awake()
@@ -20,6 +22,7 @@ public class RightAttack : MonoBehaviour
         for(int i =0; i<3; i++)
         {
             _pool.ActiveBullet(targetDIr, _bulletAliveTime, transform.position, _bulletDamage, _blowAwayPower, "PLBullet");
+            _soundPlay.PlayShootSound();
         }
     }
 }

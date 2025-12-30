@@ -39,4 +39,9 @@ public class PlayAnimationScript : MonoBehaviour
     {
         _animator.SetTrigger("TakeDamage");
     }
+
+    public void DeathAnim()
+    {
+        _animator.SetBool("IsDead", true);
+    }
 }

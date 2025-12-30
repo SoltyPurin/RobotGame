@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: a6e4d578596b940abad492b95a33a151
+timeCreated: 1529060344
+licenseType: Store
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 0
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 120938
+  packageName: Weapon Master
+  packageVersion: 1.2
+  assetPath: Assets/Weapon_Master/2.WM_Stereo/Sword_Damage_03.wav
+  uploadId: 293196

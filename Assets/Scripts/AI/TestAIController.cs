@@ -82,6 +82,8 @@ public class TestAIController : MonoBehaviour
 
     private int _moveCount = 0;
 
+    private bool _isAlive = true;
+
     private void Start()
     {
         _takeDamage = GetComponent<TakeDamageScript>();
@@ -120,6 +122,10 @@ public class TestAIController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_isAlive)
+        {
+            return;
+        }
         _ctx.PlayerTransform = _playerObj.transform;
         _ctx.PlayerPosition = PredictionPlayerPos();
         Vector3 eur = transform.eulerAngles;
@@ -133,6 +139,11 @@ public class TestAIController : MonoBehaviour
         _stateMachine.FixedUpdate(); 
         _ctx.Transform = this.transform;
 
+    }
+
+    public void Dead()
+    {
+        _isAlive = false;
     }
 
     public void ThinkNextMove()
@@ -251,6 +262,7 @@ public class TestAIController : MonoBehaviour
         curPos.x += Random.Range(-_moveMaxDistance, _moveMaxDistance);
         curPos.z += Random.Range(-_moveMaxDistance, _moveMaxDistance);
         curPos = ReturnGroundPos(curPos.x, curPos.z);
+        curPos = ClampDestinationToStage(curPos);
         _isTargetCalculated = true;
         _targetPos = curPos;
         return curPos;
@@ -278,6 +290,25 @@ public class TestAIController : MonoBehaviour
             startPoint = upHit.point;
         }
         return startPoint;
+    }
+
+    private Vector3 ClampDestinationToStage(Vector3 destination)
+    {
+        float xPos = destination.x;
+        float zPos = destination.z;
+        bool isXFits = xPos < 490 && xPos > -490;
+        bool isZFits = zPos < 490 && zPos > -490;
+        bool isOk = isXFits && isZFits;
+        if (isOk)
+        {
+            Debug.Log("çƒåvéZÇµÇΩÇ™ñ‚ëËÇ»Çµ");
+            return destination;
+        }
+        else
+        {
+            Debug.Log("ñ⁄ïWç¿ïWàÌíEÅAç¿ïWçƒèCê≥");
+            return CalcTargetPos();
+        }
     }
     private void OnDrawGizmos()
     {

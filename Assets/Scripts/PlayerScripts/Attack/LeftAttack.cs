@@ -18,6 +18,8 @@ public class LeftAttack : MonoBehaviour
     private int _damageValue = 50;
     [SerializeField, Header("êÅÇ´îÚÇŒÇµóÕ")]
     private float _blowAwayPower = 50f;
+    [SerializeField, Header("âπó çƒê∂")]
+    private PlayerSoundPlayScript _soundPlayer = default;
     private Vector3 _targetDirection = Vector3.zero;
     private Vector3 _targetPos = Vector3.zero;
     private bool _canRush = false;
@@ -32,6 +34,7 @@ public class LeftAttack : MonoBehaviour
         _targetDirection = (target.position- _onBallRigidBody.position).normalized;
         _targetPos = FinalDestination(_targetDirection, _dashSpeed);
         _state.ChangeLeftAttackState();
+        _soundPlayer.PlaySwordSwing();
         StartCoroutine(StopRush());
     }
     private void FixedUpdate()

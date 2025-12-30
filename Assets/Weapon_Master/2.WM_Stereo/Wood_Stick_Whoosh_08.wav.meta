@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 0e70a3f29bd1543ba9824f42f7416039
+timeCreated: 1529060325
+licenseType: Store
+AudioImporter:
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 0
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  preloadAudioData: 1
+  loadInBackground: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 120938
+  packageName: Weapon Master
+  packageVersion: 1.2
+  assetPath: Assets/Weapon_Master/2.WM_Stereo/Wood_Stick_Whoosh_08.wav
+  uploadId: 293196

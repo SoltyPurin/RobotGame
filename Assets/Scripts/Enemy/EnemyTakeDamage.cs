@@ -1,11 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyTakeDamage : TakeDamageScript
 {
+    [SerializeField, Header("Ž€–SŽž‚É’x‚ç‚¹‚éŽžŠÔ")]
+    private float _deathDelayTime = 2;
+
+    private TestAIController _controller = default;
+    private PlayAnimationScript _anim = default;
+    private EnemySoundPlayScript _soundPlay = default;
     private EnemyHPSlider _slider = default;
     public override void Start()
     {
         base.Start();
+        _anim = GetComponent<PlayAnimationScript>();
+        _soundPlay = GetComponent<EnemySoundPlayScript>();
+        _controller = GetComponent<TestAIController>();
         _slider = GetComponent<EnemyHPSlider>();
         _slider.Initialize(_userHP);
     }
@@ -14,6 +24,7 @@ public class EnemyTakeDamage : TakeDamageScript
         base.MeleeTakeDamage(attackDirection, damage, blowAwayPower);
         _deathManager.EnemyCheckHP(_userHP);
         _slider.ValueUpdate(_userHP);
+        _soundPlay.PlayTakeMeleeDamage();
         CheckDeath();
     }
 
@@ -29,11 +40,18 @@ public class EnemyTakeDamage : TakeDamageScript
     {
         if(_userHP <= 0)
         {
-            LockOn lockOn = GameObject.FindAnyObjectByType<LockOn>();
-            lockOn.UnlockTarget();
-            lockOn.ChangeCamera();
-            Destroy(this.gameObject);
-            
+            _controller.Dead();
+            StartCoroutine(DeathDelay());
+            _anim.DeathAnim();
         }
+    }
+
+    private IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(_deathDelayTime);
+        LockOn lockOn = GameObject.FindAnyObjectByType<LockOn>();
+        lockOn.UnlockTarget();
+        lockOn.ChangeCamera();
+        Destroy(this.gameObject);
     }
 }
