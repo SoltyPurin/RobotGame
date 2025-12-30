@@ -307,7 +307,15 @@ public class TestAIController : MonoBehaviour
         else
         {
             Debug.Log("目標座標逸脱、座標再修正");
-            return CalcTargetPos();
+            Vector3 curPos = transform.position;
+            curPos.x += Random.Range(-_moveMaxDistance, _moveMaxDistance);
+            curPos.z += Random.Range(-_moveMaxDistance, _moveMaxDistance);
+            curPos = ReturnGroundPos(curPos.x, curPos.z);
+            curPos.x = Mathf.Clamp(curPos.x, -490, 490);
+            curPos.z = Mathf.Clamp(curPos.z, -490, 490);
+            return curPos;
+
+
         }
     }
     private void OnDrawGizmos()
