@@ -22,6 +22,8 @@ public class PlayerInputManager : MonoBehaviour
     private PlayAnimationScript _anim = default;
     private TakeDamageScript _takeDamage = default;
 
+    private bool _isAlive = true;
+
     private float _prevInputTime = 0f;
     private void Start()
     {
@@ -43,6 +45,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        if (!_isAlive)
+        {
+            return;
+        }
         if (_lockOnButton.WasPressedThisFrame())
         {
             _lockOn.ChangeCamera();
@@ -85,6 +91,11 @@ public class PlayerInputManager : MonoBehaviour
             _attack.LeftAttack(_lockOn.CurrentTargetObject());
             _anim.LeftATKRush();
         }
+    }
+
+    public void Dead()
+    {
+        _isAlive = false;
     }
 
     private void CallRightAttackProtocol(float prevInputTime,float currentInputTime)

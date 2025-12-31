@@ -7,13 +7,11 @@ public class EnemyTakeDamage : TakeDamageScript
     private float _deathDelayTime = 2;
 
     private TestAIController _controller = default;
-    private PlayAnimationScript _anim = default;
     private EnemySoundPlayScript _soundPlay = default;
     private EnemyHPSlider _slider = default;
     public override void Start()
     {
         base.Start();
-        _anim = GetComponent<PlayAnimationScript>();
         _soundPlay = GetComponent<EnemySoundPlayScript>();
         _controller = GetComponent<TestAIController>();
         _slider = GetComponent<EnemyHPSlider>();
@@ -25,7 +23,7 @@ public class EnemyTakeDamage : TakeDamageScript
         _deathManager.EnemyCheckHP(_userHP);
         _slider.ValueUpdate(_userHP);
         _soundPlay.PlayTakeMeleeDamage();
-        CheckDeath();
+        DeathCheck();
     }
 
     public override void ShootTakeDamage(Vector3 bulletDirection, int damage, float blowAwayPower)
@@ -33,16 +31,16 @@ public class EnemyTakeDamage : TakeDamageScript
         base.ShootTakeDamage(bulletDirection, damage, blowAwayPower);
         _deathManager.EnemyCheckHP(_userHP);
         _slider.ValueUpdate(_userHP);
-        CheckDeath();
+        DeathCheck();
     }
 
-    private void CheckDeath()
+    public override void DeathCheck()
     {
+        base.DeathCheck();
         if(_userHP <= 0)
         {
             _controller.Dead();
             StartCoroutine(DeathDelay());
-            _anim.DeathAnim();
         }
     }
 

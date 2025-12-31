@@ -7,8 +7,12 @@ public class PlayerTakeDamage : TakeDamageScript
     private float _meleeDuration = 1;
     [SerializeField, Header("射撃攻撃食らった時の揺れ")]
     private float _shootDuration = 0.5f;
+    [SerializeField, Header("ロックオンカメラ")]
+    private CinemachineCamera _lockOnCamera = default;
+
 
     private UIViewer _uiViewer = default;
+    private PlayerInputManager _input = default;
     private CinemachineImpulseSource _shake = default;
 
     public override void Start()
@@ -16,6 +20,7 @@ public class PlayerTakeDamage : TakeDamageScript
         base.Start();
         _shake = GetComponent<CinemachineImpulseSource>();
         _uiViewer = FindAnyObjectByType<UIViewer>();
+        _input = GetComponent<PlayerInputManager>();
         _uiViewer.SetHealth(_userHP);
     }
 
@@ -27,8 +32,8 @@ public class PlayerTakeDamage : TakeDamageScript
             Debug.Log("近接攻撃食らった");
             _shake.GenerateImpulseWithForce(_meleeDuration);
         }
-        _deathManager.PlayerCheckHP(_userHP);
         _uiViewer.SetHealth(_userHP);
+        DeathCheck();
     }
 
     public override void ShootTakeDamage(Vector3 bulletDirection, int damage, float blowAwayPower)
@@ -39,8 +44,19 @@ public class PlayerTakeDamage : TakeDamageScript
             _shake.GenerateImpulseWithForce(_shootDuration);
 
         }
-        _deathManager.PlayerCheckHP(_userHP);
         _uiViewer.SetHealth(_userHP);
+        DeathCheck();
+    }
 
+    public override void DeathCheck()
+    {
+        base.DeathCheck();
+        Debug.Log("プレイヤーの体力は" + _userHP);
+        if(_userHP <= 0)
+        {
+            _lockOnCamera.LookAt = transform;
+            _input.Dead();
+            _deathManager.PlayerCheckHP(_userHP);
+        }
     }
 }

@@ -29,15 +29,12 @@ public class DeathManager : MonoBehaviour
     }
     public void PlayerCheckHP(int hp)
     {
-        if(hp <= 0)
-        {
-            StartCoroutine(PlayerDeathDelay());
-        }
+        StartCoroutine(PlayerDeathDelay());
     }
 
     private IEnumerator PlayerDeathDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("DeathResult");
     }
 
