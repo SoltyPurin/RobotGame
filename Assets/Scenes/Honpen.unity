@@ -233928,6 +233928,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
+      propertyPath: _rushTime
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
+      propertyPath: _rushSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
+      propertyPath: _meleeAttackRange
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

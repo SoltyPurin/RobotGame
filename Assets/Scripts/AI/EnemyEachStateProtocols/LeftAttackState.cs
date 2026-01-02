@@ -23,7 +23,7 @@ public class LeftAttackState : IEnemyState
         _controller = controller;
         _anim = _ctx.Animation;
         _anim.LeftATKRush();
-        Vector3 target = _ctx.PlayerTransform.position;
+        Vector3 target = _ctx.PlayerPosition;
         _targetDirection = (target- _ctx.OnBallRigidbody.position).normalized;
         Quaternion targetRot = Quaternion.LookRotation(_targetDirection, Vector3.up);
         _ctx.OnBallRigidbody.rotation = targetRot;
@@ -33,7 +33,7 @@ public class LeftAttackState : IEnemyState
 
     public void FixedUpdate()
     {
-        Vector3 target = _ctx.PlayerTransform.position;
+        Vector3 target = _ctx.PlayerPosition;
         _targetDirection = (target - _ctx.OnBallRigidbody.position).normalized;
         Vector3 lookDir = _targetDirection;
         lookDir.y = 0;
@@ -45,7 +45,7 @@ public class LeftAttackState : IEnemyState
         }
         //OnDrawGizmos();
         RaycastHit hit;
-        Vector3 attackRangeCenter = _ctx.OnBallRigidbody.transform.localPosition;
+        Vector3 attackRangeCenter = _ctx.OnBallRigidbody.transform.position;
         attackRangeCenter.y += _ctx.MeleeRangeCenter.y;
         attackRangeCenter.z += _ctx.MeleeRangeCenter.z;
         if (Physics.BoxCast(attackRangeCenter,

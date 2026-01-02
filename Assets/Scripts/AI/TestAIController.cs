@@ -64,6 +64,8 @@ public class TestAIController : MonoBehaviour
     private float _sakiyomiTime = 1;
     [SerializeField, Header("‘¬“x‚ª‚Ç‚ê‚­‚ç‚¢’x‚©‚Á‚½‚çæ“Ç‚Ý‚ð‚â‚ß‚é‚©")]
     private float _sakiyomiStopSpeed = 10;
+    [SerializeField, Header("‹ßÚ‚É”­“W‚·‚é‹——£")]
+    private float _meleeAttackRange = 50;
 
 
     private StateMachine _stateMachine; // ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ðŠÇ—‚·‚éStateMachine
@@ -169,7 +171,7 @@ public class TestAIController : MonoBehaviour
 
     public void AttackThinkProtocol(float distance)
     {
-        if (distance > 40)
+        if (distance > _meleeAttackRange)
         {
             Debug.Log("ŽËŒ‚");
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
