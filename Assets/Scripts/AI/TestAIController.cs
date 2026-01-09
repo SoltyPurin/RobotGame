@@ -5,18 +5,25 @@ using UnityEngine.InputSystem;
 
 public class TestAIController : MonoBehaviour
 {
-    [SerializeField, Header("どれくらい弾が近づいたら回避するか")]
-    private float _dodgeRange = 5f;
+
+    private enum EnemyType
+    {
+        Melee,
+        ShotWeapon,
+        Normal,
+    }
+    [SerializeField,Header("敵のタイプ")]
+    private EnemyType _enemyType = EnemyType.Normal;
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
     [SerializeField,Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
     [SerializeField, Header("地面の検知")]
     private EnemyDetectGround _detectGround = default;
+    [SerializeField, Header("どれくらい弾が近づいたら回避するか")]
+    private float _dodgeRange = 5f;
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
-    [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
-    private float _nearTargetPosDistance = 5;
     [SerializeField, Header("突進時の速度")]
     private float _rushSpeed = 40f;
     [SerializeField, Header("突進時間")]
@@ -39,6 +46,9 @@ public class TestAIController : MonoBehaviour
     private Vector3 _meleeRangeSize;
     [SerializeField, Header("近接判定の中心座標")]
     private Vector3 _meleeRangeCenter;
+    [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
+    private float _nearTargetPosDistance = 5;
+
 
     public float NearTargetPosDistance
     {
@@ -159,6 +169,7 @@ public class TestAIController : MonoBehaviour
         }
 
 
+
         if (_isAttacked)
         {
             MoveThinkProtocol(distance);
@@ -171,6 +182,26 @@ public class TestAIController : MonoBehaviour
 
     public void AttackThinkProtocol(float distance)
     {
+        switch (_enemyType)
+        {
+            case EnemyType.Melee:
+                _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+                break;
+
+            case EnemyType.ShotWeapon:
+                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+                break;
+
+            case EnemyType.Normal:
+                NormalEnemyThink(distance);
+                break;
+        }
+
+        _isAttacked = true;
+    }
+
+    private void NormalEnemyThink(float distance)
+    {
         if (distance > _meleeAttackRange)
         {
             Debug.Log("射撃");
@@ -181,7 +212,6 @@ public class TestAIController : MonoBehaviour
             Debug.Log("近接");
             _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
         }
-        _isAttacked = true;
     }
 
     private void MoveThinkProtocol(float distance)
