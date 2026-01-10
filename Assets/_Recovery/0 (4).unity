@@ -144847,10 +144847,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
-      propertyPath: _status
-      value: 
-      objectReference: {fileID: 11400000, guid: 3c5d19e4c828cc046afb44bd473bd873, type: 2}
-    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: _enemyType
       value: 1
       objectReference: {fileID: 0}
@@ -233936,10 +233932,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
-      propertyPath: _status
-      value: 
-      objectReference: {fileID: 11400000, guid: 044f4ddc32b461849aaa2a58827b8fc6, type: 2}
     - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: _rushTime
       value: 0.7

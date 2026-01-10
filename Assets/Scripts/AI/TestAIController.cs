@@ -2,51 +2,29 @@ using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+public enum EnemyType
+{
+    Melee,
+    ShotWeapon,
+    Normal,
+}
 
 public class TestAIController : MonoBehaviour
 {
-
-    private enum EnemyType
-    {
-        Melee,
-        ShotWeapon,
-        Normal,
-    }
-    [SerializeField,Header("敵のタイプ")]
-    private EnemyType _enemyType = EnemyType.Normal;
+    [SerializeField, Header("ScriptableObject")]
+    private EnemyStatus _status = default;
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
     [SerializeField,Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;
     [SerializeField, Header("地面の検知")]
     private EnemyDetectGround _detectGround = default;
-    [SerializeField, Header("どれくらい弾が近づいたら回避するか")]
-    private float _dodgeRange = 5f;
-    [SerializeField, Header("その場所から移動する最大距離")]
-    private float _moveMaxDistance = 10;
-    [SerializeField, Header("突進時の速度")]
-    private float _rushSpeed = 40f;
-    [SerializeField, Header("突進時間")]
-    private float _rushTime = 1.4f;
-    [SerializeField, Header("近接で与えるダメージ")]
-    private int _meleeDamageValue = 50;
-    [SerializeField, Header("近接攻撃の吹き飛ばし力")]
-    private float _meleeBlowAwayPower = 50f;
-    [SerializeField, Header("射撃で与えるダメージ")]
-    private int _bulletDamageValue = 50;
-    [SerializeField, Header("射撃での吹き飛ばし力")]
-    private float _bulletBlowAwayPower = 50;
-    [SerializeField, Header("銃弾の生存時間")]
-    private float _bulletAliveTime = 5;
-    [SerializeField, Header("重力")]
-    private float _gravity = 150;
-    [SerializeField, Header("射撃開始地点")]
-    private Transform _shootPoint = default;
     [SerializeField, Header("近接攻撃の判定の大きさ")]
     private Vector3 _meleeRangeSize;
     [SerializeField, Header("近接判定の中心座標")]
     private Vector3 _meleeRangeCenter;
-    [SerializeField, Header("どれくらいターゲットの座標に近づいたら到着判定になるか")]
+    [SerializeField, Header("射撃開始地点")]
+    private Transform _shootPoint = default;
     private float _nearTargetPosDistance = 5;
 
 
@@ -54,30 +32,11 @@ public class TestAIController : MonoBehaviour
     {
         get { return _nearTargetPosDistance; }
     }
-    [SerializeField, Header("移動速度")]
-    private float _aiMoveSpeed = 50f;
+    private float _aiMoveSpeed;
     public float AIMoveSpeed
     {
         get { return _aiMoveSpeed; }
     }
-    [SerializeField, Header("回避時に与える力")]
-    private float _dodgePower = 10;
-    [SerializeField, Header("回避時間")]
-    private float _dodgeTime = 0.5f;
-    [SerializeField, Header("ジャンプ力")]
-    private float _jumpPower = 10;
-    [SerializeField, Header("待機状態の待機時間")]
-    private float _stopTime = 1;
-    [SerializeField, Header("何回移動したら飛ぶようにするか")]
-    private int _moveCountUntilJump = 3;
-    [SerializeField, Header("何秒先読みするか")]
-    private float _sakiyomiTime = 1;
-    [SerializeField, Header("速度がどれくらい遅かったら先読みをやめるか")]
-    private float _sakiyomiStopSpeed = 10;
-    [SerializeField, Header("近接に発展する距離")]
-    private float _meleeAttackRange = 50;
-
-
     private StateMachine _stateMachine; // プレイヤーの状態を管理するStateMachine
 
     private bool _isTargetCalculated = false;
@@ -102,34 +61,37 @@ public class TestAIController : MonoBehaviour
         _anim = GetComponent<PlayAnimationScript>();
         _playerObj = GameObject.FindWithTag("Player");
         _plRigidBody = _playerObj.GetComponent<Rigidbody>();
+        _nearTargetPosDistance = _status.NearTargetPosDistance;
+        _aiMoveSpeed = _status.AiMoveSpeed;
         _ctx = new EnemyContext();
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
         _ctx.MoveSpeed = _aiMoveSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
         _ctx.BallRigidBody = _ballRigidBody;
-        _ctx.DodgePower = _dodgePower;
-        _ctx.DodgeTime = _dodgeTime;
-        _ctx.JumpPower = _jumpPower;
-        _ctx.StopTime = _stopTime;
+        _ctx.DodgePower = _status.DodgePower;
+        _ctx.DodgeTime = _status.DodgeTime;
+        _ctx.JumpPower = _status.JumpPower;
+        _ctx.StopTime = _status.StopTime;
         _ctx.Ground = _detectGround;
-        _ctx.RushSpeed = _rushSpeed;
-        _ctx.RushTime = _rushTime;
+        _ctx.RushSpeed = _status.RushSpeed;
+        _ctx.RushTime = _status.RushTime;
         _ctx.Animation = _anim;
-        _ctx.MeleeBlowAwayPower = _meleeBlowAwayPower;
-        _ctx.MeleeDamage = _meleeDamageValue;
+        _ctx.MeleeBlowAwayPower = _status.MeleeBlowAwayPower;
+        _ctx.MeleeDamage = _status.MeleeDamageValue;
         _ctx.PlayerTransform = _playerObj.transform;
         _ctx.PlayerPosition = _playerObj.transform.position;
         _ctx.Pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
-        _ctx.BulletBlowAwayPower = _bulletBlowAwayPower;
-        _ctx.BulletAliveTime = _bulletAliveTime;
-        _ctx.BulletDamage = _bulletDamageValue;
+        _ctx.BulletBlowAwayPower = _status.BulletBlowAwayPower;
+        _ctx.BulletAliveTime = _status.BulletAliveTime;
+        _ctx.BulletDamage = _status.BulletDamageValue;
         _ctx.ShootPoint = _shootPoint;
-        _ctx.Gravity = _gravity;
+        _ctx.Gravity = _status.Gravity;
         _ctx.MeleeRangeSize = _meleeRangeSize;
         _ctx.MeleeRangeCenter = _meleeRangeCenter;
         _stateMachine = new StateMachine(); // StateMachineのインスタンスを作成
-        _stateMachine.ChangeState(new MoveState(),this,_ctx); // 初期状態を設定
+        _stateMachine.ChangeState(new MoveState(), this, _ctx); // 初期状態を設定
+
     }
 
     private void FixedUpdate()
@@ -182,7 +144,7 @@ public class TestAIController : MonoBehaviour
 
     public void AttackThinkProtocol(float distance)
     {
-        switch (_enemyType)
+        switch (_status.EnemyType)
         {
             case EnemyType.Melee:
                 _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
@@ -202,7 +164,7 @@ public class TestAIController : MonoBehaviour
 
     private void NormalEnemyThink(float distance)
     {
-        if (distance > _meleeAttackRange)
+        if (distance > _status.MeleeAttackRange)
         {
             Debug.Log("射撃");
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
@@ -218,7 +180,7 @@ public class TestAIController : MonoBehaviour
     {
         if (distance > 20)
         {
-            if (_moveCount < _moveCountUntilJump)
+            if (_moveCount < _status.MoveCountUntilJump)
             {
                 Debug.Log("移動");
                 _stateMachine.ChangeState(new MoveState(), this, _ctx);
@@ -242,7 +204,7 @@ public class TestAIController : MonoBehaviour
     private Vector3 PredictionPlayerPos()
     {
         float speed = _plRigidBody.linearVelocity.magnitude;
-        if(speed < _sakiyomiStopSpeed)
+        if(speed < _status.SakiyomiStopSpeed)
         {
             Debug.Log("先読み辞めてます");
             return _playerObj.transform.position;
@@ -252,7 +214,7 @@ public class TestAIController : MonoBehaviour
             Debug.Log("先読み中");
             Vector3 moveDir = _plRigidBody.linearVelocity;
             Vector3 plPos = _playerObj.transform.position;
-            Vector3 sakiyomiPos = plPos + moveDir * _sakiyomiTime;
+            Vector3 sakiyomiPos = plPos + moveDir * _status.SakiyomiTime;
             return sakiyomiPos;
 
         }
@@ -274,7 +236,7 @@ public class TestAIController : MonoBehaviour
             }
         }
 
-        if(nearDistance < _dodgeRange)
+        if(nearDistance < _status.DodgeRange)
         {
             return true;
         }
@@ -290,9 +252,10 @@ public class TestAIController : MonoBehaviour
         {
             return _targetPos;
         }
+        float moveMaxDistance = _status.MoveMaxDistance;
         Vector3 curPos = this.transform.position;
-        curPos.x += Random.Range(-_moveMaxDistance, _moveMaxDistance);
-        curPos.z += Random.Range(-_moveMaxDistance, _moveMaxDistance);
+        curPos.x += Random.Range(-moveMaxDistance,moveMaxDistance);
+        curPos.z += Random.Range(-moveMaxDistance, moveMaxDistance);
         curPos = ReturnGroundPos(curPos.x, curPos.z);
         curPos = ClampDestinationToStage(curPos);
         _isTargetCalculated = true;
@@ -339,9 +302,10 @@ public class TestAIController : MonoBehaviour
         else
         {
             Debug.Log("目標座標逸脱、座標再修正");
+            float moveMaxDistance = _status.MoveMaxDistance;
             Vector3 curPos = transform.position;
-            curPos.x += Random.Range(-_moveMaxDistance, _moveMaxDistance);
-            curPos.z += Random.Range(-_moveMaxDistance, _moveMaxDistance);
+            curPos.x += Random.Range(-moveMaxDistance, moveMaxDistance);
+            curPos.z += Random.Range(-moveMaxDistance, moveMaxDistance);
             curPos = ReturnGroundPos(curPos.x, curPos.z);
             curPos.x = Mathf.Clamp(curPos.x, -490, 490);
             curPos.z = Mathf.Clamp(curPos.z, -490, 490);

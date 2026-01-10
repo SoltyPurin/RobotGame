@@ -42,6 +42,11 @@ public class LockOn : MonoBehaviour
         _lockOnCamera.LookAt = null;
     }
 
+    public void ReSearch()
+    {
+        _nearEnemy.ChangeEnemyArray();
+    }
+
 
     public void ChangeCamera()
     {

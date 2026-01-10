@@ -49,6 +49,7 @@ public class DeathManager : MonoBehaviour
             Time.timeScale = 0.2f;
             _canJudge = false;
             _enemyCount--;
+            _lockOn.ReSearch();
             StartCoroutine(ReturnTimeScale());
             Debug.Log("c‚è‚Ì“G‚Ì”" + _enemyCount);
 
