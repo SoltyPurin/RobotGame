@@ -7,6 +7,16 @@ public class PlayerInputManager : MonoBehaviour
     private LeftAttack _meleeAttack = default;
     [SerializeField, Header("射撃のクールタイム")]
     private float _shootCoolTime = 1.0f;
+    public float ShootCoolTime
+    {
+        get { return _shootCoolTime; }
+    }
+
+    private float _currentCoolTime = default;
+    public float CurrentCoolTime
+    {
+        get { return _currentCoolTime; }
+    }
 
     private InputAction _dashButton = default;
     private InputAction _jumpButton = default;
@@ -23,6 +33,13 @@ public class PlayerInputManager : MonoBehaviour
     private TakeDamageScript _takeDamage = default;
 
     private bool _isAlive = true;
+    private bool _isShootCoolTime = false;
+
+    private float _timeDifference = default;
+    public float TimeDifference
+    {
+        get { return _timeDifference; }
+    }
 
     private float _prevInputTime = 0f;
     private void Start()
@@ -41,6 +58,7 @@ public class PlayerInputManager : MonoBehaviour
         _anim = GetComponent<PlayAnimationScript>();
         _takeDamage = GetComponent<TakeDamageScript>();
         _prevInputTime = Time.time;
+        _currentCoolTime = 1;
     }
 
     private void Update()
@@ -91,6 +109,18 @@ public class PlayerInputManager : MonoBehaviour
             _attack.LeftAttack(_lockOn.CurrentTargetObject());
             _anim.LeftATKRush();
         }
+
+        if (!_isShootCoolTime)
+        {
+            return;
+        }
+        Debug.Log("クールタイムカウント開始");
+        _currentCoolTime -= Time.deltaTime;
+        if(_currentCoolTime <= 0)
+        {
+            _currentCoolTime = 1;
+            _isShootCoolTime = false;
+        }
     }
 
     public void Dead()
@@ -100,17 +130,13 @@ public class PlayerInputManager : MonoBehaviour
 
     private void CallRightAttackProtocol(float prevInputTime,float currentInputTime)
     {
-        float timeDifference = currentInputTime - prevInputTime;
-        if (timeDifference > _shootCoolTime)
+        _timeDifference = currentInputTime - prevInputTime;
+        if (_timeDifference > _shootCoolTime)
         {
+            _isShootCoolTime = true;
             _attack.RightAttack(_lockOn.CurrentTargetObject());
             _anim.RightAttackAnim();
             _prevInputTime = currentInputTime;
-        }
-        else
-        {
-            float waitTime = 1 - timeDifference;
-            Debug.Log("あと" + waitTime + "秒必要");
         }
     }
 }
