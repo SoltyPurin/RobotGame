@@ -8,6 +8,10 @@ public enum EnemyType
     ShotWeapon,
     Normal,
 }
+public enum EnemyPersonality
+{
+
+}
 
 public class TestAIController : MonoBehaviour
 {
