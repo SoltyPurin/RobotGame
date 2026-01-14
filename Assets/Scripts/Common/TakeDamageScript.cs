@@ -11,6 +11,10 @@ public class TakeDamageScript : MonoBehaviour
     private float _shootBlowAwayTime = 0.3f;
     [SerializeField, Header("ç≈èâÇÃHP")]
     protected int _userHP = 600;
+    public int UserHP
+    {
+        get { return _userHP; }
+    }
 
     protected DeathManager _deathManager = default;
     private BlowAway _blowAway = default;

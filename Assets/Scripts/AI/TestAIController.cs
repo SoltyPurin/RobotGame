@@ -46,6 +46,7 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
+    private GameObject _camera = default;
     private TakeDamageScript _takeDamage = default;
     private PlayAnimationScript _anim = default;
     private Rigidbody _plRigidBody = default;
@@ -58,6 +59,7 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
+        _camera = GameObject.FindWithTag("MainCamera");
         _takeDamage = GetComponent<TakeDamageScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _playerObj = GameObject.FindWithTag("Player");
@@ -68,6 +70,7 @@ public class TestAIController : MonoBehaviour
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
         _ctx.MoveSpeed = _aiMoveSpeed;
+        _ctx.EscapeSpeed = _status.EscapeSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
         _ctx.BallRigidBody = _ballRigidBody;
         _ctx.DodgePower = _status.DodgePower;
@@ -162,7 +165,10 @@ public class TestAIController : MonoBehaviour
 
         _isAttacked = true;
     }
+    private void MeleeEnemyThink(float distance)
+    {
 
+    }
     private void NormalEnemyThink(float distance)
     {
         if (distance > _status.MeleeAttackRange)
@@ -179,7 +185,26 @@ public class TestAIController : MonoBehaviour
 
     private void MoveThinkProtocol(float distance)
     {
-        if (distance > 20)
+        bool isHPSafe = _takeDamage.UserHP > _status.EscapeHPThreshould;
+
+        switch (isHPSafe)
+        {
+            case true:
+                Debug.Log("体力大丈夫ムーブ");
+                HPSafeMove(distance);
+                break;
+
+            case false:
+                Debug.Log("体力ヤバイムーブ");
+                HPDangerMoveBranch(distance);
+                break;
+        }
+        _isAttacked = false;
+    }
+
+    private void HPSafeMove(float distance)
+    {
+        if (distance > _status.JumpDistanceThreshould)
         {
             if (_moveCount < _status.MoveCountUntilJump)
             {
@@ -199,7 +224,64 @@ public class TestAIController : MonoBehaviour
             Debug.Log("ジャンプ");
             _stateMachine.ChangeState(new JumpState(), this, _ctx);
         }
-        _isAttacked = false;
+    }
+    private void HPDangerMoveBranch(float distance)
+    {
+        switch (_status.EnemyType)
+        {
+            case EnemyType.Melee:
+                MeleeHPDangerMove(distance);
+                break;
+
+            default :
+                DefaultHPDangerMove(distance);
+                break;
+        }
+    }
+    private void MeleeHPDangerMove(float distance)
+    {
+        if (distance > _status.JumpDistanceThreshould)
+        {
+            if (_moveCount < _status.MoveCountUntilJump)
+            {
+                Debug.Log("通常の3倍の速度で接近中");
+                _stateMachine.ChangeState(new ApproachState(), this, _ctx);
+                _moveCount++;
+            }
+            else
+            {
+                Debug.Log("回避");
+                _stateMachine.ChangeState(new DashState(), this, _ctx);
+                _moveCount = 0;
+            }
+        }
+    }
+    /// <summary>
+    /// 近接以外の体力がピンチになった時の行動
+    /// </summary>
+    /// <param name="distance"></param>
+    private void DefaultHPDangerMove(float distance)
+    {
+        if (distance > _status.JumpDistanceThreshould)
+        {
+            if (_moveCount < _status.MoveCountUntilJump)
+            {
+                Debug.Log("移動");
+                _stateMachine.ChangeState(new EscapeState(), this, _ctx);
+                _moveCount++;
+            }
+            else
+            {
+                Debug.Log("回避");
+                _stateMachine.ChangeState(new DashState(), this, _ctx);
+                _moveCount = 0;
+            }
+        }
+        else
+        {
+            Debug.Log("回避");
+            _stateMachine.ChangeState(new DashState(), this, _ctx);
+        }
     }
 
     /// <summary>
@@ -259,7 +341,7 @@ public class TestAIController : MonoBehaviour
     }
 
     /// <summary>
-    /// 目標地点を計算するスクリプト。目的地に着くまでは再計算しない
+    /// 目標地点を計算する。目的地に着くまでは再計算しない
     /// </summary>
     /// <returns>目標地点の座標</returns>
     public Vector3 CalcTargetPos()
@@ -278,13 +360,52 @@ public class TestAIController : MonoBehaviour
         _targetPos = curPos;
         return curPos;
     }
+    /// <summary>
+    /// 逃走先を計算する
+    /// </summary>
+    /// <returns>逃走地点</returns>
+    public Vector3 CalcEscapePos()
+    {
+        if (_isTargetCalculated)
+        {
+            return _targetPos;
+        }
 
+        Vector3 escapeDir = (transform.position- _playerObj.transform.position).normalized;
+        Vector3 escapePoint = transform.position + _status.EscapeDistance * escapeDir;
+        escapePoint = ReturnGroundPos(escapePoint.x, escapePoint.z);
+        escapePoint = ClampDestinationToStage(escapePoint);
+        _targetPos = escapePoint;
+        return escapePoint;
+    }
+    /// <summary>
+    /// 接近するための座標を計算する
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 CalcApproachPos()
+    {
+        Vector3 approachDir = (_playerObj.transform.position - transform.position).normalized;
+        Vector3 approachPoint = transform.position + _status.EscapeDistance * approachDir;
+        approachPoint = ReturnGroundPos(approachPoint.x, approachPoint.z);
+        approachPoint = ClampDestinationToStage(approachPoint);
+        _targetPos = approachPoint;
+        return approachPoint;
+    }
+    /// <summary>
+    /// プレイヤーと自分の距離を測る
+    /// </summary>
+    /// <returns>距離</returns>
     public float CalcTargetDistance()
     {
         float distance = Vector3.Distance(_playerObj.transform.position, this.transform.position);
         return distance;
     }
-
+    /// <summary>
+    /// 地面の座標を踏まえた目的地を返す
+    /// </summary>
+    /// <param name="x">x座標</param>
+    /// <param name="z">z座標</param>
+    /// <returns>地面を踏まえた最終座標</returns>
     private Vector3 ReturnGroundPos(float x,float z)
     {
         RaycastHit underHit;
@@ -302,7 +423,11 @@ public class TestAIController : MonoBehaviour
         }
         return startPoint;
     }
-
+    /// <summary>
+    /// ウェイポイントがステージ外になってしまった時に修正する
+    /// </summary>
+    /// <param name="destination">目的地</param>
+    /// <returns>ステージ内に収めた目的地</returns>
     private Vector3 ClampDestinationToStage(Vector3 destination)
     {
         float xPos = destination.x;

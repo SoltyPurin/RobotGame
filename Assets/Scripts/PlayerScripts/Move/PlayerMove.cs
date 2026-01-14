@@ -59,6 +59,7 @@ public class PlayerMove : MonoBehaviour
 
     private void MoveProtocol()
     {
+        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
         if(_lockOn.TargetTransform == null)
         {
@@ -69,7 +70,6 @@ public class PlayerMove : MonoBehaviour
             LockOnMoveProtocol(_activeCamera, curVelocity);
         }
 
-        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
     }
 
     private void LockOnMoveProtocol(GameObject activeCamera, Vector3 curVelocity)

@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   _enemyType: 0
+  _escapeHpThreshold: 300
+  _jumpDistanceThreshould: 20
   _dodgeRange: 10
   _moveMaxDistance: 30
+  _escapeDistance: 20
+  _escapeSpeed: 200
   _rushSpeed: 500
   _rushTime: 0.4
   _meleeDamageValue: 150
@@ -23,8 +27,8 @@ MonoBehaviour:
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 5
   _gravity: 150
-  _nearTargetPosDistance: 5
-  _aiMoveSpeed: 90
+  _nearTargetPosDistance: 10
+  _aiMoveSpeed: 100
   _dodgePower: 50
   _dodgeTime: 0.5
   _jumpPower: 100

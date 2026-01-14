@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: NormalEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   _enemyType: 2
-  _dodgeRange: 5
-  _moveMaxDistance: 10
+  _escapeHpThreshold: 300
+  _jumpDistanceThreshould: 20
+  _dodgeRange: 15
+  _moveMaxDistance: 20
+  _escapeDistance: 10
+  _escapeSpeed: 150
   _rushSpeed: 250
   _rushTime: 0.7
   _meleeDamageValue: 150
@@ -24,7 +28,7 @@ MonoBehaviour:
   _bulletAliveTime: 4
   _gravity: 150
   _nearTargetPosDistance: 10
-  _aiMoveSpeed: 50
+  _aiMoveSpeed: 100
   _dodgePower: 50
   _dodgeTime: 0.5
   _jumpPower: 100

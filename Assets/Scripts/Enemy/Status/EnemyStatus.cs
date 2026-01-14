@@ -6,12 +6,30 @@ public class EnemyStatus : ScriptableObject
     [SerializeField, Header("敵のタイプ")]
     private EnemyType _enemyType = EnemyType.Normal;
     public EnemyType EnemyType { get { return _enemyType; } }
+    [SerializeField, Header("この体力以下になったら逃げるような動きにする")]
+    private int _escapeHpThreshold = 300;
+    public int EscapeHPThreshould
+    {
+        get { return _escapeHpThreshold; }
+    }
+    [SerializeField, Header("プレイヤーとどれだけ近かったらジャンプするか")]
+    private float _jumpDistanceThreshould = 20;
+    public float JumpDistanceThreshould
+    {
+        get { return _jumpDistanceThreshould; }
+    }
     [SerializeField, Header("どれくらい弾が近づいたら回避するか")]
     private float _dodgeRange = 5f;
     public float DodgeRange {  get { return _dodgeRange; }}
     [SerializeField, Header("その場所から移動する最大距離")]
     private float _moveMaxDistance = 10;
     public float MoveMaxDistance {  get { return _moveMaxDistance; }}
+    [SerializeField, Header("逃げる距離(近接だったら近づく距離)")]
+    private float _escapeDistance = 10;
+    public float EscapeDistance { get { return _escapeDistance; }}
+    [SerializeField, Header("逃げる速度(近接だったら接近速度)")]
+    private float _escapeSpeed = 70f;
+    public float EscapeSpeed { get { return _escapeSpeed; }}
     [SerializeField, Header("突進時の速度")]
     private float _rushSpeed = 40f;
     public float RushSpeed {  get { return _rushSpeed; }}

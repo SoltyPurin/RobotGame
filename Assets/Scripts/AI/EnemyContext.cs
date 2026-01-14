@@ -13,6 +13,7 @@ public class EnemyContext
     public PlayAnimationScript Animation;
     public BulletPool Pool;
     public float MoveSpeed;
+    public float EscapeSpeed;
     public float DodgePower;
     public float DodgeTime;
     public float JumpPower;
