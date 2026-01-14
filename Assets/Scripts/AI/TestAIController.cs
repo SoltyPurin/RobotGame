@@ -2,15 +2,12 @@ using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public enum EnemyType
 {
     Melee,
     ShotWeapon,
     Normal,
-}
-public enum EnemyPersonality
-{
-
 }
 
 public class TestAIController : MonoBehaviour
@@ -135,8 +132,6 @@ public class TestAIController : MonoBehaviour
             return;
         }
 
-
-
         if (_isAttacked)
         {
             MoveThinkProtocol(distance);
@@ -145,6 +140,7 @@ public class TestAIController : MonoBehaviour
         {
             AttackThinkProtocol(distance);
         }
+
     }
 
     public void AttackThinkProtocol(float distance)
@@ -206,6 +202,10 @@ public class TestAIController : MonoBehaviour
         _isAttacked = false;
     }
 
+    /// <summary>
+    /// プレイヤーの移動を先読みする
+    /// </summary>
+    /// <returns>特定秒数後のプレイヤーの座標予測地点</returns>
     private Vector3 PredictionPlayerPos()
     {
         float speed = _plRigidBody.linearVelocity.magnitude;
@@ -224,6 +224,11 @@ public class TestAIController : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// 銃弾が近いかを判断する
+    /// </summary>
+    /// <returns>銃弾が近いか</returns>
     private bool IsNearBullet()
     {
         GameObject[] plBullets = GameObject.FindGameObjectsWithTag("PLBullet");
@@ -253,6 +258,10 @@ public class TestAIController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 目標地点を計算するスクリプト。目的地に着くまでは再計算しない
+    /// </summary>
+    /// <returns>目標地点の座標</returns>
     public Vector3 CalcTargetPos()
     {
         if (_isTargetCalculated)
