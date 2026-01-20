@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public enum EnemyType
 {
     Melee,
@@ -46,12 +45,13 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
-    private GameObject _camera = default;
     private TakeDamageScript _takeDamage = default;
     private PlayAnimationScript _anim = default;
     private Rigidbody _plRigidBody = default;
 
     private bool _isAttacked = false;
+
+    private bool _isJumped = false;
 
     private int _moveCount = 0;
 
@@ -59,7 +59,6 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
-        _camera = GameObject.FindWithTag("MainCamera");
         _takeDamage = GetComponent<TakeDamageScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _playerObj = GameObject.FindWithTag("Player");
@@ -78,6 +77,7 @@ public class TestAIController : MonoBehaviour
         _ctx.JumpPower = _status.JumpPower;
         _ctx.StopTime = _status.StopTime;
         _ctx.Ground = _detectGround;
+        _ctx.Atosuki = _status.MeleeAtosuki;
         _ctx.RushSpeed = _status.RushSpeed;
         _ctx.RushTime = _status.RushTime;
         _ctx.Animation = _anim;
@@ -104,6 +104,7 @@ public class TestAIController : MonoBehaviour
         {
             return;
         }
+        _ballRigidBody.AddForce(-transform.up * _status.Gravity * _ballRigidBody.mass);
         _ctx.PlayerTransform = _playerObj.transform;
         _ctx.PlayerPosition = PredictionPlayerPos();
         Vector3 eur = transform.eulerAngles;
@@ -155,7 +156,7 @@ public class TestAIController : MonoBehaviour
                 break;
 
             case EnemyType.ShotWeapon:
-                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+                ShotWeaponThink();
                 break;
 
             case EnemyType.Normal:
@@ -165,21 +166,93 @@ public class TestAIController : MonoBehaviour
 
         _isAttacked = true;
     }
-    private void MeleeEnemyThink(float distance)
-    {
 
-    }
-    private void NormalEnemyThink(float distance)
+    /// <summary>
+    /// プレイヤーと銃口の間に地面があるかを検知
+    /// </summary>
+    /// <returns>地面あればtrue</returns>
+    private bool IsShootLineBeingObstacle()
     {
-        if (distance > _status.MeleeAttackRange)
+        RaycastHit hit;
+        Vector3 direction = (_ctx.PlayerPosition-_ctx.ShootPoint.position).normalized;
+        float distance = Vector3.Distance(_ctx.PlayerPosition, _ctx.ShootPoint.position);
+        Physics.Raycast(_ctx.ShootPoint.position, direction, out hit, distance);
+        if (hit.collider == null)
         {
-            Debug.Log("射撃");
+            return false;
+        }
+
+
+        GameObject colObj = hit.collider.gameObject;
+        Debug.Log(colObj.tag);
+        if (colObj.CompareTag("Ground"))
+        {
+            Debug.Log("地形がある");
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    private void ShotWeaponThink()
+    {
+        if (_isJumped)
+        {
+            _isJumped = false;
             _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+        }
+        if (IsShootLineBeingObstacle())
+        {
+            Debug.Log("ジャンプして射線確保");
+            _stateMachine.ChangeState(new JumpState(), this, _ctx);
+            _isJumped=true;
         }
         else
         {
-            Debug.Log("近接");
-            _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+            Debug.Log("射線確保済み");
+            _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            _isJumped = false;
+        }
+    }
+    private void NormalEnemyThink(float distance)
+    {
+        if (_isJumped)
+        {
+            _isJumped = false;
+            if (distance > _status.MeleeAttackRange)
+            {
+                Debug.Log("射撃");
+                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            }
+            else
+            {
+                Debug.Log("近接");
+                _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+            }
+
+        }
+
+        if (IsShootLineBeingObstacle())
+        {
+            Debug.Log("ジャンプして射線確保");
+            _stateMachine.ChangeState(new JumpState(), this, _ctx);
+            _isJumped=true;
+        }
+        else
+        {
+            Debug.Log("射線確保済み");
+            if (distance > _status.MeleeAttackRange)
+            {
+                Debug.Log("射撃");
+                _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
+            }
+            else
+            {
+                Debug.Log("近接");
+                _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
+            }
+            _isJumped = false;
         }
     }
 
@@ -190,12 +263,10 @@ public class TestAIController : MonoBehaviour
         switch (isHPSafe)
         {
             case true:
-                Debug.Log("体力大丈夫ムーブ");
                 HPSafeMove(distance);
                 break;
 
             case false:
-                Debug.Log("体力ヤバイムーブ");
                 HPDangerMoveBranch(distance);
                 break;
         }
@@ -208,20 +279,17 @@ public class TestAIController : MonoBehaviour
         {
             if (_moveCount < _status.MoveCountUntilJump)
             {
-                Debug.Log("移動");
                 _stateMachine.ChangeState(new MoveState(), this, _ctx);
                 _moveCount++;
             }
             else
             {
-                Debug.Log("ジャンプ");
                 _stateMachine.ChangeState(new JumpState(), this, _ctx);
                 _moveCount = 0;
             }
         }
         else
         {
-            Debug.Log("ジャンプ");
             _stateMachine.ChangeState(new JumpState(), this, _ctx);
         }
     }
@@ -266,7 +334,6 @@ public class TestAIController : MonoBehaviour
         {
             if (_moveCount < _status.MoveCountUntilJump)
             {
-                Debug.Log("移動");
                 _stateMachine.ChangeState(new EscapeState(), this, _ctx);
                 _moveCount++;
             }
@@ -293,12 +360,10 @@ public class TestAIController : MonoBehaviour
         float speed = _plRigidBody.linearVelocity.magnitude;
         if(speed < _status.SakiyomiStopSpeed)
         {
-            Debug.Log("先読み辞めてます");
             return _playerObj.transform.position;
         }
         else
         {
-            Debug.Log("先読み中");
             Vector3 moveDir = _plRigidBody.linearVelocity;
             Vector3 plPos = _playerObj.transform.position;
             Vector3 sakiyomiPos = plPos + moveDir * _status.SakiyomiTime;
@@ -475,7 +540,7 @@ public class TestAIController : MonoBehaviour
         attackRangeCenter.y += _meleeRangeCenter.y;
         attackRangeCenter.z += _meleeRangeCenter.z;
 
-        Gizmos.color = Color.black;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(
             attackRangeCenter + targetDir * 1f,
             _meleeRangeSize);

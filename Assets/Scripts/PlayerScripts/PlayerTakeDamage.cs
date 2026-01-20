@@ -7,10 +7,15 @@ public class PlayerTakeDamage : TakeDamageScript
     private float _meleeDuration = 1;
     [SerializeField, Header("射撃攻撃食らった時の揺れ")]
     private float _shootDuration = 0.5f;
+    [SerializeField, Header("正面と判断する角度")]
+    private float _frontAngle = 20;
     [SerializeField, Header("ロックオンカメラ")]
     private CinemachineCamera _lockOnCamera = default;
 
-
+    private PlayerSoundPlayScript _soundPlayer = default;
+    private DamageEffect _effect = default;
+    private PlayerVibration _vibration = default;
+    private LockOn _lockOn = default;
     private UIViewer _uiViewer = default;
     private PlayerInputManager _input = default;
     private CinemachineImpulseSource _shake = default;
@@ -18,6 +23,10 @@ public class PlayerTakeDamage : TakeDamageScript
     public override void Start()
     {
         base.Start();
+        _soundPlayer = GetComponent<PlayerSoundPlayScript>();
+        _effect = FindAnyObjectByType<DamageEffect>();
+        _vibration = GetComponent<PlayerVibration>();
+        _lockOn = GetComponent<LockOn>();   
         _shake = GetComponent<CinemachineImpulseSource>();
         _uiViewer = FindAnyObjectByType<UIViewer>();
         _input = GetComponent<PlayerInputManager>();
@@ -29,10 +38,11 @@ public class PlayerTakeDamage : TakeDamageScript
         base.MeleeTakeDamage(attackDirection, damage, blowAwayPower);
         if (_shake != null)
         {
-            Debug.Log("近接攻撃食らった");
             _shake.GenerateImpulseWithForce(_meleeDuration);
         }
         _uiViewer.SetHealth(_userHP);
+        CallViberationCoroutine(attackDirection, _meleeDuration);
+        _soundPlayer.PlayMeleeTakeDamage();
         DeathCheck();
     }
 
@@ -45,18 +55,72 @@ public class PlayerTakeDamage : TakeDamageScript
 
         }
         _uiViewer.SetHealth(_userHP);
+        CallViberationCoroutine(bulletDirection, _shootDuration);
+        _soundPlayer.PlayShotTakeDamage();
         DeathCheck();
     }
 
     public override void DeathCheck()
     {
         base.DeathCheck();
-        Debug.Log("プレイヤーの体力は" + _userHP);
         if(_userHP <= 0)
         {
             _lockOnCamera.LookAt = transform;
+            _soundPlayer.PlayDeathSound();
             _input.Dead();
             _deathManager.PlayerCheckHP(_userHP);
+        }
+    }
+
+    private void CallViberationCoroutine(Vector3 attackDirection,float duration)
+    {
+        float left = 0;
+        float right = 0;
+        switch (CalcEnemyAttackDirection(attackDirection))
+        {
+            case 0:
+                right = 1 * duration;
+                break;
+
+            case 1:
+                left = 1 * duration;
+                break;
+
+            default:
+                left = 1 * duration;
+                right = 1 * duration;
+                break;
+        }
+        StartCoroutine(_vibration.MeleeDamageVibe(left, right));
+    }
+    /// <summary>
+    /// 攻撃が正面左右どちらかかを判断する
+    /// </summary>
+    /// <param name="toPlayer"></param>
+    /// <returns>0は右、1は左、2は正面</returns>
+    private int CalcEnemyAttackDirection(Vector3 toPlayer)
+    {
+        Vector3 baseDir = (_lockOn.TargetTransform.position-_lockOnCamera.transform.position).normalized;
+        float angle = Vector3.SignedAngle(baseDir, toPlayer,Vector3.up);
+        bool isFrontAttack = Mathf.Abs(angle) <= _frontAngle;
+        if (isFrontAttack)
+        {
+            Debug.Log("正面");
+            _effect.FrontDamage();
+            return 2;
+        }
+
+        if(angle > 0)
+        {
+            Debug.Log("右");
+            _effect.RightDamage();
+            return 0;
+        }
+        else
+        {
+            Debug.Log("左");
+            _effect.LeftDamage();
+            return 1;
         }
     }
 }

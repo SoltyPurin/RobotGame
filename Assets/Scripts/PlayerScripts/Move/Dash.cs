@@ -10,7 +10,6 @@ public class Dash : MonoBehaviour
 
     public void DashProtocol(Vector3 direction)
     {
-        Debug.Log("ƒ_ƒbƒVƒ…");
         direction.y = 0;
         _ballRigidBody.AddForce(direction * _dashPower, ForceMode.Impulse);
     }

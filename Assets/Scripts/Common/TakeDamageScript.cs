@@ -39,6 +39,7 @@ public class TakeDamageScript : MonoBehaviour
         _anim.TakeDamageAnim();
         StartCoroutine(ReleaseBlowAway(_meleeBlowAwayTime));
         _userHP -= damage;
+
     }
 
     public virtual void ShootTakeDamage(Vector3 bulletDirection, int damage, float blowAwayPower)

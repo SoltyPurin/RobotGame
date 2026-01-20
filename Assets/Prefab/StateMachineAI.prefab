@@ -36231,31 +36231,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d47c0276e8d3648be2e5c53950cc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestAIController
-  _dodgeRange: 100
+  _status: {fileID: 11400000, guid: 044f4ddc32b461849aaa2a58827b8fc6, type: 2}
   _onBallRigidBody: {fileID: 6518367681128184011}
   _ballRigidBody: {fileID: 7842442799748084575}
   _detectGround: {fileID: 6759507131949666305}
-  _moveMaxDistance: 50
-  _nearTargetPosDistance: 10
-  _rushSpeed: 50
-  _rushTime: 1.4
-  _meleeDamageValue: 150
-  _meleeBlowAwayPower: 50
-  _bulletDamageValue: 50
-  _bulletBlowAwayPower: 50
-  _bulletAliveTime: 5
-  _gravity: 150
+  _meleeRangeSize: {x: 15, y: 12, z: 12}
+  _meleeRangeCenter: {x: 0, y: 4, z: -4.6}
   _shootPoint: {fileID: 739199242833188967}
-  _meleeRangeSize: {x: 15, y: 12, z: 10}
-  _meleeRangeCenter: {x: 0, y: 4, z: -4}
-  _aiMoveSpeed: 150
-  _dodgePower: 50
-  _dodgeTime: 0.5
-  _jumpPower: 100
-  _stopTime: 1
-  _moveCountUntilJump: 3
-  _sakiyomiTime: 0.5
-  _sakiyomiStopSpeed: 10
 --- !u!114 &3739863925387088383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36350,6 +36332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySoundPlayScript
   _meleeTakeDamage: {fileID: 8300000, guid: a6e4d578596b940abad492b95a33a151, type: 3}
+  _shotTakeDamage: {fileID: 8300000, guid: aae86a06554a29b4882ea070e238f895, type: 3}
 --- !u!65 &6041738973999750698
 BoxCollider:
   m_ObjectHideFlags: 0

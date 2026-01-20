@@ -26,6 +26,7 @@ public class EnemyContext
     public int BulletDamage;
     public float BulletAliveTime;
     public float Gravity;
+    public float Atosuki;
     public Vector3 MeleeRangeSize;
     public Vector3 MeleeRangeCenter;
     // ‚Ù‚©‹¤’Ê‚Å‚Á‚Ä‚¨‚«‚½‚¢‚à‚Ì

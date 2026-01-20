@@ -31,6 +31,7 @@ public class EnemyTakeDamage : TakeDamageScript
         base.ShootTakeDamage(bulletDirection, damage, blowAwayPower);
         _deathManager.EnemyCheckHP(_userHP);
         _slider.ValueUpdate(_userHP);
+        _soundPlay.PlayeTakeShotDamage();
         DeathCheck();
     }
 

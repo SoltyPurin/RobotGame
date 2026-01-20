@@ -58,12 +58,15 @@ public class DeathManager : MonoBehaviour
 
     private IEnumerator ReturnTimeScale()
     {
-        _camera.ShoulderOffset.z = 165;
+        if(_enemyCount <= 0)
+        {
+            _camera.ShoulderOffset.z = 165;
+        }
         _nearEnemy.ChangeEnemyArray();
         _lockOn.ChangeCamera();
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1;
-        _camera.ShoulderOffset.z = 0;
+        //_camera.ShoulderOffset.z = 0;
         _canJudge = true;
         if (_enemyCount <= 0)
         {

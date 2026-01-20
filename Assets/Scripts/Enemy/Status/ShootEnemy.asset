@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: ShootEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   _enemyType: 1
+  _escapeHpThreshold: 300
+  _jumpDistanceThreshould: 20
   _dodgeRange: 5
   _moveMaxDistance: 10
+  _escapeDistance: 10
+  _escapeSpeed: 70
+  _meleeAtosuki: 1
   _rushSpeed: 100
   _rushTime: 0.7
   _meleeDamageValue: 150

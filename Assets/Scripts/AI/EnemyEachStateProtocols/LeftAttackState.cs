@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,10 +15,12 @@ public class LeftAttackState : IEnemyState
     private PlayAnimationScript _anim;
     private bool _stopRushRunning = false;
     private float _curRushTime = 0;
-
+    private float _currentAtosuki = 0;
+    private bool _canAtosukiCount = false;
 
     public void Enter(in TestAIController controller, in EnemyContext ctx)
     {
+        _currentAtosuki = 0;
         _canRush = true;
         _ctx = ctx;
         _controller = controller;
@@ -61,6 +64,7 @@ public class LeftAttackState : IEnemyState
                 _isTouchTheEnemy = true;
                 _anim.LeftATKProtocol();
                 EnemyToDamageProtocol(hitObj);
+                _canAtosukiCount = true;
             }
         }
         _ctx.OnBallRigidbody.MovePosition(Vector3.MoveTowards(_ctx.OnBallRigidbody.position, _targetPos, _ctx.RushSpeed * Time.fixedDeltaTime));
@@ -71,11 +75,21 @@ public class LeftAttackState : IEnemyState
             if (!_isTouchTheEnemy)
             {
                 _anim.LeftATKProtocol();
+                _canAtosukiCount = true;
             }
             _isTouchTheEnemy = false;
-            _controller.ThinkNextMove();
+            
         }
 
+        if (!_canAtosukiCount)
+        {
+            return;
+        }
+        _currentAtosuki += Time.deltaTime;
+        if(_currentAtosuki >= _ctx.Atosuki)
+        {
+            _controller.ThinkNextMove();
+        }
     }
     private void EnemyToDamageProtocol(GameObject enemy)
     {
@@ -87,21 +101,6 @@ public class LeftAttackState : IEnemyState
 
         enDamage.MeleeTakeDamage(_targetDirection, _ctx.MeleeDamage,_ctx.MeleeBlowAwayPower);
     }
-
-    //private async void StopRush()
-    //{
-    //    if (_stopRushRunning) return;   
-    //    _stopRushRunning = true;
-    //    await UniTask.WaitForSeconds(_ctx.RushTime);
-    //    _canRush = false;
-    //    if (!_isTouchTheEnemy)
-    //    {
-    //        _anim.LeftATKProtocol();
-    //    }
-    //    _isTouchTheEnemy = false;
-    //    _controller.ThinkNextMove();
-    //}
-
 
     public void Exit()
     {

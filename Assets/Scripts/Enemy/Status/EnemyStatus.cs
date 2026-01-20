@@ -30,6 +30,9 @@ public class EnemyStatus : ScriptableObject
     [SerializeField, Header("逃げる速度(近接だったら接近速度)")]
     private float _escapeSpeed = 70f;
     public float EscapeSpeed { get { return _escapeSpeed; }}
+    [SerializeField, Header("近接攻撃の後隙")]
+    private float _meleeAtosuki = 1;
+    public float MeleeAtosuki { get { return _meleeAtosuki; }}
     [SerializeField, Header("突進時の速度")]
     private float _rushSpeed = 40f;
     public float RushSpeed {  get { return _rushSpeed; }}

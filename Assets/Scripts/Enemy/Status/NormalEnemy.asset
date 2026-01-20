@@ -19,10 +19,11 @@ MonoBehaviour:
   _moveMaxDistance: 20
   _escapeDistance: 10
   _escapeSpeed: 150
+  _meleeAtosuki: 1
   _rushSpeed: 250
   _rushTime: 0.7
   _meleeDamageValue: 150
-  _meleeBlowAwayPower: 100
+  _meleeBlowAwayPower: 1000
   _bulletDamageValue: 50
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 4
