@@ -5,7 +5,7 @@ public class BulletMove : MonoBehaviour
     [SerializeField, Header("リジッドボディ")]
     private Rigidbody _rigidBody = default;
     [SerializeField, Header("銃弾の最初の力")]
-    private float _moveSpeed = 50f;
+    private float _moveSpeed = 240f;
     private int _bulletDamage = default;
     public int BulletDamage
     {
@@ -28,14 +28,14 @@ public class BulletMove : MonoBehaviour
     {
         get { return _blowAwayPower; }
     }
-    public void StartMove(Vector3 targetDir,int damage,float blowAwayPower,int index)
+    public void StartMove(Vector3 targetDir,int damage,float blowAwayPower,int index,float moveSpeed)
     {
         _rigidBody.linearVelocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
         _bulletDamage = damage;
         _blowAwayPower = blowAwayPower;
         _bulletDirection = targetDir;
-        _rigidBody.AddForce(_bulletDirection * _moveSpeed,ForceMode.Impulse);
+        _rigidBody.AddForce(_bulletDirection * moveSpeed,ForceMode.Impulse);
         _bulletIndex = index;
     }
 

@@ -89,6 +89,7 @@ public class TestAIController : MonoBehaviour
         _ctx.BulletBlowAwayPower = _status.BulletBlowAwayPower;
         _ctx.BulletAliveTime = _status.BulletAliveTime;
         _ctx.BulletDamage = _status.BulletDamageValue;
+        _ctx.BulletMoveSpeed = _status.BulletMoveSpeed;
         _ctx.ShootPoint = _shootPoint;
         _ctx.Gravity = _status.Gravity;
         _ctx.MeleeRangeSize = _meleeRangeSize;

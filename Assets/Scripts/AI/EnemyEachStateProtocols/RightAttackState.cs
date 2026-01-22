@@ -36,7 +36,7 @@ public class RightAttackState : IEnemyState
         if(_currentShootingTime >= _shootAidaTime)
         {
             _currentShootingTime = 0;
-            _ctx.Pool.ActiveBullet(_targetDirection, _aliveTime, _ctx.ShootPoint.position, _damage, _power, "ENBullet");
+            _ctx.Pool.ActiveBullet(_targetDirection, _aliveTime, _ctx.ShootPoint.position, _damage, _power, "ENBullet",_ctx.BulletMoveSpeed);
         }
 
         if (_calledNext)

@@ -25,6 +25,7 @@ public class EnemyContext
     public float BulletBlowAwayPower;
     public int BulletDamage;
     public float BulletAliveTime;
+    public float BulletMoveSpeed;
     public float Gravity;
     public float Atosuki;
     public Vector3 MeleeRangeSize;

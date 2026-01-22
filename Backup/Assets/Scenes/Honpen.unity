@@ -4047,6 +4047,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3954557788432514927, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1200
+      objectReference: {fileID: 0}
     - target: {fileID: 5266438232789212094, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4175,6 +4179,22 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819653}
+    - target: {fileID: 1613580107857721043, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _bulletDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282368169460273911, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3282368169460273911, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _damageValue
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861176938263986913, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _lockOnCamera
       value: 

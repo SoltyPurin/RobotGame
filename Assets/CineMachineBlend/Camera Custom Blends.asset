@@ -13,19 +13,8 @@ MonoBehaviour:
   m_Name: Camera Custom Blends
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBlenderSettings
   CustomBlends:
-  - From: NormalCamera
-    To: LockOnCamera
-    Blend:
-      Style: 5
-      Time: 0.5
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: LockOnCamera
-    To: NormalCamera
+  - From: TitleCamera
+    To: ScrambleCamera
     Blend:
       Style: 5
       Time: 0.5

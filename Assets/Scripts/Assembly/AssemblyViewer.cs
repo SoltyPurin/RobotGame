@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 
 public class AssemblyViewer : MonoBehaviour
 {
+    [SerializeField, Header("戻るボタン")]
+    private Button _returnButton = default;
+
     [SerializeField, Header("近接攻撃力")]
     private Slider _meleeAttackPower = default;
     [SerializeField,Header("突進速度")]
@@ -44,6 +46,25 @@ public class AssemblyViewer : MonoBehaviour
     private void Start()
     {
         _dispatcher = GetComponent<AssemblyPointDispatcher>();
+
+        _meleeAttackPower.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleePower));
+        _meleeRushSpeed.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeRushSpeed));
+        _meleeBlowAwayPower.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeBlowAway));
+        _meleeAttackPowerText.text = _meleeAttackPower.value.ToString();
+        _meleeRushSpeedText.text = _meleeRushSpeed.value.ToString();
+        _meleeBlowAwayText.text = _meleeBlowAwayPower.value.ToString();
+
+
+        _shotAttackPower.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.ShotWeaponPower));
+        _coolTime.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime));
+        _bulletSpeed.SetValueWithoutNotify(PlayerPrefs.GetInt(AssemblyPointDispatcher.BulletSpeed));
+        _shotAttackPowerText.text = _shotAttackPower.value.ToString();
+        _coolTimeText.text = _coolTime.value.ToString();
+        _bulletSpeedText.text = _bulletSpeed.value.ToString();
+
+
+        _returnButton.onClick.AddListener(_dispatcher.SaveStatus);
+
         _meleeAttackPower.onValueChanged.AddListener(v =>
             _dispatcher.ValueChange(v, ParamName.MeleeAttackPower, true));
 

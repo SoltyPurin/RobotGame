@@ -54,6 +54,9 @@ public class EnemyStatus : ScriptableObject
     [SerializeField, Header("e’e‚Ì¶‘¶ŠÔ")]
     private float _bulletAliveTime = 5;
     public float BulletAliveTime { get {return _bulletAliveTime; }}
+    [SerializeField, Header("e’e‚Ì‘¬“x")]
+    private float _bulletMoveSpeed = 240;
+    public float BulletMoveSpeed { get {return _bulletMoveSpeed; }}
     [SerializeField, Header("d—Í")]
     private float _gravity = 150;
     public float Gravity { get { return _gravity; }}

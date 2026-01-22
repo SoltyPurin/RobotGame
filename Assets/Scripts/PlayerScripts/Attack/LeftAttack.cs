@@ -28,6 +28,14 @@ public class LeftAttack : MonoBehaviour
         get { return _canRush; }
     }
     private bool _isTouchTheEnemy = false;
+
+    private void Start()
+    {
+        _damageValue += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleePower);
+        _dashSpeed += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeRushSpeed);
+        _blowAwayPower += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeBlowAway);
+
+    }
     public void SetTargetAndRushStart(Transform target)
     {
         _canRush = true;

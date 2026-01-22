@@ -53,8 +53,12 @@ public class PlayerInputManager : MonoBehaviour
     private float _prevShootInputTime = 0f;
     private float _prevMeleeInputTime = 0;
 
+    private float _getCoolTimeDivisionValue = 0.01f;
+
     private void Start()
     {
+        float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue + 0.1f;
+        _shootCoolTime -= shotCoolTimeMinusValue;
         _dashButton = InputSystem.actions.FindAction("Dash");
         _lockOnButton = InputSystem.actions.FindAction("LockOn");
         _jumpButton = InputSystem.actions.FindAction("Jump");

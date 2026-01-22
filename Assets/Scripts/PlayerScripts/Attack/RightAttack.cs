@@ -6,6 +6,8 @@ public class RightAttack : MonoBehaviour
     private float _bulletAliveTime = 5;
     [SerializeField, Header("弾が与えるダメージ")]
     private int _bulletDamage = 50;
+    [SerializeField, Header("銃弾の速度")]
+    private float _bulletSpeed = 140;
     [SerializeField, Header("吹き飛ばし力")]
     private float _blowAwayPower = 50f;
     [SerializeField, Header("音を再生するスクリプト")]
@@ -15,13 +17,14 @@ public class RightAttack : MonoBehaviour
     private void Awake()
     {
         _pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
+        _bulletSpeed += PlayerPrefs.GetInt(AssemblyPointDispatcher.BulletSpeed);
     }
     public void ShootProtocol(Transform target)
     {
         Vector3 targetDIr = (target.position - transform.position).normalized;
         for(int i =0; i<3; i++)
         {
-            _pool.ActiveBullet(targetDIr, _bulletAliveTime, transform.position, _bulletDamage, _blowAwayPower, "PLBullet");
+            _pool.ActiveBullet(targetDIr, _bulletAliveTime, transform.position, _bulletDamage, _blowAwayPower, "PLBullet",_bulletSpeed);
             _soundPlay.PlayShootSound();
         }
     }
