@@ -1,6 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UniRx;
+using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -21,12 +23,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("ロボットの見た目")]
     private GameObject _danbine = default;
     [SerializeField, Header("ダッシュできる時間")]
-    private float _dashTime = 5;
-    public float DashTime
+    private FloatReactiveProperty _dashTime;
+    private float _saveDashTime;
+    public IReadOnlyReactiveProperty<float> DashTimeProperty
     {
         get { return _dashTime; }
     }
-    private float _saveDashTime = 5;    
+
 
     private bool _isRunning = false;
     private float _lockYAxis = 0;
@@ -47,7 +50,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        _saveDashTime = _dashTime;
+        _saveDashTime = _dashTime.Value;
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
         _lockOn = GetComponent<LockOn>();
@@ -76,7 +79,7 @@ public class PlayerMove : MonoBehaviour
 
     public void DashTimeHeal()
     {
-        _dashTime = _saveDashTime;
+        _dashTime.Value = _saveDashTime;
     }
     public void DashProtocol()
     {
@@ -88,7 +91,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (_dashTime >= 0)
+            if (_dashTime.Value >= 0)
             {
                 Debug.Log("ダッシュ");
                 _isRunning = true;
@@ -103,8 +106,8 @@ public class PlayerMove : MonoBehaviour
         Vector3 curPos = this.transform.position;
         curPos.y = _lockYAxis;
         transform.position = curPos;
-        _dashTime -= Time.fixedDeltaTime;
-        if(_dashTime < 0 )
+        _dashTime.Value -= Time.fixedDeltaTime;
+        if(_dashTime.Value < 0 )
         {
             Debug.Log("ダッシュ解除");
             _isRunning = false;

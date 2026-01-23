@@ -243,28 +243,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23f6e2743b80924fb74669bb8526953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetectBullet
---- !u!1 &13880279 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9020127828175968096, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-  m_PrefabInstance: {fileID: 2192389512390236656}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &13880280 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7668374945580867206, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
   m_PrefabInstance: {fileID: 2192389512390236656}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &13880285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13880279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a651d1c6812109b469479e70007e8004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DashTimeUI
 --- !u!1 &17236873
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7f372743becac43b45a33d5bae6cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoolTimeUI
+  _slider: {fileID: 0}
+  _inputManager: {fileID: 0}
+  _canCountCoolTime: 0
 --- !u!114 &111087149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1961,8 +1947,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562067389}
-  - component: {fileID: 1562067391}
   - component: {fileID: 1562067390}
+  - component: {fileID: 1562067391}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -1998,6 +1984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIViewer
   _health: {fileID: 151485256}
+  _dashTimeSlider: {fileID: 111087149}
+  _shotWeaponCoolTimeSlider: {fileID: 2192389512390236657}
 --- !u!114 &1562067391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2007,7 +1995,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562067387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe0f07119f36a541a26152c3616b0b1, type: 3}
+  m_Script: {fileID: 11500000, guid: aa5d8a33daf849c4682b4b3cc342b11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIPresenter
 --- !u!1001 &1565125013
@@ -4720,17 +4708,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserCanvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2306015684685806538, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7668374945580867206, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       insertIndex: 2
       addedObject: {fileID: 111087147}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9020127828175968096, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 13880285}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+--- !u!114 &2192389512390236657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8731338481654525730, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+  m_PrefabInstance: {fileID: 2192389512390236656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!205 &5040388884143070333
 LODGroup:
   m_ObjectHideFlags: 0
@@ -4762,6 +4759,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 641573716783176673, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _shootCoolTime.value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 810292591663481083, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _lockOnCamera
       value: 
@@ -4790,6 +4791,10 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819651}
+    - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _dashTime.value
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6758536495786028917, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: m_Name
       value: Player

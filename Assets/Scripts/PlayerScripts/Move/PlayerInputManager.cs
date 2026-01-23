@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,22 +8,15 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField, Header("近接攻撃のスクリプト")]
     private LeftAttack _meleeAttack = default;
     [SerializeField, Header("射撃のクールタイム")]
-    private float _shootCoolTime = 1.0f;
-    public float ShootCoolTime
+    private FloatReactiveProperty _shootCoolTime ;
+    private float _currentShootCoolTime = default;
+    public IReadOnlyReactiveProperty<float> ShootCoolTimeProperty
     {
         get { return _shootCoolTime; }
     }
-    private float _currentShootCoolTime = default;
-    public float CurrentCoolTime
-    {
-        get { return _currentShootCoolTime; }
-    }
+
     [SerializeField, Header("近接の後隙")]
     private float _meleeCoolTime = 1.0f;
-    public float MeleeCoolTime
-    {
-        get { return _meleeCoolTime; }
-    }
     private float _currentMeleeCoolTime = default;
 
 
@@ -54,7 +49,7 @@ public class PlayerInputManager : MonoBehaviour
     private void Start()
     {
         float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue + 0.1f;
-        _shootCoolTime -= shotCoolTimeMinusValue;
+        _shootCoolTime.Value -= shotCoolTimeMinusValue;
         _dashButton = InputSystem.actions.FindAction("Dash");
         _lockOnButton = InputSystem.actions.FindAction("LockOn");
         _jumpButton = InputSystem.actions.FindAction("Jump");
@@ -70,7 +65,7 @@ public class PlayerInputManager : MonoBehaviour
         _takeDamage = GetComponent<TakeDamageScript>();
         _prevShootInputTime = Time.time;
         _prevMeleeInputTime = Time.time;
-        _currentShootCoolTime = _shootCoolTime;
+        _currentShootCoolTime = _shootCoolTime.Value;
         _currentMeleeCoolTime = _meleeCoolTime;
     }
 
@@ -140,7 +135,7 @@ public class PlayerInputManager : MonoBehaviour
         _currentShootCoolTime -= Time.deltaTime;
         if (_currentShootCoolTime <= 0)
         {
-            _currentShootCoolTime = _shootCoolTime;
+            _currentShootCoolTime = _shootCoolTime.Value;
             _isShootCoolTime = false;
         }
     }
@@ -173,7 +168,7 @@ public class PlayerInputManager : MonoBehaviour
     private void CallRightAttackProtocol(float prevInputTime,float currentInputTime)
     {
         _shootTimeDifference = currentInputTime - prevInputTime;
-        if (_shootTimeDifference > _shootCoolTime)
+        if (_shootTimeDifference > _shootCoolTime.Value)
         {
             _isShootCoolTime = true;
             _attack.RightAttack(_lockOn.CurrentTargetObject());
