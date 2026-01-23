@@ -1945,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2699487922861234285, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4037435707404653141, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1989,11 +1989,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6254512362455918770, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6254512362455918770, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: _status
@@ -4516,8 +4516,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8940117297664143945, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5109948988784260131}
   m_SourcePrefab: {fileID: 100100000, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+--- !u!1 &5109948988784260130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8940117297664143945, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+  m_PrefabInstance: {fileID: 5109948988784260129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5109948988784260131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5109948988784260130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81793339e1fd1084680e98e868531e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlowAwayGroundCheck
 --- !u!4 &5126268904744000863
 Transform:
   m_ObjectHideFlags: 0

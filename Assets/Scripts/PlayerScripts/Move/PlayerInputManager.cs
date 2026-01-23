@@ -23,10 +23,6 @@ public class PlayerInputManager : MonoBehaviour
         get { return _meleeCoolTime; }
     }
     private float _currentMeleeCoolTime = default;
-    public float CurrentMeleeCoolTime
-    {
-        get { return _currentMeleeCoolTime; }
-    }
 
 
     private InputAction _dashButton = default;

@@ -534,7 +534,10 @@ public class TestAIController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, _targetPos);
 
-
+        if(_playerObj == null)
+        {
+            return;
+        }
         Vector3 target = _playerObj.transform.position;
         Vector3 targetDir = (target - _onBallRigidBody.position).normalized;
         Vector3 attackRangeCenter = _onBallRigidBody.transform.position;
