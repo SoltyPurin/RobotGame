@@ -503,12 +503,10 @@ public class TestAIController : MonoBehaviour
         bool isOk = isXFits && isZFits;
         if (isOk)
         {
-            Debug.Log("再計算したが問題なし");
             return destination;
         }
         else
         {
-            Debug.Log("目標座標逸脱、座標再修正");
             float moveMaxDistance = _status.MoveMaxDistance;
             Vector3 curPos = transform.position;
             curPos.x += Random.Range(-moveMaxDistance, moveMaxDistance);

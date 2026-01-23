@@ -105,20 +105,17 @@ public class PlayerTakeDamage : TakeDamageScript
         bool isFrontAttack = Mathf.Abs(angle) <= _frontAngle;
         if (isFrontAttack)
         {
-            Debug.Log("ê≥ñ ");
             _effect.FrontDamage();
             return 2;
         }
 
         if(angle > 0)
         {
-            Debug.Log("âE");
             _effect.RightDamage();
             return 0;
         }
         else
         {
-            Debug.Log("ç∂");
             _effect.LeftDamage();
             return 1;
         }

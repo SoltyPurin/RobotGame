@@ -29,7 +29,6 @@ public class EnemyStackDetect : MonoBehaviour
         float distance = Vector3.Distance(_prevPos, curPos);
         if(distance < 10)
         {
-            Debug.Log("スタック検知");
             _controller.ThinkNextMove();
         }
         _prevPos = curPos;

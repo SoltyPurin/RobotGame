@@ -16,7 +16,6 @@ public class PlayerVibration : MonoBehaviour
         {
             yield break;
         }
-        Debug.Log("”í’eƒŒƒoƒuƒ‹");
         _gamePad.SetMotorSpeeds(left, right);
         yield return new WaitForSeconds(1.0f);
         _gamePad.SetMotorSpeeds(0, 0);

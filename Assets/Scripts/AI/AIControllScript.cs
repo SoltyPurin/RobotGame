@@ -20,7 +20,7 @@ public class AIControllScript : MonoBehaviour
     }
     private AIMove _move = default;
     private Jump _jump = default;
-    private Dash _dash = default;
+    private DashGage _dash = default;
     [SerializeField,Header("射撃のスクリプト")]
     private RightAttack _rightAttack = default;
     private Vector3 _targetPos = default;
@@ -41,7 +41,7 @@ public class AIControllScript : MonoBehaviour
     {
         _move = GetComponent<AIMove>();
         _jump = GetComponent<Jump>();
-        _dash = GetComponent<Dash>();
+        _dash = GetComponent<DashGage>();
         _playerObj = GameObject.FindWithTag("Player");
     }
 

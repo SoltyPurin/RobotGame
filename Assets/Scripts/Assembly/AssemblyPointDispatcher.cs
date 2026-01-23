@@ -20,8 +20,16 @@ public class AssemblyPointDispatcher : MonoBehaviour
 
     private AssemblyViewer _viewer = default;
 
-    private int _canMeleeUsePoint = 0;
-    private int _canShotUsePoint = 0;
+    private int _meleeRemain = 0;
+    public int MeleeRemainPoint
+    {
+        get { return _meleeRemain; } 
+    }
+    private int _shotweaponRemain = 0;
+    public int ShotWeaponRemainPoint
+    {
+        get { return _shotweaponRemain; }
+    }
 
     private int _meleeAttackPower = 0;
     private int _meleeRushSpeed = 0;
@@ -31,6 +39,8 @@ public class AssemblyPointDispatcher : MonoBehaviour
     private int _coolTime = 0;
     private int _bulletSpeed = 0;
 
+    public static string MeleeRemain = "MeleeRemain";
+    public static string ShotWeaponRemain = "ShotWeaponRemain";
     public static string MeleePower = "MeleePower";
     public static string MeleeRushSpeed = "RushSpeed";
     public static string MeleeBlowAway = "BlowAway";
@@ -39,9 +49,10 @@ public class AssemblyPointDispatcher : MonoBehaviour
     public static string BulletSpeed = "BulletSpeed";
     private void Start()
     {
-        _canMeleeUsePoint = _canUsePoint;
-        _canShotUsePoint = _canUsePoint;
+        _meleeRemain = PlayerPrefs.GetInt(MeleeRemain,_canUsePoint);
+        _shotweaponRemain = PlayerPrefs.GetInt(ShotWeaponRemain,_canUsePoint);
         _viewer = GetComponent<AssemblyViewer>();
+        _viewer.RemainStartSet(_meleeRemain, _shotweaponRemain);
 
         _meleeAttackPower = PlayerPrefs.GetInt(MeleePower, 0);
         _meleeRushSpeed = PlayerPrefs.GetInt (MeleeRushSpeed, 0);
@@ -194,6 +205,7 @@ public class AssemblyPointDispatcher : MonoBehaviour
                 break;
 
         }
+        PlayerPrefs.SetInt(MeleeRemain, meleeRemain);
 
     }
     private void ShotWeaponPointDispatch(float value,ParamName name)
@@ -204,7 +216,7 @@ public class AssemblyPointDispatcher : MonoBehaviour
         int take = 0;
 
         int shotRemain = _canUsePoint - _shotWeaponAttackPower + _coolTime + _bulletSpeed;
-        _canShotUsePoint = _canUsePoint - _shotWeaponAttackPower + _coolTime + _bulletSpeed;
+        _shotweaponRemain = _canUsePoint - _shotWeaponAttackPower + _coolTime + _bulletSpeed;
         switch (name)
         {
             case ParamName.ShotWeaponAttackPower:
@@ -315,7 +327,7 @@ public class AssemblyPointDispatcher : MonoBehaviour
                 _viewer.ShotUpdateValue(_bulletSpeed, shotRemain, _shotWeaponAttackPower, _coolTime, _bulletSpeed, ParamName.BulletSpeed);
                 break;
         }
-
+        PlayerPrefs.SetInt(ShotWeaponRemain, shotRemain);
 
     }
 

@@ -11,13 +11,25 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("どれくらい加速しやすいか")]
     private float _accelarationValue = 0.5f;
     [SerializeField, Header("速度")]
-    private float _speed = 50;
+    private float _moveSpeed = 50;
+    [SerializeField, Header("ダッシュ時に加算する速度")]
+    private float _dashPlusValue = 20;
     [SerializeField, Header("重力")]
     private float _downForce = 5;
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
     [SerializeField, Header("ロボットの見た目")]
     private GameObject _danbine = default;
+    [SerializeField, Header("ダッシュできる時間")]
+    private float _dashTime = 5;
+    public float DashTime
+    {
+        get { return _dashTime; }
+    }
+    private float _saveDashTime = 5;    
+
+    private bool _isRunning = false;
+    private float _lockYAxis = 0;
 
     private RaycastHit _hit;
     private float _verticalValue = 0.0f;
@@ -35,6 +47,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
+        _saveDashTime = _dashTime;
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _moveInput = InputSystem.actions.FindAction("Move");
         _lockOn = GetComponent<LockOn>();
@@ -55,11 +68,57 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         MoveProtocol();
+        if (_isRunning)
+        {
+            YAxisLock();
+        }
+    }
+
+    public void DashTimeHeal()
+    {
+        _dashTime = _saveDashTime;
+    }
+    public void DashProtocol()
+    {
+        if (_isRunning)
+        {
+            Debug.Log("ダッシュ解除");
+            _isRunning = false;
+            _moveSpeed -= _dashPlusValue;
+        }
+        else
+        {
+            if (_dashTime >= 0)
+            {
+                Debug.Log("ダッシュ");
+                _isRunning = true;
+                _lockYAxis = this.transform.position.y;
+                _moveSpeed += _dashPlusValue;
+            }
+        }
+    }
+
+    private void YAxisLock()
+    {
+        Vector3 curPos = this.transform.position;
+        curPos.y = _lockYAxis;
+        transform.position = curPos;
+        _dashTime -= Time.fixedDeltaTime;
+        if(_dashTime < 0 )
+        {
+            Debug.Log("ダッシュ解除");
+            _isRunning = false;
+            _moveSpeed -= _dashPlusValue;
+        }
     }
 
     private void MoveProtocol()
     {
-        _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
+        if (!_isRunning)
+        {
+            _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
+
+        }
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
         if(_lockOn.TargetTransform == null)
         {
@@ -87,7 +146,7 @@ public class PlayerMove : MonoBehaviour
             _danbine.transform.localRotation = targetRot;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
-            _useVelocity = moveForward * _speed;
+            _useVelocity = moveForward * _moveSpeed;
             _useVelocity.y = curVelocity.y;
             _ballRigidBody.linearVelocity = _useVelocity;
         }
@@ -107,7 +166,7 @@ public class PlayerMove : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
             _onBallRigidBody.rotation = temp;
-            _useVelocity = moveForward * _speed;
+            _useVelocity = moveForward * _moveSpeed;
             _useVelocity.y = curVelocity.y;
             _ballRigidBody.linearVelocity = _useVelocity;
         }

@@ -31,7 +31,6 @@ public class LockOn : MonoBehaviour
     {
         _nearEnemy = this.gameObject.AddComponent<SearchNearEnemy>();
         _targetTransform = _nearEnemy.SearchAndReturnNearEnemy().transform;
-        Debug.Log("ターゲットは" + _targetTransform.name);
         _lockOnCamera.LookAt = _targetTransform;
 
     }

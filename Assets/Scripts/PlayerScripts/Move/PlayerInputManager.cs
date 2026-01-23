@@ -33,7 +33,7 @@ public class PlayerInputManager : MonoBehaviour
     private InputAction _leftWeaponInput = default;
     private Jump _jump = default;
     private LockOn _lockOn = default;
-    private Dash _dash = default;
+    private DashGage _dash = default;
     private PlayerMove _move = default;
     private AttackScript _attack = default;
     private PlayAnimationScript _anim = default;
@@ -63,7 +63,7 @@ public class PlayerInputManager : MonoBehaviour
         _leftWeaponInput = InputSystem.actions.FindAction("LeftAttack");
         _jump = GetComponent<Jump>();
         _lockOn = GetComponent<LockOn>();
-        _dash = GetComponent<Dash>();
+        _dash = GetComponent<DashGage>();
         _move = GetComponent<PlayerMove>();
         _attack = GetComponent<AttackScript>();
         _anim = GetComponent<PlayAnimationScript>();
@@ -110,7 +110,7 @@ public class PlayerInputManager : MonoBehaviour
         }
         if(_dashButton.WasPressedThisFrame())
         {
-            _dash.DashProtocol(_move.UseVelocity);
+            _move.DashProtocol();
         }
         if (_rightWeaponInput.WasPressedThisFrame())
         {

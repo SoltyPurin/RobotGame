@@ -37,12 +37,17 @@ public class AssemblyViewer : MonoBehaviour
     private TextMeshProUGUI _bulletSpeedText = default;
 
     [SerializeField, Header("近接の振り分けポイント")]
-    private TextMeshProUGUI _meleeCanUsePoint = default;
+    private TextMeshProUGUI _meleeRemainText = default;
     [SerializeField, Header("射撃の振り分けポイント")]
-    private TextMeshProUGUI _shotWeaponCanUsePoint = default;
+    private TextMeshProUGUI _shotWeaponRemain = default;
 
     private AssemblyPointDispatcher _dispatcher = default;
 
+    public void RemainStartSet(int melee,int shot)
+    {
+        _meleeRemainText.text = melee.ToString();
+        _shotWeaponRemain.text = shot.ToString();
+    }
     private void Start()
     {
         _dispatcher = GetComponent<AssemblyPointDispatcher>();
@@ -86,7 +91,7 @@ public class AssemblyViewer : MonoBehaviour
 
     public void MeleeUpdateValue(float value,float totalMax, float attackPowerMax,float rushSpeedMax,float blowAwayMax, ParamName name)
     {
-        _meleeCanUsePoint.text = totalMax.ToString();
+        _meleeRemainText.text = totalMax.ToString();
         switch (name)
         {
             case ParamName.MeleeAttackPower:
@@ -120,7 +125,7 @@ public class AssemblyViewer : MonoBehaviour
 
     public void ShotUpdateValue(float value, float totalMax, float attackPowerMax, float coolTimeMax, float bulletSpeedMax, ParamName name)
     {
-        _shotWeaponCanUsePoint.text = totalMax.ToString();
+        _shotWeaponRemain.text = totalMax.ToString();
         switch (name)
         {
             case ParamName.ShotWeaponAttackPower:

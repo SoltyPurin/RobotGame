@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Dash : MonoBehaviour
+public class DashGage : MonoBehaviour
 {
     [SerializeField, Header("ボールのリジッドボディ")]
     private Rigidbody _ballRigidBody = default;

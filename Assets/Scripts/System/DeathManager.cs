@@ -18,7 +18,6 @@ public class DeathManager : MonoBehaviour
         _enemyCount = enemys.Length;
         GameObject plObj = GameObject.FindWithTag("Player");
         _lockOn = plObj.GetComponent<LockOn>();
-        Debug.Log("“G‚Ì”‚Í" + _enemyCount);
         StartCoroutine(GetNearEnemy(plObj));
     }
 

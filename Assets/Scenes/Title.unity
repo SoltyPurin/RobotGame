@@ -76994,8 +76994,8 @@ MonoBehaviour:
   _shotAttackPowerText: {fileID: 1708672463}
   _coolTimeText: {fileID: 1491611575}
   _bulletSpeedText: {fileID: 1732837177}
-  _meleeCanUsePoint: {fileID: 1278369906}
-  _shotWeaponCanUsePoint: {fileID: 64402389}
+  _meleeRemainText: {fileID: 1278369906}
+  _shotWeaponRemain: {fileID: 64402389}
 --- !u!114 &1901485451
 MonoBehaviour:
   m_ObjectHideFlags: 0
