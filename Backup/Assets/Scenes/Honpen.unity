@@ -243,11 +243,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23f6e2743b80924fb74669bb8526953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetectBullet
+--- !u!1 &13880279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9020127828175968096, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+  m_PrefabInstance: {fileID: 2192389512390236656}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &13880280 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7668374945580867206, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
   m_PrefabInstance: {fileID: 2192389512390236656}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &13880285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13880279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a651d1c6812109b469479e70007e8004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DashTimeUI
 --- !u!1 &17236873
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +329,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111087146}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 35.4}
   m_LocalScale: {x: 1.9972, y: 1.9972, z: 1.9972}
   m_ConstrainProportionsScale: 1
@@ -320,7 +337,7 @@ RectTransform:
   - {fileID: 116798142}
   - {fileID: 1604538707}
   m_Father: {fileID: 13880280}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -548, y: -493}
@@ -4709,7 +4726,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7668374945580867206, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       insertIndex: 2
       addedObject: {fileID: 111087147}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9020127828175968096, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 13880285}
   m_SourcePrefab: {fileID: 100100000, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
 --- !u!205 &5040388884143070333
 LODGroup:
