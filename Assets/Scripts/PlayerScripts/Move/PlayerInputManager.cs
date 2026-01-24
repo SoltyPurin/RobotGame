@@ -9,7 +9,7 @@ public class PlayerInputManager : MonoBehaviour
     private LeftAttack _meleeAttack = default;
     [SerializeField, Header("射撃のクールタイム")]
     private FloatReactiveProperty _shootCoolTime ;
-    private float _currentShootCoolTime = default;
+    private float _saveShootCoolTime = default;
     public IReadOnlyReactiveProperty<float> ShootCoolTimeProperty
     {
         get { return _shootCoolTime; }
@@ -46,10 +46,13 @@ public class PlayerInputManager : MonoBehaviour
 
     private float _getCoolTimeDivisionValue = 0.01f;
 
-    private void Start()
+    private void OnEnable()
     {
         float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue + 0.1f;
         _shootCoolTime.Value -= shotCoolTimeMinusValue;
+    }
+    private void Start()
+    {
         _dashButton = InputSystem.actions.FindAction("Dash");
         _lockOnButton = InputSystem.actions.FindAction("LockOn");
         _jumpButton = InputSystem.actions.FindAction("Jump");
@@ -65,7 +68,7 @@ public class PlayerInputManager : MonoBehaviour
         _takeDamage = GetComponent<TakeDamageScript>();
         _prevShootInputTime = Time.time;
         _prevMeleeInputTime = Time.time;
-        _currentShootCoolTime = _shootCoolTime.Value;
+        _saveShootCoolTime = _shootCoolTime.Value;
         _currentMeleeCoolTime = _meleeCoolTime;
     }
 
@@ -132,10 +135,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void ShootCoolTimeCounter()
     {
-        _currentShootCoolTime -= Time.deltaTime;
-        if (_currentShootCoolTime <= 0)
+        _shootCoolTime.Value -= Time.deltaTime;
+        if (_shootCoolTime.Value <= 0)
         {
-            _currentShootCoolTime = _shootCoolTime.Value;
+            _shootCoolTime.Value = _saveShootCoolTime;
             _isShootCoolTime = false;
         }
     }

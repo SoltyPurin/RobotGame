@@ -21,9 +21,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
     [SerializeField, Header("ロボットの見た目")]
-    private GameObject _danbine = default;
+    private GameObject _dunbine = default;
     [SerializeField, Header("ダッシュできる時間")]
     private FloatReactiveProperty _dashTime;
+    [SerializeField,Header("地面の検知")]
+    private GroundDetect _groundDetect = default;
+
     private float _saveDashTime;
     public IReadOnlyReactiveProperty<float> DashTimeProperty
     {
@@ -32,6 +35,10 @@ public class PlayerMove : MonoBehaviour
 
 
     private bool _isRunning = false;
+    public bool IsRunning
+    {
+        get { return _isRunning; }
+    }
     private float _lockYAxis = 0;
 
     private RaycastHit _hit;
@@ -104,8 +111,12 @@ public class PlayerMove : MonoBehaviour
     private void YAxisLock()
     {
         Vector3 curPos = this.transform.position;
+        if(_lockYAxis<=_groundDetect.GroundYAxis(curPos.x, curPos.z))
+        {
+            _lockYAxis = _groundDetect.GroundYAxis(curPos.x, curPos.z);
+        }
         curPos.y = _lockYAxis;
-        transform.position = curPos;
+        _onBallRigidBody.MovePosition(curPos);
         _dashTime.Value -= Time.fixedDeltaTime;
         if(_dashTime.Value < 0 )
         {
@@ -146,7 +157,7 @@ public class PlayerMove : MonoBehaviour
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
-            _danbine.transform.localRotation = targetRot;
+            _dunbine.transform.localRotation = targetRot;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
             _useVelocity = moveForward * _moveSpeed;
@@ -163,7 +174,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
-        _danbine.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        _dunbine.transform.localRotation = Quaternion.Euler(Vector3.zero);
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
