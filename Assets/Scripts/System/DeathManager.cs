@@ -16,16 +16,10 @@ public class DeathManager : MonoBehaviour
     {
         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
         _enemyCount = enemys.Length;
-        GameObject plObj = GameObject.FindWithTag("Player");
-        _lockOn = plObj.GetComponent<LockOn>();
-        StartCoroutine(GetNearEnemy(plObj));
+        _lockOn = FindAnyObjectByType<LockOn>();
+        _nearEnemy = FindAnyObjectByType<SearchNearEnemy>();
     }
 
-    private IEnumerator GetNearEnemy(GameObject plObj)
-    {
-        yield return new WaitForSeconds(0.1f);
-        _nearEnemy = plObj.GetComponent<SearchNearEnemy>();
-    }
     public void PlayerCheckHP(int hp)
     {
         StartCoroutine(PlayerDeathDelay());
@@ -59,13 +53,16 @@ public class DeathManager : MonoBehaviour
     {
         if(_enemyCount <= 0)
         {
-            _camera.ShoulderOffset.z = 165;
+           _camera.ShoulderOffset.z = 165;
+           _lockOn.UnlockTarget();
         }
-        _nearEnemy.ChangeEnemyArray();
-        _lockOn.ChangeCamera();
+        else
+        {
+            _nearEnemy.ChangeEnemyArray();
+            _lockOn.ChangeCamera();
+        }
         yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1;
-        //_camera.ShoulderOffset.z = 0;
         _canJudge = true;
         if (_enemyCount <= 0)
         {

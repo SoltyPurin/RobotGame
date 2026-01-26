@@ -56,7 +56,6 @@ public class BulletPool : MonoBehaviour
     {
         if (bullet.activeInHierarchy)
         {
-            Debug.Log("èeíeçÌèú");
             BulletMove bMove = bullet.GetComponent<BulletMove>();
             int index = bMove.BulletIndex;
             _bulletList[index].SetActive(false);

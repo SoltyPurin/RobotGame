@@ -188,10 +188,8 @@ public class TestAIController : MonoBehaviour
 
 
         GameObject colObj = hit.collider.gameObject;
-        Debug.Log(colObj.tag);
         if (colObj.CompareTag("Ground"))
         {
-            Debug.Log("’nŒ`‚ª‚ ‚é");
             return true;
         }else
         {
@@ -226,12 +224,10 @@ public class TestAIController : MonoBehaviour
             _isJumped = false;
             if (distance > _status.MeleeAttackRange)
             {
-                Debug.Log("ËŒ‚");
                 _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
             }
             else
             {
-                Debug.Log("‹ßÚ");
                 _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
             }
 
@@ -239,21 +235,17 @@ public class TestAIController : MonoBehaviour
 
         if (IsShootLineBeingObstacle())
         {
-            Debug.Log("ƒWƒƒƒ“ƒv‚µ‚ÄËüŠm•Û");
             _stateMachine.ChangeState(new JumpState(), this, _ctx);
             _isJumped=true;
         }
         else
         {
-            Debug.Log("ËüŠm•ÛÏ‚İ");
             if (distance > _status.MeleeAttackRange)
             {
-                Debug.Log("ËŒ‚");
                 _stateMachine.ChangeState(new RightAttackState(), this, _ctx);
             }
             else
             {
-                Debug.Log("‹ßÚ");
                 _stateMachine.ChangeState(new LeftAttackState(), this, _ctx);
             }
             _isJumped = false;
@@ -316,13 +308,11 @@ public class TestAIController : MonoBehaviour
         {
             if (_moveCount < _status.MoveCountUntilJump)
             {
-                Debug.Log("’Êí‚Ì3”{‚Ì‘¬“x‚ÅÚ‹ß’†");
                 _stateMachine.ChangeState(new ApproachState(), this, _ctx);
                 _moveCount++;
             }
             else
             {
-                Debug.Log("‰ñ”ğ");
                 _stateMachine.ChangeState(new DashState(), this, _ctx);
                 _moveCount = 0;
             }
@@ -399,12 +389,10 @@ public class TestAIController : MonoBehaviour
 
         if(nearDistance < _status.DodgeRange)
         {
-            Debug.Log("e’e‚ª‹ß‚¢‚æ");
             return true;
         }
         else
         {
-            Debug.Log("e’e‚ª‰“‚¢‚æ");
             return false;
         }
     }

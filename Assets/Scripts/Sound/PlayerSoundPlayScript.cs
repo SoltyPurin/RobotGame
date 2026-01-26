@@ -14,6 +14,8 @@ public class PlayerSoundPlayScript : MonoBehaviour
     private AudioClip _shotTakeDamage = default;
     [SerializeField,Header("Ž€–SŽž‚Ì”š”­‰¹")]
     private AudioClip _deathExplosion = default;
+    [SerializeField, Header("ƒ_ƒbƒVƒ…Žž‚Ì‰¹")]
+    private AudioClip _dashSE = default;
 
     private void Start()
     {
@@ -42,5 +44,17 @@ public class PlayerSoundPlayScript : MonoBehaviour
     public void PlayDeathSound()
     {
         _audioSource.PlayOneShot(_deathExplosion);
+    }
+
+    public void PlayDashSound(bool isRunning)
+    {
+        if (isRunning)
+        {
+            _audioSource.Stop();
+        }
+        else
+        {
+            _audioSource.PlayOneShot(_dashSE);
+        }
     }
 }

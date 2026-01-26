@@ -18,7 +18,6 @@ public class LeftAttack : MonoBehaviour
     private int _damageValue = 50;
     [SerializeField, Header("êÅÇ´îÚÇŒÇµóÕ")]
     private float _blowAwayPower = 50f;
-    [SerializeField, Header("âπó çƒê∂")]
     private PlayerSoundPlayScript _soundPlayer = default;
     private Vector3 _targetDirection = Vector3.zero;
     private Vector3 _targetPos = Vector3.zero;
@@ -31,6 +30,7 @@ public class LeftAttack : MonoBehaviour
 
     private void Start()
     {
+        _soundPlayer = FindAnyObjectByType<PlayerSoundPlayScript>();
         _damageValue += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleePower);
         _dashSpeed += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeRushSpeed);
         _blowAwayPower += PlayerPrefs.GetInt(AssemblyPointDispatcher.MeleeBlowAway);

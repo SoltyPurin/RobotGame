@@ -23,7 +23,7 @@ public class PlayerTakeDamage : TakeDamageScript
     public override void Start()
     {
         base.Start();
-        _soundPlayer = GetComponent<PlayerSoundPlayScript>();
+        _soundPlayer = FindAnyObjectByType<PlayerSoundPlayScript>();
         _effect = FindAnyObjectByType<DamageEffect>();
         _vibration = GetComponent<PlayerVibration>();
         _lockOn = GetComponent<LockOn>();   

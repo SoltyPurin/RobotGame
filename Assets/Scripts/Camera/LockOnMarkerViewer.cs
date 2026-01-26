@@ -17,6 +17,10 @@ public class LockOnMarkerViewer : MonoBehaviour
 
     private void Update()
     {
+        if(_target == null)
+        {
+            return;
+        } 
         Vector3 cameraDir = _camera.transform.forward;
         Vector3 targetWorldPos = _target.position;
         Vector3 targetDir = targetWorldPos-_camera.transform.position;

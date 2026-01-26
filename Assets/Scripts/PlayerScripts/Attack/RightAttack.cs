@@ -10,12 +10,12 @@ public class RightAttack : MonoBehaviour
     private float _bulletSpeed = 140;
     [SerializeField, Header("吹き飛ばし力")]
     private float _blowAwayPower = 50f;
-    [SerializeField, Header("音を再生するスクリプト")]
     private PlayerSoundPlayScript _soundPlay = default;
     private BulletPool _pool = default;
 
     private void Awake()
     {
+        _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
         _pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
         _bulletSpeed += PlayerPrefs.GetInt(AssemblyPointDispatcher.BulletSpeed);
     }

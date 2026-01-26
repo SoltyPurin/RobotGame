@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UniRx;
@@ -22,23 +21,25 @@ public class PlayerMove : MonoBehaviour
     private GameObject _lockOnCamera = default;
     [SerializeField, Header("ロボットの見た目")]
     private GameObject _dunbine = default;
+    [SerializeField, Header("ダッシュのパーティクル")]
+    private ParticleSystem _dashParticle = default;
     [SerializeField, Header("ダッシュできる時間")]
     private FloatReactiveProperty _dashTime;
-    [SerializeField,Header("地面の検知")]
-    private GroundDetect _groundDetect = default;
 
     private float _saveDashTime;
     public IReadOnlyReactiveProperty<float> DashTimeProperty
     {
         get { return _dashTime; }
     }
+    [SerializeField, Header("地面の検知")]
+    private GroundDetect _groundDetect = default;
 
-
-    private bool _isRunning = false;
-    public bool IsRunning
+    private ReactiveProperty<bool> _isRunning = new ReactiveProperty<bool>(false);
+    public IReadOnlyReactiveProperty<bool> IsRunning
     {
         get { return _isRunning; }
     }
+
     private float _lockYAxis = 0;
 
     private RaycastHit _hit;
@@ -52,14 +53,15 @@ public class PlayerMove : MonoBehaviour
         get { return _useVelocity; }
     }
     private GameObject _activeCamera = default;
-    private InputAction _moveInput;
     private LockOn _lockOn = default;
-
+    private PlayerSoundPlayScript _soundPlay = default;
     private void Start()
     {
+        _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
+        _dashParticle.Stop();
+        _isRunning.Value = false;
         _saveDashTime = _dashTime.Value;
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
-        _moveInput = InputSystem.actions.FindAction("Move");
         _lockOn = GetComponent<LockOn>();
         _activeCamera = _lockOnCamera;
     }
@@ -78,7 +80,7 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         MoveProtocol();
-        if (_isRunning)
+        if (_isRunning.Value)
         {
             YAxisLock();
         }
@@ -90,18 +92,20 @@ public class PlayerMove : MonoBehaviour
     }
     public void DashProtocol()
     {
-        if (_isRunning)
+        if (_isRunning.Value)
         {
-            Debug.Log("ダッシュ解除");
-            _isRunning = false;
+            _soundPlay.PlayDashSound(_isRunning.Value);
+            _dashParticle.Stop();
+            _isRunning.Value = false;
             _moveSpeed -= _dashPlusValue;
         }
         else
         {
             if (_dashTime.Value >= 0)
             {
-                Debug.Log("ダッシュ");
-                _isRunning = true;
+                _soundPlay.PlayDashSound(_isRunning.Value);
+                _dashParticle.Play();
+                _isRunning.Value = true;
                 _lockYAxis = this.transform.position.y;
                 _moveSpeed += _dashPlusValue;
             }
@@ -120,15 +124,16 @@ public class PlayerMove : MonoBehaviour
         _dashTime.Value -= Time.fixedDeltaTime;
         if(_dashTime.Value < 0 )
         {
-            Debug.Log("ダッシュ解除");
-            _isRunning = false;
+            _soundPlay.PlayDashSound(_isRunning.Value);
+            _dashParticle.Stop();
+            _isRunning.Value = false;
             _moveSpeed -= _dashPlusValue;
         }
     }
 
     private void MoveProtocol()
     {
-        if (!_isRunning)
+        if (!_isRunning.Value)
         {
             _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
 

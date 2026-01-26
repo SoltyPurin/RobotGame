@@ -29,6 +29,11 @@ public class UIPresenter : MonoBehaviour
             _viewer.SetDashValue(dash);
         });
 
+        _move.IsRunning.Subscribe(isRunning =>
+        {
+            _viewer.SwitchDashEffect(isRunning);
+        });
+
         _input.ShootCoolTimeProperty.Subscribe(coolTime =>
         {
             _viewer.SetShotWeaponValue(coolTime);

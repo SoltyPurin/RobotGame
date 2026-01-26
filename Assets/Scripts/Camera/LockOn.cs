@@ -50,13 +50,26 @@ public class LockOn : MonoBehaviour
 
     public void ChangeCamera()
     {
-        _targetTransform = _nearEnemy.SearchAndReturnNearEnemy().transform;
+        GameObject enemy = _nearEnemy.SearchAndReturnNearEnemy();
+        if (enemy == null)
+        {
+            UnlockTarget();
+            return;
+        }
+        _targetTransform = enemy.transform;
         _lockOnCamera.LookAt = _targetTransform;
         _lockOnMarker.SetLockOnMarkar(_targetTransform);
     }
 
     public Transform CurrentTargetObject()
     {
-        return _targetTransform;
+        if (_targetTransform == null)
+        {
+            return null;
+        }
+        else
+        {
+            return _targetTransform;
+        }
     }
 }

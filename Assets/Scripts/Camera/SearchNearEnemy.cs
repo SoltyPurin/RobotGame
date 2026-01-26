@@ -11,16 +11,26 @@ public class SearchNearEnemy : MonoBehaviour
     public void ChangeEnemyArray()
     {
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        _currentEnemyIndex = 0;
+        _currentEnemyIndex = -1;
     }
     public GameObject SearchAndReturnNearEnemy()
     {
-        _currentEnemyIndex++;
-        if(_currentEnemyIndex >= _enemys.Length)
+        if (_enemys == null || _enemys.Length == 0)
         {
-            _currentEnemyIndex = 0;
+            return null;
         }
 
-        return _enemys[_currentEnemyIndex];
+        for (int i = 0; i < _enemys.Length; i++)
+        {
+            _currentEnemyIndex = (_currentEnemyIndex + 1) % _enemys.Length;
+            GameObject candidate = _enemys[_currentEnemyIndex];
+
+            if (candidate != null)
+            {
+                return candidate;
+            }
+        }
+
+        return null;
     }
 }

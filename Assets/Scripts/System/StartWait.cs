@@ -11,10 +11,12 @@ public class StartWait : MonoBehaviour
     private void Awake()
     {
         PlayerInputManager input = FindAnyObjectByType<PlayerInputManager>();
+        DeathManager deathManager = FindAnyObjectByType<DeathManager>();
         var aiCOntroller = FindObjectsByType<TestAIController>(FindObjectsSortMode.None);
         var stackDetect  = FindObjectsByType<EnemyStackDetect>(FindObjectsSortMode.None);
         var takeDamages = FindObjectsByType<TakeDamageScript>(FindObjectsSortMode.None);
         input.enabled = false;
+        deathManager.enabled = false;
         _userCanvas.SetActive(false);
         foreach (var ai in aiCOntroller)
         {
@@ -28,12 +30,12 @@ public class StartWait : MonoBehaviour
         {
             takeDamage.enabled = false;
         }
-        StartCoroutine(EnableProtocol(input,aiCOntroller,stackDetect,takeDamages));
+        StartCoroutine(EnableProtocol(input,aiCOntroller,stackDetect,takeDamages,deathManager));
     }
 
     private IEnumerator EnableProtocol(PlayerInputManager input,
         TestAIController[] controllers,EnemyStackDetect[] stacks,
-        TakeDamageScript[] takeDamages )
+        TakeDamageScript[] takeDamages,DeathManager deathManager )
     {
         yield return new WaitForSeconds(_animationTime);
         input.enabled = true;
@@ -49,6 +51,7 @@ public class StartWait : MonoBehaviour
         {
             takeDamage.enabled =true;
         }
+        deathManager.enabled=true;
         _userCanvas.SetActive(true);
     }
 }

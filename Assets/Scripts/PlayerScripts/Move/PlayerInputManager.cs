@@ -17,6 +17,8 @@ public class PlayerInputManager : MonoBehaviour
 
     [SerializeField, Header("近接の後隙")]
     private float _meleeCoolTime = 1.0f;
+    [SerializeField, Header("ターゲットが無い時の仮ターゲット")]
+    private Transform _tempTarget = default;
     private float _currentMeleeCoolTime = default;
 
 
@@ -168,13 +170,16 @@ public class PlayerInputManager : MonoBehaviour
 
     private void CallRightAttackProtocol(float currentInputTime)
     {
-        //_shootTimeDifference = currentInputTime - prevInputTime;
+        Transform enemy = _lockOn.CurrentTargetObject();
+        if(enemy == null)
+        {
+            enemy = _tempTarget;
+        } 
         if (!_isShootCoolTime)
         {
             _isShootCoolTime = true;
-            _attack.RightAttack(_lockOn.CurrentTargetObject());
+            _attack.RightAttack(enemy);
             _anim.RightAttackAnim();
-            //_prevShootInputTime = currentInputTime;
         }
     }
 }

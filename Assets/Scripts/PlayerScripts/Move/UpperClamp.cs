@@ -19,7 +19,6 @@ public class UpperClamp : MonoBehaviour
 
     private void PlayerPositionCorrection()
     {
-        Debug.Log("çÇÇ≥êßå¿íÜ");
         Vector3 curPos = this.transform.position;
         transform.position = new Vector3(curPos.x, Mathf.Min(curPos.y, _ceilMax), curPos.z);
     }

@@ -1,5 +1,4 @@
 using TMPro;
-using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +10,20 @@ public class UIViewer : MonoBehaviour
     private Slider _dashTimeSlider = default;
     [SerializeField, Header("射撃のクールタイムのスライダー")]
     private Slider _shotWeaponCoolTimeSlider = default;
+    [SerializeField, Header("ダッシュ時のエフェクト")]
+    private GameObject _dashEffect = default;
 
     public void SetShotWeaponMax(float max)
     {
-        Debug.Log("射撃の最大クールタイムは" + max);
         _shotWeaponCoolTimeSlider.maxValue = max;
     }
     public void SetShotWeaponValue(float value)
     {
         _shotWeaponCoolTimeSlider.value = value;
+    }
+    public void SwitchDashEffect(bool isRunning)
+    {
+        _dashEffect.SetActive(isRunning);
     }
     public void SetDashTimeSliderMax(float max)
     {
