@@ -12,6 +12,7 @@ public class EnemyContext
     public EnemyDetectGround Ground;
     public PlayAnimationScript Animation;
     public BulletPool Pool;
+    public EnemySoundPlayScript SoundPlayScript;
     public float MoveSpeed;
     public float EscapeSpeed;
     public float DodgePower;

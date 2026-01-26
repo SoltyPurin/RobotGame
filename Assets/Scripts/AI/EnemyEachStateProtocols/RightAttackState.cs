@@ -35,6 +35,7 @@ public class RightAttackState : IEnemyState
         _currentShootingTime += Time.fixedDeltaTime;
         if(_currentShootingTime >= _shootAidaTime)
         {
+            _ctx.SoundPlayScript.PlayShotSE();
             _currentShootingTime = 0;
             _ctx.Pool.ActiveBullet(_targetDirection, _aliveTime, _ctx.ShootPoint.position, _damage, _power, "ENBullet",_ctx.BulletMoveSpeed);
         }

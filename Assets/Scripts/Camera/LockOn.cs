@@ -15,6 +15,7 @@ public class LockOn : MonoBehaviour
     [SerializeField, Header("ロックオンしてない時の注視オブジェクト")]
     private Transform _notLockOnObject = default;
 
+    private LockOnMarkerViewer _lockOnMarker = default;
     private SearchNearEnemy _nearEnemy = default;
     private Transform _targetTransform = default;
     public Transform TargetTransform
@@ -27,14 +28,14 @@ public class LockOn : MonoBehaviour
         get { return _cameraState; }    
     }
 
-    private void Start()
+    public void Initialize()
     {
+        _lockOnMarker = FindAnyObjectByType<LockOnMarkerViewer>();
         _nearEnemy = this.gameObject.AddComponent<SearchNearEnemy>();
         _targetTransform = _nearEnemy.SearchAndReturnNearEnemy().transform;
         _lockOnCamera.LookAt = _targetTransform;
-
+        _lockOnMarker.SetLockOnMarkar(_targetTransform);
     }
-
     public void UnlockTarget()
     {
         _targetTransform = null;
@@ -51,6 +52,7 @@ public class LockOn : MonoBehaviour
     {
         _targetTransform = _nearEnemy.SearchAndReturnNearEnemy().transform;
         _lockOnCamera.LookAt = _targetTransform;
+        _lockOnMarker.SetLockOnMarkar(_targetTransform);
     }
 
     public Transform CurrentTargetObject()

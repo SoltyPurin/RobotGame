@@ -31,7 +31,7 @@ public class LeftAttackState : IEnemyState
         Quaternion targetRot = Quaternion.LookRotation(_targetDirection, Vector3.up);
         _ctx.OnBallRigidbody.rotation = targetRot;
         _targetPos = FinalDestination(_targetDirection, _ctx.RushSpeed);
-
+        _ctx.SoundPlayScript.PlayMeleeSE();
     }
 
     public void FixedUpdate()

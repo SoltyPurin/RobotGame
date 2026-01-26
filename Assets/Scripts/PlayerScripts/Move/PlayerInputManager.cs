@@ -67,6 +67,7 @@ public class PlayerInputManager : MonoBehaviour
         _prevMeleeInputTime = Time.time;
         _saveShootCoolTime = _shootCoolTime.Value;
         _currentMeleeCoolTime = _meleeCoolTime;
+        _lockOn.Initialize();
     }
 
     private void Update()

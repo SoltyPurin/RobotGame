@@ -9,12 +9,14 @@ public class EnemyHPSlider : MonoBehaviour
     private GameObject _canvas = default;
 
     private GameObject _player = default;
+    private bool _isInitialized = false;
 
     public void Initialize(int hp)
     {
         _hpSlider.maxValue = hp;
         _hpSlider.value = hp;
         _player = GameObject.FindWithTag("Player");
+        _isInitialized = true;
     }
 
     public void ValueUpdate(int hp)
@@ -24,6 +26,10 @@ public class EnemyHPSlider : MonoBehaviour
 
     private void Update()
     {
+        if(!_isInitialized)
+        {
+            return;
+        }
         _canvas.transform.LookAt(_player.transform.position);
     }
 }

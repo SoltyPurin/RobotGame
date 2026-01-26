@@ -48,6 +48,7 @@ public class TestAIController : MonoBehaviour
     private TakeDamageScript _takeDamage = default;
     private PlayAnimationScript _anim = default;
     private Rigidbody _plRigidBody = default;
+    private EnemySoundPlayScript _soundPlay = default;
 
     private bool _isAttacked = false;
 
@@ -61,6 +62,7 @@ public class TestAIController : MonoBehaviour
     {
         _takeDamage = GetComponent<TakeDamageScript>();
         _anim = GetComponent<PlayAnimationScript>();
+        _soundPlay = GetComponent<EnemySoundPlayScript>();
         _playerObj = GameObject.FindWithTag("Player");
         _plRigidBody = _playerObj.GetComponent<Rigidbody>();
         _nearTargetPosDistance = _status.NearTargetPosDistance;
@@ -68,6 +70,7 @@ public class TestAIController : MonoBehaviour
         _ctx = new EnemyContext();
         _ctx.Transform = this.transform;
         _ctx.Controller = this;
+        _ctx.SoundPlayScript = _soundPlay;
         _ctx.MoveSpeed = _aiMoveSpeed;
         _ctx.EscapeSpeed = _status.EscapeSpeed;
         _ctx.OnBallRigidbody = _onBallRigidBody;
