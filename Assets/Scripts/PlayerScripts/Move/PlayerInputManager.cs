@@ -38,10 +38,8 @@ public class PlayerInputManager : MonoBehaviour
     private bool _isShootCoolTime = false;
     private bool _isMeleeCoolTime = false;
 
-    private float _shootTimeDifference = default;
     private float _meleeTimeDifference = default;
 
-    private float _prevShootInputTime = 0f;
     private float _prevMeleeInputTime = 0;
 
     private float _getCoolTimeDivisionValue = 0.01f;
@@ -66,7 +64,6 @@ public class PlayerInputManager : MonoBehaviour
         _attack = GetComponent<AttackScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _takeDamage = GetComponent<TakeDamageScript>();
-        _prevShootInputTime = Time.time;
         _prevMeleeInputTime = Time.time;
         _saveShootCoolTime = _shootCoolTime.Value;
         _currentMeleeCoolTime = _meleeCoolTime;
@@ -113,7 +110,7 @@ public class PlayerInputManager : MonoBehaviour
         if (_rightWeaponInput.WasPressedThisFrame())
         {
             float curInputTime = Time.time;
-            CallRightAttackProtocol(_prevShootInputTime,curInputTime);
+            CallRightAttackProtocol(curInputTime);
         }
         if (_leftWeaponInput.WasPressedThisFrame())
         {
@@ -138,6 +135,7 @@ public class PlayerInputManager : MonoBehaviour
         _shootCoolTime.Value -= Time.deltaTime;
         if (_shootCoolTime.Value <= 0)
         {
+            Debug.Log(_shootCoolTime.Value);
             _shootCoolTime.Value = _saveShootCoolTime;
             _isShootCoolTime = false;
         }
@@ -168,15 +166,15 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    private void CallRightAttackProtocol(float prevInputTime,float currentInputTime)
+    private void CallRightAttackProtocol(float currentInputTime)
     {
-        _shootTimeDifference = currentInputTime - prevInputTime;
-        if (_shootTimeDifference > _shootCoolTime.Value)
+        //_shootTimeDifference = currentInputTime - prevInputTime;
+        if (!_isShootCoolTime)
         {
             _isShootCoolTime = true;
             _attack.RightAttack(_lockOn.CurrentTargetObject());
             _anim.RightAttackAnim();
-            _prevShootInputTime = currentInputTime;
+            //_prevShootInputTime = currentInputTime;
         }
     }
 }

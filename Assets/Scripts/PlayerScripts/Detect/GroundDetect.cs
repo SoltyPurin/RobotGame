@@ -10,6 +10,8 @@ public class GroundDetect : MonoBehaviour
     private PlayerEffectPlay _effect = default;
     [SerializeField, Header("地面に照射するレイの長さ")]
     private float _rayDistance = 0.5f;
+    [SerializeField, Header("アニメーター")]
+    private Animator _animator = default;
 
     private readonly string GROUND_TAG = "Ground";
 
@@ -18,6 +20,7 @@ public class GroundDetect : MonoBehaviour
         GameObject obj = collision.gameObject;
         if (obj.CompareTag(GROUND_TAG))
         {
+            _animator.SetBool("IsTouchGround", true);
             _effect.StopThrusterEffect();
             _jump.JumpCountReset();
             if (!_move.IsRunning)
@@ -26,6 +29,15 @@ public class GroundDetect : MonoBehaviour
             }
         }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        GameObject obj = collision.gameObject;
+        if (obj.CompareTag(GROUND_TAG))
+        {
+            _animator.SetBool("IsTouchGround",false);
+        }
+        }
 
     public float GroundYAxis(float x, float z)
     {
