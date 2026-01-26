@@ -135,7 +135,6 @@ public class PlayerInputManager : MonoBehaviour
         _shootCoolTime.Value -= Time.deltaTime;
         if (_shootCoolTime.Value <= 0)
         {
-            Debug.Log(_shootCoolTime.Value);
             _shootCoolTime.Value = _saveShootCoolTime;
             _isShootCoolTime = false;
         }
