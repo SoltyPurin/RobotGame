@@ -6,7 +6,10 @@ using Unity.Cinemachine;
 public class DeathManager : MonoBehaviour
 {
     [SerializeField, Header("ロックオンのカメラ")]
-    private CinemachineThirdPersonFollow _camera = default;
+    private GameObject _camera = default;
+    private CinemachineCamera _currentCamera = default;
+    [SerializeField, Header("死亡時のカメラを管理するスクリプト")]
+    private DeathCamera _deathCamera = default;
     private int _enemyCount = 0;
     private LockOn _lockOn = default;
     private SearchNearEnemy _nearEnemy = default;
@@ -15,6 +18,7 @@ public class DeathManager : MonoBehaviour
     private void Start()
     {
         GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        _currentCamera = _camera.GetComponent<CinemachineCamera>();
         _enemyCount = enemys.Length;
         _lockOn = FindAnyObjectByType<LockOn>();
         _nearEnemy = FindAnyObjectByType<SearchNearEnemy>();
@@ -31,7 +35,7 @@ public class DeathManager : MonoBehaviour
         SceneManager.LoadScene("DeathResult");
     }
 
-    public void EnemyCheckHP(int hp)
+    public void EnemyCheckHP(int hp,GameObject enemy)
     {
         if (!_canJudge)
         {
@@ -42,18 +46,18 @@ public class DeathManager : MonoBehaviour
             Time.timeScale = 0.2f;
             _canJudge = false;
             _enemyCount--;
-            _lockOn.ReSearch();
-            StartCoroutine(ReturnTimeScale());
+            StartCoroutine(ReturnTimeScale(enemy));
             Debug.Log("残りの敵の数" + _enemyCount);
 
         }
     }
 
-    private IEnumerator ReturnTimeScale()
+    private IEnumerator ReturnTimeScale(GameObject enemy)
     {
         if(_enemyCount <= 0)
         {
-           _camera.ShoulderOffset.z = 165;
+            Debug.Log("敵が全滅");
+            _deathCamera.MoveDeathObject(enemy, _currentCamera);
            _lockOn.UnlockTarget();
         }
         else
