@@ -98,4 +98,9 @@ public class LeftAttack : MonoBehaviour
 
          enDamage.MeleeTakeDamage(_targetDirection,_damageValue,_blowAwayPower);
     }
+
+    public void AuraBurst(int burstDamageUpValue,bool isPlus)
+    {
+
+    }
 }

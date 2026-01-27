@@ -2,6 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -21,20 +22,15 @@ public class PlayerInputManager : MonoBehaviour
     private Transform _tempTarget = default;
     private float _currentMeleeCoolTime = default;
 
-
-    private InputAction _dashButton = default;
-    private InputAction _jumpButton = default;
+    private InputSystem_Actions _actionMap = default;
     private InputAction _lockOnButton = default;
-    private InputAction _moveInput = default;
-    private InputAction _rightWeaponInput = default;
-    private InputAction _leftWeaponInput = default;
     private Jump _jump = default;
     private LockOn _lockOn = default;
-    private DashGage _dash = default;
     private PlayerMove _move = default;
     private AttackScript _attack = default;
     private PlayAnimationScript _anim = default;
     private TakeDamageScript _takeDamage = default;
+    private AuraBurst _burst = default;
 
     private bool _isAlive = true;
     private bool _isShootCoolTime = false;
@@ -53,15 +49,22 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void Start()
     {
-        _dashButton = InputSystem.actions.FindAction("Dash");
+        _actionMap = new InputSystem_Actions();
+        _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
+        _actionMap.Player.Dash.performed += DashProtocol;
+        _actionMap.Player.Jump.performed += JumpProtocol;
+        _actionMap.Player.RightAttack.performed += RightAttackProtocol;
+        _actionMap.Player.LeftAttack.performed += LeftAttackProtocol;
+        _actionMap.Player.Move.started += MoveProtocol;
+        _actionMap.Player.Move.performed += MoveProtocol;
+        _actionMap.Player.Move.canceled += MoveProtocol;
+        _actionMap.Player.LockOn.performed += LockOnProtocol;
+
+        _actionMap.Enable();
+        _burst = GetComponent<AuraBurst>();
         _lockOnButton = InputSystem.actions.FindAction("LockOn");
-        _jumpButton = InputSystem.actions.FindAction("Jump");
-        _moveInput = InputSystem.actions.FindAction("Move");
-        _rightWeaponInput = InputSystem.actions.FindAction("RightAttack");
-        _leftWeaponInput = InputSystem.actions.FindAction("LeftAttack");
         _jump = GetComponent<Jump>();
         _lockOn = GetComponent<LockOn>();
-        _dash = GetComponent<DashGage>();
         _move = GetComponent<PlayerMove>();
         _attack = GetComponent<AttackScript>();
         _anim = GetComponent<PlayAnimationScript>();
@@ -78,10 +81,10 @@ public class PlayerInputManager : MonoBehaviour
         {
             return;
         }
-        if (_lockOnButton.WasPressedThisFrame())
-        {
-            _lockOn.ChangeCamera();
-        }
+        //if (_lockOnButton.WasPressedThisFrame())
+        //{
+        //    _lockOn.ChangeCamera();
+        //}
 
         if (_takeDamage.IsBlowning)
         {
@@ -91,35 +94,35 @@ public class PlayerInputManager : MonoBehaviour
         {
             return;
         }
-        Vector2 input = _moveInput.ReadValue<Vector2>();
-        _move.InputProtocol(input); 
-        if(input.magnitude <= 0)
-        {
-            _anim.IdleAnim();
-        }
-        else
-        {
-            _anim.MoveAnim();
-        }
-        if (_jumpButton.WasPressedThisFrame())
-        {
-            _jump.JumpProtocol();
-            _anim.JumpAnim();
-        }
-        if(_dashButton.WasPressedThisFrame())
-        {
-            _move.DashProtocol();
-        }
-        if (_rightWeaponInput.WasPressedThisFrame())
-        {
-            float curInputTime = Time.time;
-            CallRightAttackProtocol(curInputTime);
-        }
-        if (_leftWeaponInput.WasPressedThisFrame())
-        {
-            float curInputTime = Time.time;
-            CallLeftAttackProtocol(_prevMeleeInputTime,curInputTime);
-        }
+        //Vector2 input = _moveInput.ReadValue<Vector2>();
+        //_move.InputProtocol(input); 
+        //if(input.magnitude <= 0)
+        //{
+        //    _anim.IdleAnim();
+        //}
+        //else
+        //{
+        //    _anim.MoveAnim();
+        //}
+        //if (_jumpButton.WasPressedThisFrame())
+        //{
+        //    _jump.JumpProtocol();
+        //    _anim.JumpAnim();
+        //}
+        //if(_dashButton.WasPressedThisFrame())
+        //{
+        //    _move.DashProtocol();
+        //}
+        //if (_rightWeaponInput.WasPressedThisFrame())
+        //{
+        //    float curInputTime = Time.time;
+        //    CallRightAttackProtocol(curInputTime);
+        //}
+        //if (_leftWeaponInput.WasPressedThisFrame())
+        //{
+        //    float curInputTime = Time.time;
+        //    CallLeftAttackProtocol(_prevMeleeInputTime,curInputTime);
+        //}
 
         if (_isShootCoolTime)
         {
@@ -131,6 +134,80 @@ public class PlayerInputManager : MonoBehaviour
             MeleeCoolTimeCounter();
         }
 
+    }
+
+    private void LockOnProtocol(InputAction.CallbackContext context)
+    {
+        if (!_isAlive)
+        {
+            return;
+        }
+        _lockOn.ChangeCamera();
+
+
+    }
+
+    private void MoveProtocol(InputAction.CallbackContext context)
+    {
+        if (IsDontMove())
+        {
+            return;
+        }
+        Vector2 input = context.ReadValue<Vector2>();
+        _move.InputProtocol(input);
+        if (input.magnitude <= 0)
+        {
+            _anim.IdleAnim();
+        }
+        else
+        {
+            _anim.MoveAnim();
+        }
+
+    }
+    private void JumpProtocol(InputAction.CallbackContext context)
+    {
+        if (IsDontMove())
+        {
+            return;
+        }
+        _jump.JumpProtocol();
+        _anim.JumpAnim();
+
+    }
+    private void DashProtocol(InputAction.CallbackContext context)
+    {
+        if (IsDontMove())
+        {
+            return ;
+        }
+
+        _move.DashProtocol();
+    }
+    private void RightAttackProtocol(InputAction.CallbackContext context)
+    {
+        if (IsDontMove())
+        {
+            return;
+        }
+
+        float curInputTime = Time.time;
+        CallRightAttackProtocol(curInputTime);
+    }
+
+    private void LeftAttackProtocol(InputAction.CallbackContext context)
+    {
+        if (IsDontMove())
+        {
+            return;
+        }
+
+        float curInputTime = Time.time;
+        CallLeftAttackProtocol(_prevMeleeInputTime, curInputTime);
+    }
+    private void AuraBurstProtocol(InputAction.CallbackContext context)
+    {
+        _burst.StartAuraBurst();
     }
 
     private void ShootCoolTimeCounter()
@@ -171,10 +248,10 @@ public class PlayerInputManager : MonoBehaviour
     private void CallRightAttackProtocol(float currentInputTime)
     {
         Transform enemy = _lockOn.CurrentTargetObject();
-        if(enemy == null)
-        {
-            enemy = _tempTarget;
-        } 
+        //if(enemy == null)
+        //{
+        //    enemy = _tempTarget;
+        //} 
         if (!_isShootCoolTime)
         {
             _isShootCoolTime = true;
@@ -182,4 +259,26 @@ public class PlayerInputManager : MonoBehaviour
             _anim.RightAttackAnim();
         }
     }
+
+    private bool IsDontMove()
+    {
+        bool canMove = !_isAlive && _takeDamage.IsBlowning && _meleeAttack.IsRushing;
+        return canMove;
+    }
+
+    private void OnDestroy()
+    {
+        _actionMap.Player.AuraBurst.performed-= AuraBurstProtocol;
+        _actionMap.Player.Dash.performed -= DashProtocol;
+        _actionMap.Player.Jump.performed -= JumpProtocol;
+        _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
+        _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;
+        _actionMap.Player.Move.started -= MoveProtocol;
+        _actionMap.Player.Move.performed -= MoveProtocol;
+        _actionMap.Player.Move.canceled -= MoveProtocol;
+
+        _actionMap.Disable();
+        _actionMap?.Dispose();
+    }
+
 }

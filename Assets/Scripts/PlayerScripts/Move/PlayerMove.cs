@@ -68,7 +68,6 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Physics.Raycast(_ballRigidBody.position, Vector3.down, out _hit, _sphereRadius);
-
     }
     public void InputProtocol(Vector2 input)
     {
@@ -192,6 +191,18 @@ public class PlayerMove : MonoBehaviour
         else
         {
             _ballRigidBody.linearVelocity *= 0.9f;
+        }
+    }
+
+    public void AuraBurst(int burstValue,bool isPlus)
+    {
+        if (isPlus)
+        {
+            _moveSpeed += burstValue;
+        }
+        else
+        {
+            _moveSpeed -= burstValue;
         }
     }
 

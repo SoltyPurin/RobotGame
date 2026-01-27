@@ -11,7 +11,7 @@ public class PlayerTakeDamage : TakeDamageScript
     private float _frontAngle = 20;
     [SerializeField, Header("ロックオンカメラ")]
     private CinemachineCamera _lockOnCamera = default;
-
+    
     private PlayerSoundPlayScript _soundPlayer = default;
     private DamageEffect _effect = default;
     private PlayerVibration _vibration = default;
@@ -19,6 +19,10 @@ public class PlayerTakeDamage : TakeDamageScript
     private UIViewer _uiViewer = default;
     private PlayerInputManager _input = default;
     private CinemachineImpulseSource _shake = default;
+    private AuraBurst _auraBurst = default;
+
+    private int _halfHP = 0;
+    private bool _isInvincible = false; 
 
     public override void Start()
     {
@@ -31,10 +35,16 @@ public class PlayerTakeDamage : TakeDamageScript
         _uiViewer = FindAnyObjectByType<UIViewer>();
         _input = GetComponent<PlayerInputManager>();
         _uiViewer.SetHealth(_userHP);
+        _auraBurst = GetComponent<AuraBurst>();
+        _halfHP = _userHP / 2;
     }
 
     public override void MeleeTakeDamage(Vector3 attackDirection, int damage, float blowAwayPower)
     {
+        if (_isInvincible)
+        {
+            return; 
+        }
         base.MeleeTakeDamage(attackDirection, damage, blowAwayPower);
         if (_shake != null)
         {
@@ -48,6 +58,11 @@ public class PlayerTakeDamage : TakeDamageScript
 
     public override void ShootTakeDamage(Vector3 bulletDirection, int damage, float blowAwayPower)
     {
+        if (_isInvincible)
+        {
+            return;
+        }
+
         base.ShootTakeDamage(bulletDirection, damage, blowAwayPower);
         if (_shake != null)
         {
@@ -69,6 +84,10 @@ public class PlayerTakeDamage : TakeDamageScript
             _soundPlayer.PlayDeathSound();
             _input.Dead();
             _deathManager.PlayerCheckHP(_userHP);
+        }
+        if(_userHP <= _halfHP)
+        {
+            _auraBurst.AuraBurstUseableProtocol();
         }
     }
 
@@ -100,6 +119,10 @@ public class PlayerTakeDamage : TakeDamageScript
     /// <returns>0は右、1は左、2は正面</returns>
     private int CalcEnemyAttackDirection(Vector3 toPlayer)
     {
+        if(_lockOn.TargetTransform == null)
+        {
+            return 2;
+        }
         Vector3 baseDir = (_lockOn.TargetTransform.position-_lockOnCamera.transform.position).normalized;
         float angle = Vector3.SignedAngle(baseDir, toPlayer,Vector3.up);
         bool isFrontAttack = Mathf.Abs(angle) <= _frontAngle;
@@ -119,5 +142,10 @@ public class PlayerTakeDamage : TakeDamageScript
             _effect.LeftDamage();
             return 1;
         }
+    }
+
+    public void AuraBurst(bool isAuraBursting)
+    {
+        _isInvincible = isAuraBursting;
     }
 }

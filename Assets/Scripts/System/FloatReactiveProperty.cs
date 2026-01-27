@@ -13,9 +13,12 @@ public class FloatReactiveProperty : ReactiveProperty<float>
     }
 }
 
+#if UNITY_EDITOR
 /// <summary>
 /// IntReactivePropertyを直接インスペクタからいじれるようにする（Toggleなしにできる）
 /// </summary>
 [CustomPropertyDrawer(typeof(FloatReactiveProperty))]
 public class AddInspectorDisplayDrawer : InspectorDisplayDrawer
 { }
+
+#endif

@@ -18,6 +18,7 @@ public class RightAttack : MonoBehaviour
         _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
         _pool = GameObject.FindWithTag("BulletPool").GetComponent<BulletPool>();
         _bulletSpeed += PlayerPrefs.GetInt(AssemblyPointDispatcher.BulletSpeed);
+        _bulletDamage += PlayerPrefs.GetInt(AssemblyPointDispatcher.ShotWeaponPower)/2;
     }
     public void ShootProtocol(Transform target)
     {
@@ -26,6 +27,18 @@ public class RightAttack : MonoBehaviour
         {
             _pool.ActiveBullet(targetDIr, _bulletAliveTime, transform.position, _bulletDamage, _blowAwayPower, "PLBullet",_bulletSpeed);
             _soundPlay.PlayShootSound();
+        }
+    }
+
+    public void AuraBurst(int burstDamage,bool isPlus)
+    {
+        if (isPlus)
+        {
+            _bulletDamage += burstDamage;
+        }
+        else
+        {
+            _bulletDamage -= burstDamage;
         }
     }
 }

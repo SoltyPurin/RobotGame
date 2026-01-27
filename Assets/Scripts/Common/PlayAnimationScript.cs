@@ -6,7 +6,10 @@ public class PlayAnimationScript : MonoBehaviour
     private Animator _animator = default;
     public void IdleAnim()
     {
-
+        if(_animator == null)
+        {
+            return;
+        }
         _animator.SetBool("Moveing",false);
     }
 
