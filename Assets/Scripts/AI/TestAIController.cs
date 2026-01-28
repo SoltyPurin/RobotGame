@@ -45,7 +45,7 @@ public class TestAIController : MonoBehaviour
 
     private EnemyContext _ctx;
     private GameObject _playerObj = default;
-    private TakeDamageScript _takeDamage = default;
+    private EnemyTakeDamage _takeDamage = default;
     private PlayAnimationScript _anim = default;
     private Rigidbody _plRigidBody = default;
     private EnemySoundPlayScript _soundPlay = default;
@@ -60,7 +60,8 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
-        _takeDamage = GetComponent<TakeDamageScript>();
+        _takeDamage = GetComponent<EnemyTakeDamage>();
+        _takeDamage.SetStatus(_status);
         _anim = GetComponent<PlayAnimationScript>();
         _soundPlay = GetComponent<EnemySoundPlayScript>();
         _playerObj = GameObject.FindWithTag("Player");

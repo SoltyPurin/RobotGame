@@ -8,15 +8,18 @@ public class BlowAway : MonoBehaviour
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("ヒットストップさせるフレーム数")]
-    private float _stopFlame = 30;
+    private float _stopTime = 30;
     private float _currentStopTime = 0;
     private bool _canHitStop = false;
 
     private Vector3 _direction = Vector3.zero;
     private float _blowAwayPower = 0;
+
+    private AuraBurstPerformance _performance = default;
     private void Start()
     {
         Time.timeScale = 1;
+        _performance = FindAnyObjectByType<AuraBurstPerformance>();
     }
     public void BlowAwayProtocol(Vector3 direction,float blowAwayPower)
     {
@@ -34,9 +37,12 @@ public class BlowAway : MonoBehaviour
         }
         //Debug.Log("ヒットストップ");
         _currentStopTime += Time.unscaledDeltaTime;
-        if( _currentStopTime > 0.3f)
+        if( _currentStopTime > _stopTime)
         {
-            Time.timeScale = 1;
+            if (!_performance.IsBurstPerformancing)
+            {
+                Time.timeScale = 1;
+            }
             _canHitStop = false;
             _onBallRigidBody.AddForce(_direction * _blowAwayPower, ForceMode.Impulse);
         }

@@ -24,7 +24,9 @@ public class AuraBurst : MonoBehaviour
     private RightAttack _rightAttack = default;
     private LeftAttack _leftAttack = default;
     private PlayerTakeDamage _takeDamage = default;
+    private PlayerSoundPlayScript _soundPlay = default;
     private AuraBurstEffectPlay _effect = default;
+    private AuraBurstPerformance _performance = default;
 
     private int _useableBurstCount = 1;Å@Å@
     private bool _canUseBurst = false;  
@@ -36,6 +38,8 @@ public class AuraBurst : MonoBehaviour
         _rightAttack = FindAnyObjectByType<RightAttack>();  
         _leftAttack = FindAnyObjectByType<LeftAttack>();
         _takeDamage = GetComponent<PlayerTakeDamage>();
+        _performance = FindAnyObjectByType<AuraBurstPerformance>();
+        _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
     }
     public void StartAuraBurst()
     {
@@ -48,6 +52,7 @@ public class AuraBurst : MonoBehaviour
             return;
         }
         _useableBurstCount--;
+        _performance.AuraBurstCutIn(this.gameObject);
         switch (_burstTypeIndex)
         {
             case (int)BurstName.Attack:

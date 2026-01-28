@@ -25,6 +25,7 @@ public class TakeDamageScript : MonoBehaviour
     {
         get { return _isBlowning; }
     }
+
     public virtual void Start()
     {
         _deathManager = FindAnyObjectByType<DeathManager>();

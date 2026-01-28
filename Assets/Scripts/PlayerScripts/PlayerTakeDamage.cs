@@ -51,7 +51,7 @@ public class PlayerTakeDamage : TakeDamageScript
             _shake.GenerateImpulseWithForce(_meleeDuration);
         }
         _uiViewer.SetHealth(_userHP);
-        CallViberationCoroutine(attackDirection, _meleeDuration);
+        CallViberationCoroutine(attackDirection, _meleeDuration,true);
         _soundPlayer.PlayMeleeTakeDamage();
         DeathCheck();
     }
@@ -70,7 +70,7 @@ public class PlayerTakeDamage : TakeDamageScript
 
         }
         _uiViewer.SetHealth(_userHP);
-        CallViberationCoroutine(bulletDirection, _shootDuration);
+        CallViberationCoroutine(bulletDirection, _shootDuration,false);
         _soundPlayer.PlayShotTakeDamage();
         DeathCheck();
     }
@@ -82,7 +82,7 @@ public class PlayerTakeDamage : TakeDamageScript
         {
             _lockOnCamera.LookAt = transform;
             _soundPlayer.PlayDeathSound();
-            _input.Dead();
+            _input.enabled = false;
             _deathManager.PlayerCheckHP(_userHP);
         }
         if(_userHP <= _halfHP)
@@ -91,7 +91,7 @@ public class PlayerTakeDamage : TakeDamageScript
         }
     }
 
-    private void CallViberationCoroutine(Vector3 attackDirection,float duration)
+    private void CallViberationCoroutine(Vector3 attackDirection,float duration,bool isMelee)
     {
         float left = 0;
         float right = 0;
@@ -110,7 +110,14 @@ public class PlayerTakeDamage : TakeDamageScript
                 right = 1 * duration;
                 break;
         }
-        StartCoroutine(_vibration.MeleeDamageVibe(left, right));
+        if (isMelee)
+        {
+            StartCoroutine(_vibration.MeleeDamageVibe(left, right));
+        }
+        else
+        {
+            StartCoroutine(_vibration.ShootDamageVibe(left, right));
+        }
     }
     /// <summary>
     /// çUåÇÇ™ê≥ñ ç∂âEÇ«ÇøÇÁÇ©Ç©ÇîªífÇ∑ÇÈ

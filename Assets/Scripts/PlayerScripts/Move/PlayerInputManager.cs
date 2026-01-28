@@ -232,6 +232,19 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Dead()
     {
+        Debug.Log("Œ‚”j");
+        _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
+        _actionMap.Player.Dash.performed -= DashProtocol;
+        _actionMap.Player.Jump.performed -= JumpProtocol;
+        _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
+        _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;
+        _actionMap.Player.Move.started -= MoveProtocol;
+        _actionMap.Player.Move.performed -= MoveProtocol;
+        _actionMap.Player.Move.canceled -= MoveProtocol;
+
+        _actionMap.Disable();
+        _actionMap?.Dispose();
+
         _isAlive = false;
     }
     private void CallLeftAttackProtocol(float prevInputTime,float curInputTime)
@@ -268,6 +281,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_actionMap == null)
+        {
+            return;
+        }
         _actionMap.Player.AuraBurst.performed-= AuraBurstProtocol;
         _actionMap.Player.Dash.performed -= DashProtocol;
         _actionMap.Player.Jump.performed -= JumpProtocol;
