@@ -36406,7 +36406,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTakeDamage
   _meleeBlowAwayTime: 1
   _shootBlowAwayTime: 0.3
-  _userHP: 600
   _deathDelayTime: 2
 --- !u!114 &7987427840546202624
 MonoBehaviour:
@@ -36462,6 +36461,7 @@ MonoBehaviour:
   _shotTakeDamage: {fileID: 8300000, guid: aae86a06554a29b4882ea070e238f895, type: 3}
   _meleeSE: {fileID: 8300000, guid: 3aa268f6aa46a4dda8df6720ef89ad2b, type: 3}
   _shotSE: {fileID: 8300000, guid: 5ff5bd936a30a904da907f35c8dd382e, type: 3}
+  _deathExplosionSE: {fileID: 8300000, guid: f3021d14e66d0a948a05705c52493086, type: 3}
 --- !u!65 &6041738973999750698
 BoxCollider:
   m_ObjectHideFlags: 0

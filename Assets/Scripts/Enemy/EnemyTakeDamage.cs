@@ -5,7 +5,6 @@ public class EnemyTakeDamage : TakeDamageScript
 {
     [SerializeField, Header("Ž€–SŽž‚É’x‚ç‚¹‚éŽžŠÔ")]
     private float _deathDelayTime = 2;
-
     private AuraBurstPerformance _burstPerformance = default;
     private TestAIController _controller = default;
     private EnemySoundPlayScript _soundPlay = default;
@@ -20,13 +19,15 @@ public class EnemyTakeDamage : TakeDamageScript
         _burstPerformance = FindAnyObjectByType<AuraBurstPerformance>();
         _soundPlay = GetComponent<EnemySoundPlayScript>();
         _controller = GetComponent<TestAIController>();
-        _slider = GetComponent<EnemyHPSlider>();
-        _slider.Initialize(_userHP);
     }
+
 
     public void SetStatus(EnemyStatus status)
     {
         _damgerHP = status.EscapeHPThreshould;
+        _userHP = status.EnemyHP;
+        _slider = GetComponent<EnemyHPSlider>();
+        _slider.Initialize(_userHP);
     }
     public override void MeleeTakeDamage(Vector3 attackDirection, int damage, float blowAwayPower)
     {
@@ -51,6 +52,7 @@ public class EnemyTakeDamage : TakeDamageScript
         base.DeathCheck();
         if(_userHP <= 0)
         {
+            _soundPlay.PlayDeathExplosionSE();
             _controller.Dead();
             StartCoroutine(DeathDelay());
         }

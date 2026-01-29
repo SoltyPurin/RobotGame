@@ -7,6 +7,7 @@ public class UIPresenter : MonoBehaviour
     private GameObject _player = default;
     private PlayerInputManager _input = default;
     private PlayerMove _move = default;
+    private AuraBurst _burst = default;
     private UIViewer _viewer = default;
 
     private CompositeDisposable _inputDispose = new CompositeDisposable();
@@ -19,6 +20,7 @@ public class UIPresenter : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _input = _player.GetComponent<PlayerInputManager>();
         _move = _player.GetComponent<PlayerMove>();
+        _burst = _player.GetComponent<AuraBurst>();
         _viewer = GetComponent<UIViewer>();
 
         _viewer.SetDashTimeSliderMax(_move.DashTimeProperty.Value);
@@ -37,6 +39,11 @@ public class UIPresenter : MonoBehaviour
         _input.ShootCoolTimeProperty.Subscribe(coolTime =>
         {
             _viewer.SetShotWeaponValue(coolTime);
+        });
+
+        _burst.CanUseBurst.Subscribe(canUseBurst =>
+        {
+            _viewer.OnlineGoMark(canUseBurst);
         });
     }
 

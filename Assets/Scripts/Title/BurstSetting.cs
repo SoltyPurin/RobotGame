@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 using TMPro;
+using System.Collections.Generic;
 
 public enum BurstName
 {
@@ -18,11 +19,28 @@ public class BurstSetting : MonoBehaviour
     [SerializeField, Header("戻るボタン")]
     private Button _returnButton = default;
 
+    [SerializeField,Header("ボタン、上から攻撃スピード防御で")]
+    private Toggle[] _toggles = new Toggle[3];
     private readonly string BURST_TYPE = "BurstType";
 
 
     private void Start()
     {
+        int firstSelected = PlayerPrefs.GetInt(BURST_TYPE, 0);
+        switch (firstSelected)
+        {
+            case 0:
+                _toggles[0].isOn = true;    
+                break;
+
+            case 1:
+                _toggles[1].isOn = true;
+                break;
+
+            case 2:
+                _toggles[2].isOn = true;
+                break;
+        }
         _returnButton.onClick.AddListener(SaveBurst);
     }
 

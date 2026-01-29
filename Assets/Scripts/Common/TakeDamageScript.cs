@@ -9,7 +9,6 @@ public class TakeDamageScript : MonoBehaviour
     private float _meleeBlowAwayTime = 1;
     [SerializeField, Header("ËŒ‚UŒ‚‚Ìd’¼ŠÔ")]
     private float _shootBlowAwayTime = 0.3f;
-    [SerializeField, Header("Å‰‚ÌHP")]
     protected int _userHP = 600;
     public int UserHP
     {

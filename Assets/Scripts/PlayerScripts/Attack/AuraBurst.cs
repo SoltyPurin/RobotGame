@@ -1,4 +1,5 @@
 using System.Collections;
+using UniRx;
 using UnityEngine;
 
 public class AuraBurst : MonoBehaviour
@@ -29,7 +30,11 @@ public class AuraBurst : MonoBehaviour
     private AuraBurstPerformance _performance = default;
 
     private int _useableBurstCount = 1;Å@Å@
-    private bool _canUseBurst = false;  
+    private ReactiveProperty<bool> _canUseBurst = new ReactiveProperty<bool>(false);
+    public IReadOnlyReactiveProperty<bool> CanUseBurst
+    {
+        get { return _canUseBurst; }
+    }
     private void Start()
     {
         _burstTypeIndex = PlayerPrefs.GetInt(BURST_TYPE, 0);
@@ -43,7 +48,7 @@ public class AuraBurst : MonoBehaviour
     }
     public void StartAuraBurst()
     {
-        if( !_canUseBurst)
+        if( !_canUseBurst.Value)
         {
             return;
         }
@@ -99,10 +104,13 @@ public class AuraBurst : MonoBehaviour
                 break;
         }
         _effect.SetEffect(_burstTypeIndex, false);
+
+        _canUseBurst.Value = false;
     }
 
     public void AuraBurstUseableProtocol()
     {
-        _canUseBurst = true;
+        _canUseBurst.Value = true;
+        _soundPlay.PlayBurstReadySound();
     }
 }

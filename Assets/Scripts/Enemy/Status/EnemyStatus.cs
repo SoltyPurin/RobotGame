@@ -6,6 +6,12 @@ public class EnemyStatus : ScriptableObject
     [SerializeField, Header("“G‚Ìƒ^ƒCƒv")]
     private EnemyType _enemyType = EnemyType.Normal;
     public EnemyType EnemyType { get { return _enemyType; } }
+    [SerializeField, Header("“G‚ÌHP")]
+    private int _enemyHP = 600;
+    public int EnemyHP
+    {
+        get { return _enemyHP; }
+    }
     [SerializeField, Header("‚±‚Ì‘Ì—ÍˆÈ‰º‚É‚È‚Á‚½‚ç“¦‚°‚é‚æ‚¤‚È“®‚«‚É‚·‚é")]
     private int _escapeHpThreshold = 300;
     public int EscapeHPThreshould

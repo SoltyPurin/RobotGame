@@ -14,6 +14,9 @@ public class EnemySoundPlayScript : MonoBehaviour
     [SerializeField,Header("ShootSE")]
     private AudioClip _shotSE = default;
 
+    [SerializeField,Header("Ž€–SŽž‚Ì”š”­‰¹")]
+    private AudioClip _deathExplosionSE = default;   
+
     private void Start()
     {
         _source = GetComponent<AudioSource>();
@@ -34,5 +37,10 @@ public class EnemySoundPlayScript : MonoBehaviour
     public void PlayeTakeShotDamage()
     {
         _source.PlayOneShot(_shotTakeDamage);
+    }
+
+    public void PlayDeathExplosionSE()
+    {
+        _source.PlayOneShot(_deathExplosionSE);
     }
 }

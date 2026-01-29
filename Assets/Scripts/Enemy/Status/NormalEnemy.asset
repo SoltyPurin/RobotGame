@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NormalEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   _enemyType: 2
+  _enemyHP: 600
   _escapeHpThreshold: 300
   _jumpDistanceThreshould: 20
   _dodgeRange: 15
@@ -27,6 +28,7 @@ MonoBehaviour:
   _bulletDamageValue: 50
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 4
+  _bulletMoveSpeed: 240
   _gravity: 150
   _nearTargetPosDistance: 10
   _aiMoveSpeed: 100

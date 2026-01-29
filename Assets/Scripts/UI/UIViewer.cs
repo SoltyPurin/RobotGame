@@ -1,3 +1,4 @@
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class UIViewer : MonoBehaviour
     private Slider _shotWeaponCoolTimeSlider = default;
     [SerializeField, Header("ダッシュ時のエフェクト")]
     private GameObject _dashEffect = default;
+    [SerializeField, Header("GOの文字")]
+    private GameObject _goText = default;
 
     public void SetShotWeaponMax(float max)
     {
@@ -37,5 +40,17 @@ public class UIViewer : MonoBehaviour
     public void SetHealth(int health)
     {
         _health.text = health.ToString();
+    }
+
+    public void OnlineGoMark(bool isTrue)
+    {
+        if (isTrue)
+        {
+            _goText.SetActive(true);
+        }
+        else
+        {
+           _goText.SetActive(false);
+        }
     }
 }

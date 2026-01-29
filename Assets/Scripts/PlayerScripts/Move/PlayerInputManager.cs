@@ -250,9 +250,15 @@ public class PlayerInputManager : MonoBehaviour
     private void CallLeftAttackProtocol(float prevInputTime,float curInputTime)
     {
         _meleeTimeDifference = curInputTime - prevInputTime;
-        if(_meleeTimeDifference > _meleeCoolTime)
+        var enemy = _lockOn.CurrentTargetObject();
+        if(enemy == null)
         {
-            _attack.LeftAttack(_lockOn.CurrentTargetObject());
+            enemy = _tempTarget;
+        }
+        if (!_isMeleeCoolTime)
+        {
+            Debug.Log("ãﬂê⁄êUÇ¡ÇƒÇÈ");
+            _attack.LeftAttack(enemy);
             _anim.LeftATKRush();
             _isMeleeCoolTime=true;
         }
@@ -261,10 +267,10 @@ public class PlayerInputManager : MonoBehaviour
     private void CallRightAttackProtocol(float currentInputTime)
     {
         Transform enemy = _lockOn.CurrentTargetObject();
-        //if(enemy == null)
-        //{
-        //    enemy = _tempTarget;
-        //} 
+        if (enemy == null)
+        {
+            enemy = _tempTarget;
+        }
         if (!_isShootCoolTime)
         {
             _isShootCoolTime = true;

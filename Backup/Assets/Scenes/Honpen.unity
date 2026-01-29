@@ -5578,6 +5578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23f6e2743b80924fb74669bb8526953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetectBullet
+--- !u!1 &519507373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 185056945029267058, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+  m_PrefabInstance: {fileID: 2192389512390236656}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &540086383
 GameObject:
   m_ObjectHideFlags: 0
@@ -6913,6 +6918,7 @@ MonoBehaviour:
   _shotTakeDamage: {fileID: 8300000, guid: aae86a06554a29b4882ea070e238f895, type: 3}
   _deathExplosion: {fileID: 8300000, guid: f3021d14e66d0a948a05705c52493086, type: 3}
   _dashSE: {fileID: 8300000, guid: 2853b1d48a79d4441b9f61c49ee537f0, type: 3}
+  _burstReadySound: {fileID: 8300000, guid: f37534e5507a54c468108087ce15fb56, type: 3}
 --- !u!4 &1475113384
 Transform:
   m_ObjectHideFlags: 0
@@ -7079,6 +7085,7 @@ MonoBehaviour:
   _dashTimeSlider: {fileID: 111087149}
   _shotWeaponCoolTimeSlider: {fileID: 887463005}
   _dashEffect: {fileID: 289369898}
+  _goText: {fileID: 519507373}
 --- !u!114 &1562067391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9850,6 +9857,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 185056945029267058, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1744322722321407084, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -9954,14 +9965,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8621247488147766766, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8621247488147766766, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9020127828175968096, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       propertyPath: m_Name
       value: UserCanvas
@@ -10052,6 +10055,14 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819653}
+    - target: {fileID: 3282368169460273911, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _blowAwayPower
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375663779228381230, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _attackBurstTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _dashParticle
       value: 

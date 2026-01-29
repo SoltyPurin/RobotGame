@@ -16,6 +16,8 @@ public class PlayerSoundPlayScript : MonoBehaviour
     private AudioClip _deathExplosion = default;
     [SerializeField, Header("ダッシュ時の音")]
     private AudioClip _dashSE = default;
+    [SerializeField,Header("バースト準備完了の音")]
+    private AudioClip _burstReadySound = default;
 
     private void Start()
     {
@@ -56,6 +58,13 @@ public class PlayerSoundPlayScript : MonoBehaviour
         {
             _audioSource.PlayOneShot(_dashSE);
         }
+    }
+
+    public void PlayBurstReadySound()
+    {
+        _audioSource.volume = 1;
+        _audioSource.PlayOneShot(_burstReadySound);
+        _audioSource.volume = 0.2f;
     }
 
 }

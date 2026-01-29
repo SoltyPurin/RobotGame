@@ -79612,6 +79612,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BurstSetting
   _group: {fileID: 67381235}
   _returnButton: {fileID: 1543847195}
+  _toggles:
+  - {fileID: 1523848006}
+  - {fileID: 516426110}
+  - {fileID: 1520992785}
 --- !u!1 &1905470742
 GameObject:
   m_ObjectHideFlags: 0
