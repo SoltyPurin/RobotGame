@@ -3,6 +3,7 @@ using UnityEngine;
 public class TitleSoundManager : MonoBehaviour
 {
     private AudioSource _audioSource = default;
+    private TitleBGMFade _bgmFade = default;
     [SerializeField, Header("î≠êiâπ")]
     private AudioClip _scrambleSE = default;
     [SerializeField,Header("ã@ìÆâπ")]
@@ -15,6 +16,7 @@ public class TitleSoundManager : MonoBehaviour
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _bgmFade = GetComponentInChildren<TitleBGMFade>();
     }
 
     public void PlayButtonMoveSE()
@@ -27,6 +29,7 @@ public class TitleSoundManager : MonoBehaviour
     }
     public void PlayRobotStartSE()
     {
+        _bgmFade.StartFadeOut();
         _audioSource.PlayOneShot(_robotStartSE);
     }
     public void PlayScrambleSound()

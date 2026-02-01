@@ -29,10 +29,12 @@ public class BattlerSetting : MonoBehaviour
 
     private CameraSwitchScript _cameraSwitch = default;
     private CanvasSwitcher _switcher = default;
+    private TitleSoundManager _sound = default;
     private void Start()
     {
         _switcher = GetComponent<CanvasSwitcher>();
         _cameraSwitch = GetComponent<CameraSwitchScript>();
+        _sound = FindAnyObjectByType<TitleSoundManager>();
         _meleeSettingButton.onClick.AddListener(InMeleeSettingProtocol);
         _shotWeaponSettingButton.onClick.AddListener(InShotWeaponProtocol);
         _burstSettingButton.onClick.AddListener(InBurstSettingProtocol);
@@ -42,17 +44,20 @@ public class BattlerSetting : MonoBehaviour
     {
         _switcher.StuckIn(_currentCanvas, _meleeCanvas);
         _cameraSwitch.StuckIn(_optionCamera, _meleeCamera);
+        _sound.PlayButtonTapSE();
     }
 
     private void InShotWeaponProtocol()
     {
         _switcher.StuckIn(_currentCanvas,_shotWeaponCanvas);
         _cameraSwitch.StuckIn(_optionCamera, _shotWeaponCamera);
+        _sound.PlayButtonTapSE();
     }
 
     private void InBurstSettingProtocol()
     {
         _switcher.StuckIn(_currentCanvas,_burstCanvas);
         _cameraSwitch.StuckIn(_optionCamera, _burstCamera);
+        _sound.PlayButtonTapSE();
     }
 }

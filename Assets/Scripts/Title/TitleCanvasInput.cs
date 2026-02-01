@@ -26,12 +26,14 @@ public class TitleCanvasInput : MonoBehaviour
     private CanvasSwitcher _switcher = default;
     private CameraSwitchScript _cameraSwitch = default;
     private ScramblePlayer _scramblePlayer = default;
+    private TitleSoundManager _sound = default;
 
     private void Start()
     {
         _switcher = GetComponent<CanvasSwitcher>();
         _cameraSwitch = GetComponent<CameraSwitchScript>();
         _scramblePlayer = GetComponent<ScramblePlayer>();
+        _sound = FindAnyObjectByType<TitleSoundManager>();
         _gameStart.onClick.AddListener(GameStart);
         _settingButton.onClick.AddListener(OpenSetting);
         _exitButton.onClick.AddListener(GameExit);
@@ -39,17 +41,20 @@ public class TitleCanvasInput : MonoBehaviour
 
     private void GameStart()
     {
+        _sound.PlayButtonTapSE();
         _scramblePlayer.PlayScrambleAnim(_titleCamera,_scrambleCamera,_currentCanvas);
     }
 
     private void OpenSetting()
     {
+        _sound.PlayButtonTapSE();
         _switcher.StuckIn(_currentCanvas,_nextCanvas);
         _cameraSwitch.StuckIn(_titleCamera, _settingCamera);
     }
 
     private void GameExit()
     {
+        _sound.PlayButtonTapSE();
         Application.Quit();
     }
 }
