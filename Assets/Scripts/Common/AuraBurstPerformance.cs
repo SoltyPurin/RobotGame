@@ -12,11 +12,8 @@ public class AuraBurstPerformance : MonoBehaviour
     private Vector3 _positionOffset = Vector3.zero;
     [SerializeField, Header("バースト発動の音")]
     private AudioClip _burstSound = default;
-    [SerializeField, Header("バースト発動時の青色画像")]
-    private GameObject _blueImage = default;
-    [SerializeField, Header("演出時に消すオブジェクト")]
-    private GameObject _invicinbleObject = default;
 
+    private UIViewer _ui = default;
     private AudioSource _audioSource = default;
 
     private bool _isBurstPerformancing = false;
@@ -28,6 +25,7 @@ public class AuraBurstPerformance : MonoBehaviour
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _ui = FindAnyObjectByType<UIViewer>();
     }
 
     public void AuraBurstCutIn(GameObject burstUser)
@@ -50,9 +48,8 @@ public class AuraBurstPerformance : MonoBehaviour
         _mainCamera.Priority = 0;
         _burstCamera.Priority = 1;
         _audioSource.PlayOneShot(_burstSound);
-        _blueImage.SetActive(true);
-        _invicinbleObject.SetActive(false);
         StartCoroutine(CutInEnd(animator));
+        _ui.BurstStart();
         Time.timeScale = 0;
     }
     private void Update()
@@ -69,7 +66,6 @@ public class AuraBurstPerformance : MonoBehaviour
         Time.timeScale = 1;
         _mainCamera.Priority = 1;
         _burstCamera.Priority=0;
-        _blueImage.SetActive(false);
-        _invicinbleObject.SetActive(true);
+        _ui.BurstEnd();
     }
 }

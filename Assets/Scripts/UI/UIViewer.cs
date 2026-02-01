@@ -15,6 +15,12 @@ public class UIViewer : MonoBehaviour
     private GameObject _dashEffect = default;
     [SerializeField, Header("GOの文字")]
     private GameObject _goText = default;
+    [SerializeField, Header("キャンバスグループ")]
+    private CanvasGroup _playerUI = default;
+    [SerializeField]
+    private CanvasGroup _performanceCanvas = default;
+    [SerializeField]
+    private CanvasGroup _pauseMenu = default;
 
     public void SetShotWeaponMax(float max)
     {
@@ -52,5 +58,33 @@ public class UIViewer : MonoBehaviour
         {
            _goText.SetActive(false);
         }
+    }
+
+    public void BurstStart()
+    {
+        _playerUI.alpha = 0;
+        _performanceCanvas.alpha = 1;
+    }
+
+    public void BurstEnd()
+    {
+        _playerUI.alpha = 1;
+        _performanceCanvas.alpha = 0;
+    }
+
+    public void Pause()
+    {
+        _playerUI.alpha = 0;
+        _playerUI.blocksRaycasts = false;
+        _performanceCanvas.alpha = 0;
+        _performanceCanvas.blocksRaycasts = false;
+        _pauseMenu.alpha = 1;
+        _pauseMenu.interactable = true;
+    }
+    public void PauseBreak()
+    {
+        _playerUI.alpha = 1;
+        _pauseMenu.alpha = 0;
+        _pauseMenu.interactable = false ;
     }
 }

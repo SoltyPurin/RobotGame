@@ -48,10 +48,6 @@ public class PlayerMove : MonoBehaviour
     private float _sphereRadius = 0;
     private Vector2 _v2MoveValue = Vector2.zero;
     private Vector3 _useVelocity = Vector3.zero;
-    public Vector3 UseVelocity
-    {
-        get { return _useVelocity; }
-    }
     private GameObject _activeCamera = default;
     private LockOn _lockOn = default;
     private PlayerSoundPlayScript _soundPlay = default;

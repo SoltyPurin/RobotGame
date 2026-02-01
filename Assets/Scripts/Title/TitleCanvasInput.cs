@@ -30,6 +30,7 @@ public class TitleCanvasInput : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         _switcher = GetComponent<CanvasSwitcher>();
         _cameraSwitch = GetComponent<CameraSwitchScript>();
         _scramblePlayer = GetComponent<ScramblePlayer>();

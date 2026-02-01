@@ -83,7 +83,7 @@ public class PlayerTakeDamage : TakeDamageScript
         {
             _lockOnCamera.LookAt = transform;
             _soundPlayer.PlayDeathSound();
-            _input.enabled = false;
+            _input.Dead();
             _deathManager.PlayerCheckHP(_userHP);
         }
         if(_userHP <= _halfHP)
