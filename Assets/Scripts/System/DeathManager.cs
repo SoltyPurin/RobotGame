@@ -13,6 +13,7 @@ public class DeathManager : MonoBehaviour
     private int _enemyCount = 0;
     private LockOn _lockOn = default;
     private SearchNearEnemy _nearEnemy = default;
+    private BGMFade _fade = default;
 
     private bool _canJudge = true;
     private void Start()
@@ -22,6 +23,7 @@ public class DeathManager : MonoBehaviour
         _enemyCount = enemys.Length;
         _lockOn = FindAnyObjectByType<LockOn>();
         _nearEnemy = FindAnyObjectByType<SearchNearEnemy>();
+        _fade = FindAnyObjectByType<BGMFade>();
     }
 
     public void PlayerCheckHP(int hp)
@@ -31,6 +33,7 @@ public class DeathManager : MonoBehaviour
 
     private IEnumerator PlayerDeathDelay()
     {
+        _fade.StartFadeOut();
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("DeathResult");
     }
@@ -57,6 +60,7 @@ public class DeathManager : MonoBehaviour
         if(_enemyCount <= 0)
         {
             Debug.Log("“G‚ª‘S–Å");
+            _fade.StartFadeOut();
             _deathCamera.MoveDeathObject(enemy, _currentCamera);
            _lockOn.UnlockTarget();
         }

@@ -24,6 +24,7 @@ public class UIViewer : MonoBehaviour
 
     public void SetShotWeaponMax(float max)
     {
+        Debug.Log("ç≈ëÂÇÕ" + max);
         _shotWeaponCoolTimeSlider.maxValue = max;
     }
     public void SetShotWeaponValue(float value)

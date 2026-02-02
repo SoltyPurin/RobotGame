@@ -40,13 +40,13 @@ public class PlayerInputManager : MonoBehaviour
 
     private float _getCoolTimeDivisionValue = 0.01f;
 
-    private void OnEnable()
+    private void Awake()
     {
-        float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue + 0.1f;
-        _shootCoolTime.Value -= shotCoolTimeMinusValue;
-    }
-    private void Start()
-    {
+        float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue;
+        _shootCoolTime.Value = Mathf.Clamp(_shootCoolTime.Value, 0.1f, _shootCoolTime.Value - shotCoolTimeMinusValue);
+        _saveShootCoolTime = _shootCoolTime.Value;
+        Debug.Log("ÉNÅ[ÉãÉ^ÉCÉÄÇÕ" + _saveShootCoolTime);
+
         _actionMap = new InputSystem_Actions();
         _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
         _actionMap.Player.Dash.performed += DashProtocol;
@@ -69,7 +69,6 @@ public class PlayerInputManager : MonoBehaviour
         _takeDamage = GetComponent<TakeDamageScript>();
         _pause = FindAnyObjectByType<PauseManager>();
         _prevMeleeInputTime = Time.time;
-        _saveShootCoolTime = _shootCoolTime.Value;
         _currentMeleeCoolTime = _meleeCoolTime;
         _lockOn.Initialize();
     }
@@ -192,21 +191,22 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log("åÇîj");
-        _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
-        _actionMap.Player.Dash.performed -= DashProtocol;
-        _actionMap.Player.Jump.performed -= JumpProtocol;
-        _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
-        _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;
-        _actionMap.Player.Move.started -= MoveProtocol;
-        _actionMap.Player.Move.performed -= MoveProtocol;
-        _actionMap.Player.Move.canceled -= MoveProtocol;
-        _actionMap.Player.Pause.performed -= PauseProtocol;
+            Debug.Log("åÇîj");
+            _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
+            _actionMap.Player.Dash.performed -= DashProtocol;
+            _actionMap.Player.Jump.performed -= JumpProtocol;
+            _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
+            _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;
+            _actionMap.Player.Move.started -= MoveProtocol;
+            _actionMap.Player.Move.performed -= MoveProtocol;
+            _actionMap.Player.Move.canceled -= MoveProtocol;
+            _actionMap.Player.Pause.performed -= PauseProtocol;
 
-        _actionMap.Disable();
-        _actionMap?.Dispose();
+            _actionMap.Disable();
+            _actionMap?.Dispose();
 
-        _isAlive = false;
+            _isAlive = false;
+
     }
     private void CallLeftAttackProtocol(float prevInputTime,float curInputTime)
     {
@@ -245,9 +245,9 @@ public class PlayerInputManager : MonoBehaviour
         return canMove;
     }
 
-    private void OnDestroy()
-    {
-        Dead();
-    }
+    //private void OnDisable()
+    //{
+    //    Dead();
+    //}
 
 }
