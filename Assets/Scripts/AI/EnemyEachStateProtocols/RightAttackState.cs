@@ -53,9 +53,5 @@ public class RightAttackState : IEnemyState
         }
     }
 
-    public void Exit()
-    {
-
-    }
 
 }

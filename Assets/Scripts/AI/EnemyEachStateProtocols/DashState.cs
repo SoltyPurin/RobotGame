@@ -31,8 +31,4 @@ public class DashState : IEnemyState
         }
     }
 
-    public void Exit()
-    {
-    }
-
 }

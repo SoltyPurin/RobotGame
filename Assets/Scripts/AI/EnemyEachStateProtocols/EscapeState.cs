@@ -39,9 +39,6 @@ public class EscapeState : IEnemyState
         }
     }
 
-    public void Exit()
-    {
-    }
 
 
 }

@@ -39,8 +39,5 @@ public class ApproachState : IEnemyState
         }
     }
 
-    public void Exit()
-    {
-    }
 
 }

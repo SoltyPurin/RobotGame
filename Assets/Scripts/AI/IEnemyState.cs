@@ -8,8 +8,4 @@ public interface IEnemyState
     /// –ˆƒtƒŒ[ƒ€‚Ìˆ—
     /// </summary>
     void FixedUpdate(); 
-    /// <summary>
-    /// ó‘Ô‚©‚ço‚é‚Ìˆ—
-    /// </summary>
-    void Exit();   
 }

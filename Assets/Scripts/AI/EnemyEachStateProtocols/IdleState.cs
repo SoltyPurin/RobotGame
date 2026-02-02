@@ -24,8 +24,4 @@ public class IdleState : IEnemyState
         }
     }
 
-    public void Exit() 
-    {
-
-    }
 }

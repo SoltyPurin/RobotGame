@@ -102,11 +102,6 @@ public class LeftAttackState : IEnemyState
         enDamage.MeleeTakeDamage(_targetDirection, _ctx.MeleeDamage,_ctx.MeleeBlowAwayPower);
     }
 
-    public void Exit()
-    {
-
-    }
-
     private Vector3 FinalDestination(Vector3 direction, float moveSpeed)
     {
         Vector3 finalDestination = _ctx.OnBallRigidbody.position + direction * _ctx.RushSpeed * _ctx.RushTime;

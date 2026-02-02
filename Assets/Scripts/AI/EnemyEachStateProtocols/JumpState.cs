@@ -40,8 +40,5 @@ public class JumpState : Jump, IEnemyState
         }
     }
 
-    public void Exit()
-    {
-    }
 
 }

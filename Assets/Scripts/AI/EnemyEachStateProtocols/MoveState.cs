@@ -39,8 +39,5 @@ public class MoveState : IEnemyState
         }
     }
 
-public void Exit()
-    {
-    }
 
 }
