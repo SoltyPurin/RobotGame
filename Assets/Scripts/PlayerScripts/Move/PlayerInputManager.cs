@@ -40,13 +40,8 @@ public class PlayerInputManager : MonoBehaviour
 
     private float _getCoolTimeDivisionValue = 0.01f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue;
-        _shootCoolTime.Value = Mathf.Clamp(_shootCoolTime.Value, 0.1f, _shootCoolTime.Value - shotCoolTimeMinusValue);
-        _saveShootCoolTime = _shootCoolTime.Value;
-        Debug.Log("クールタイムは" + _saveShootCoolTime);
-
         _actionMap = new InputSystem_Actions();
         _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
         _actionMap.Player.Dash.performed += DashProtocol;
@@ -58,8 +53,18 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap.Player.Move.canceled += MoveProtocol;
         _actionMap.Player.LockOn.performed += LockOnProtocol;
         _actionMap.Player.Pause.performed += PauseProtocol;
-
         _actionMap.Enable();
+
+    }
+
+    private void Start()
+    {
+        float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue;
+        _shootCoolTime.Value = Mathf.Clamp(_shootCoolTime.Value, 0.1f, _shootCoolTime.Value - shotCoolTimeMinusValue);
+        _saveShootCoolTime = _shootCoolTime.Value;
+        Debug.Log("クールタイムは" + _saveShootCoolTime);
+
+
         _burst = GetComponent<AuraBurst>();
         _jump = GetComponent<Jump>();
         _lockOn = GetComponent<LockOn>();
@@ -94,10 +99,8 @@ public class PlayerInputManager : MonoBehaviour
 
     private void LockOnProtocol(InputAction.CallbackContext context)
     {
-        if (!_isAlive)
-        {
-            return;
-        }
+        Debug.Log("ロックオン変更");
+
         _lockOn.ChangeCamera();
 
 
@@ -201,11 +204,9 @@ public class PlayerInputManager : MonoBehaviour
             _actionMap.Player.Move.performed -= MoveProtocol;
             _actionMap.Player.Move.canceled -= MoveProtocol;
             _actionMap.Player.Pause.performed -= PauseProtocol;
+            _actionMap.Player.LockOn.performed -= LockOnProtocol;
 
-            _actionMap.Disable();
-            _actionMap?.Dispose();
-
-            _isAlive = false;
+        _isAlive = false;
 
     }
     private void CallLeftAttackProtocol(float prevInputTime,float curInputTime)
@@ -245,9 +246,11 @@ public class PlayerInputManager : MonoBehaviour
         return canMove;
     }
 
-    //private void OnDisable()
-    //{
-    //    Dead();
-    //}
+    private void OnDisable()
+    {
+        Dead();
+        _actionMap.Disable();
+        _actionMap?.Dispose();
+    }
 
 }

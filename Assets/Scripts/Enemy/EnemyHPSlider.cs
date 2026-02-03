@@ -13,6 +13,7 @@ public class EnemyHPSlider : MonoBehaviour
 
     public void Initialize(int hp)
     {
+        Debug.Log("‰Šú‰»");
         _hpSlider.maxValue = hp;
         _hpSlider.value = hp;
         _player = GameObject.FindWithTag("Player");
@@ -21,6 +22,7 @@ public class EnemyHPSlider : MonoBehaviour
 
     public void ValueUpdate(int hp)
     {
+        Debug.Log("‘Ì—Í•ÏXŒÄ‚Ño‚µ");
         _hpSlider.value = hp;
     }
 
