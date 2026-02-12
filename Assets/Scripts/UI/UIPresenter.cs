@@ -51,7 +51,9 @@ public class UIPresenter : MonoBehaviour
     {
         Debug.Log("çwì«èIóπ");
         _inputDispose.Dispose();
+        _inputDispose.Clear();
         _moveDispose.Dispose();
+        _moveDispose.Clear();
     }
 
 }

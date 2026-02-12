@@ -1,5 +1,6 @@
 using System;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -54,7 +55,6 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap.Player.LockOn.performed += LockOnProtocol;
         _actionMap.Player.Pause.performed += PauseProtocol;
         _actionMap.Enable();
-
     }
 
     private void Start()
@@ -249,8 +249,8 @@ public class PlayerInputManager : MonoBehaviour
     private void OnDisable()
     {
         Dead();
-        _actionMap.Disable();
         _actionMap?.Dispose();
+        _actionMap?.Disable();
     }
 
 }

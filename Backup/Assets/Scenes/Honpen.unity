@@ -8082,6 +8082,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
+--- !u!1 &1590171442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5634127083768990864, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+  m_PrefabInstance: {fileID: 5109948988784260129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1625607250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8058938130753209199, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
@@ -11473,6 +11478,10 @@ PrefabInstance:
       propertyPath: _attackBurstTime
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _robotObj
+      value: 
+      objectReference: {fileID: 1590171442}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _dashParticle
       value: 

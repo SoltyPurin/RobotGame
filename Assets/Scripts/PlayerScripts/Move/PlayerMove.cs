@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField,Header("ロックオンカメラ")]
     private GameObject _lockOnCamera = default;
     [SerializeField, Header("ロボットの見た目")]
-    private GameObject _dunbine = default;
+    private GameObject _robotObj = default;
     [SerializeField, Header("ダッシュのパーティクル")]
     private ParticleSystem _dashParticle = default;
     [SerializeField, Header("ダッシュできる時間")]
@@ -157,7 +157,7 @@ public class PlayerMove : MonoBehaviour
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
-            _dunbine.transform.localRotation = targetRot;
+            _robotObj.transform.localRotation = targetRot;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
             _useVelocity = moveForward * _moveSpeed;
@@ -174,7 +174,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
-        _dunbine.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        _robotObj.transform.localRotation = Quaternion.Euler(Vector3.zero);
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
