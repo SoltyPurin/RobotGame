@@ -13,7 +13,6 @@ public class LeftAttackState : IEnemyState
     private EnemyDetectGround _ground;
     private EnemyContext _ctx;
     private PlayAnimationScript _anim;
-    private bool _stopRushRunning = false;
     private float _curRushTime = 0;
     private float _currentAtosuki = 0;
     private bool _canAtosukiCount = false;

@@ -12,8 +12,6 @@ public class LockOn : MonoBehaviour
 {
     [SerializeField, Header("ロックオンカメラ")]
     private CinemachineCamera _lockOnCamera = default;
-    [SerializeField, Header("ロックオンしてない時の注視オブジェクト")]
-    private Transform _notLockOnObject = default;
 
     private LockOnMarkerViewer _lockOnMarker = default;
     private SearchNearEnemy _nearEnemy = default;

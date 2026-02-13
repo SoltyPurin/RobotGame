@@ -9,8 +9,6 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody _ballRigidBody = default;
     [SerializeField, Header("上のリジッドボディ")]
     private Rigidbody _onBallRigidBody = default;
-    [SerializeField, Header("どれくらい加速しやすいか")]
-    private float _accelarationValue = 0.5f;
     [SerializeField, Header("速度")]
     private float _moveSpeed = 50;
     [SerializeField, Header("ダッシュ時に加算する速度")]

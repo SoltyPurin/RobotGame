@@ -4,8 +4,8 @@ public class BulletMove : MonoBehaviour
 {
     [SerializeField, Header("リジッドボディ")]
     private Rigidbody _rigidBody = default;
-    [SerializeField, Header("銃弾の最初の力")]
-    private float _moveSpeed = 240f;
+    [SerializeField, Header("軌跡")]
+    private LineRenderer _bulletTrajectory = default;
     private int _bulletDamage = default;
     public int BulletDamage
     {
@@ -35,6 +35,7 @@ public class BulletMove : MonoBehaviour
         _bulletDamage = damage;
         _blowAwayPower = blowAwayPower;
         _bulletDirection = targetDir;
+        _bulletTrajectory.transform.localRotation = Quaternion.LookRotation(-targetDir, Vector3.up);
         _rigidBody.AddForce(_bulletDirection * moveSpeed,ForceMode.Impulse);
         _bulletIndex = index;
     }
