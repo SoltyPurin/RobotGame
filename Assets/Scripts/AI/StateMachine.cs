@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine
 {
     private IEnemyState _currentState; // 現在アクティブな状態を保持するフィールド
     private IEnemyState _prevState;

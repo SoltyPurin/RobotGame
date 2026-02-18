@@ -1,7 +1,5 @@
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 public enum CameraState
 {
     Normal,
@@ -19,11 +17,6 @@ public class LockOn : MonoBehaviour
     public Transform TargetTransform
     {
         get { return _targetTransform; }
-    }
-    private CameraState _cameraState = CameraState.LockOn;
-    public CameraState State
-    {
-        get { return _cameraState; }    
     }
 
     public void Initialize()

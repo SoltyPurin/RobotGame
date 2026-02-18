@@ -1,7 +1,4 @@
-using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 public enum EnemyType
 {
     Melee,

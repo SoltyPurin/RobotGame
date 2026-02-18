@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 
 public class PlayerVibration : MonoBehaviour
 {

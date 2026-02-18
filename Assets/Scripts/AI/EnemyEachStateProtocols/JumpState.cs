@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpState : Jump, IEnemyState
+public class JumpState : IEnemyState
 {
     private TestAIController _controller;
     private EnemyDetectGround _ground;
