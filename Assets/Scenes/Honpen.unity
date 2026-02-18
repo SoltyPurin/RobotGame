@@ -7981,8 +7981,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9113056454344783300, guid: 51915409319b7bb4fbff4885d35320c7, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f7606e5e4c3eff447b9437ed58be79ec, type: 2}
+    - target: {fileID: 9113056454344783300, guid: 51915409319b7bb4fbff4885d35320c7, type: 3}
       propertyPath: m_fontStyle
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113056454344783300, guid: 51915409319b7bb4fbff4885d35320c7, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6355930192351880849, guid: f7606e5e4c3eff447b9437ed58be79ec, type: 2}
+    - target: {fileID: 9113056454344783300, guid: 51915409319b7bb4fbff4885d35320c7, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9113056454344783300, guid: 51915409319b7bb4fbff4885d35320c7, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
