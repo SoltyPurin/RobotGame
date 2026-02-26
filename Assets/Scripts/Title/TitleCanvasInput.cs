@@ -6,16 +6,22 @@ using System.Collections;
 
 public class TitleCanvasInput : MonoBehaviour
 {
-    [SerializeField, Header("ゲームスタートボタン")]
-    private Button _gameStart = default;
+    [SerializeField, Header("出撃画面移行ボタン")]
+    private Button _openScrambleButton = default;
     [SerializeField, Header("ロボット調整ボタン")]
     private Button _settingButton = default;
+    [SerializeField,Header("スタートボタン")]
+    private Button _startButton = default;
     [SerializeField,Header("終了ボタン")]
     private Button _exitButton = default;
     [SerializeField, Header("その時のキャンバス")]
     private GameObject _currentCanvas = default;
-    [SerializeField,Header("次のキャンバス")]
-    private GameObject _nextCanvas = default;
+    [SerializeField, Header("戻るボタンがあるキャンバス")]
+    private GameObject _returnButtonCanvas = default;
+    [SerializeField, Header("出撃画面のキャンバス")]
+    private GameObject _scrambleCanvas = default;
+    [SerializeField,Header("設定画面のキャンバス")]
+    private GameObject _assembleCanvas = default;
     [SerializeField, Header("タイトルカメラ")]
     private CinemachineCamera _titleCamera = default;
     [SerializeField,Header("設定画面のカメラ")]
@@ -35,22 +41,30 @@ public class TitleCanvasInput : MonoBehaviour
         _cameraSwitch = GetComponent<CameraSwitchScript>();
         _scramblePlayer = GetComponent<ScramblePlayer>();
         _sound = FindAnyObjectByType<TitleSoundManager>();
-        _gameStart.onClick.AddListener(GameStart);
+        _openScrambleButton.onClick.AddListener(OpenScrambleCanvas);
         _settingButton.onClick.AddListener(OpenSetting);
+        _startButton.onClick.AddListener(GameStart);
         _exitButton.onClick.AddListener(GameExit);
     }
 
-    private void GameStart()
+    private void OpenScrambleCanvas()
     {
         _sound.PlayButtonTapSE();
-        _scramblePlayer.PlayScrambleAnim(_titleCamera,_scrambleCamera,_currentCanvas);
+        _switcher.StuckIn(_currentCanvas,_scrambleCanvas);
+        _cameraSwitch.StuckIn(_titleCamera,_settingCamera);
     }
 
     private void OpenSetting()
     {
         _sound.PlayButtonTapSE();
-        _switcher.StuckIn(_currentCanvas,_nextCanvas);
-        _cameraSwitch.StuckIn(_titleCamera, _settingCamera);
+        _switcher.StuckIn(_scrambleCanvas, _assembleCanvas);
+        //_cameraSwitch.StuckIn(_titleCamera, _settingCamera);
+    }
+
+    private void GameStart()
+    {
+        _sound.PlayButtonTapSE();
+        _scramblePlayer.PlayScrambleAnim(_settingCamera, _scrambleCamera, _scrambleCanvas,_returnButtonCanvas);
     }
 
     private void GameExit()

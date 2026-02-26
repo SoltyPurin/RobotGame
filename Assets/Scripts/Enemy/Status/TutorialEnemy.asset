@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7f05a5efb034b41a693a9d6569cfd8, type: 3}
   m_Name: TutorialEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
+  _isTutorialEnemy: 1
   _enemyType: 2
   _enemyHP: 5000
   _escapeHpThreshold: 300

@@ -6929,11 +6929,6 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!1 &1200587375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6758536495786028917, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-  m_PrefabInstance: {fileID: 5109948988784260129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1224926656
 GameObject:
   m_ObjectHideFlags: 0
@@ -8028,20 +8023,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8058938130753209199, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
   m_PrefabInstance: {fileID: 5109948988784260129}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1625607269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200587375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ac815fef397ec4d8e5b7ed639cbce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveGage
-  _moveValue:
-    value: 5
 --- !u!1 &1626819651
 GameObject:
   m_ObjectHideFlags: 0
@@ -11155,10 +11136,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 641573716783176673, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _hold
-      value: 
-      objectReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    - target: {fileID: 641573716783176673, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _shootCoolTime.value
       value: 1.5
       objectReference: {fileID: 0}
@@ -11186,10 +11163,6 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819651}
-    - target: {fileID: 4800877092700124769, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _jumpForce
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5764063211253313040, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _stopTime
       value: 0.3
@@ -11249,10 +11222,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6758536495786028917, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1625607269}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
 --- !u!4 &5126268904744000863
 Transform:
@@ -11644,14 +11614,6 @@ PrefabInstance:
     - target: {fileID: 6254512362455918770, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
-      propertyPath: _status
-      value: 
-      objectReference: {fileID: 11400000, guid: 2103e4ff17309e94cb44dcecd3a59832, type: 2}
-    - target: {fileID: 7403166239888286322, guid: 6be722cafb8a4cf41903ae823fa345e6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

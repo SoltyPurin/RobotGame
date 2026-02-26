@@ -3,6 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyStatus", menuName = "Scriptable Objects/EnemyStatus")]
 public class EnemyStatus : ScriptableObject
 {
+    [SerializeField,Header("チュートリアルの敵か")]
+    private bool _isTutorialEnemy = false;
+    public bool IsTutorialEnemy
+    {
+        get { return _isTutorialEnemy; }
+    }
     [SerializeField, Header("敵のタイプ")]
     private EnemyType _enemyType = EnemyType.Normal;
     public EnemyType EnemyType { get { return _enemyType; } }

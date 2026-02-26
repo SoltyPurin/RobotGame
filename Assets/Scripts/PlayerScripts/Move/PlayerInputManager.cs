@@ -9,6 +9,7 @@ public class PlayerInputManager : MonoBehaviour
     private LeftAttack _meleeAttack = default;
     [SerializeField, Header("射撃のクールタイム")]
     private FloatReactiveProperty _shootCoolTime ;
+
     private float _saveShootCoolTime = default;
     public IReadOnlyReactiveProperty<float> ShootCoolTimeProperty
     {
@@ -30,10 +31,12 @@ public class PlayerInputManager : MonoBehaviour
     private TakeDamageScript _takeDamage = default;
     private AuraBurst _burst = default;
     private PauseManager _pause = default;
+    private MoveGage _moveGage = default;
 
     private bool _isAlive = true;
     private bool _isShootCoolTime = false;
     private bool _isMeleeCoolTime = false;
+    private bool _isJumpPressing = false;
 
     private float _prevMeleeInputTime = 0;
 
@@ -44,7 +47,8 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap = new InputSystem_Actions();
         _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
         _actionMap.Player.Dash.performed += DashProtocol;
-        _actionMap.Player.Jump.performed += JumpProtocol;
+        _actionMap.Player.Jump.started += JumpSwitchTrue;
+        _actionMap.Player.Jump.canceled += JumpSwitchFalse;
         _actionMap.Player.RightAttack.performed += RightAttackProtocol;
         _actionMap.Player.LeftAttack.performed += LeftAttackProtocol;
         _actionMap.Player.Move.started += MoveProtocol;
@@ -70,19 +74,24 @@ public class PlayerInputManager : MonoBehaviour
         _attack = GetComponent<AttackScript>();
         _anim = GetComponent<PlayAnimationScript>();
         _takeDamage = GetComponent<TakeDamageScript>();
+        _moveGage = GetComponent<MoveGage>();
         _pause = FindAnyObjectByType<PauseManager>();
         _prevMeleeInputTime = Time.time;
         _currentMeleeCoolTime = _meleeCoolTime;
         _lockOn.Initialize();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (IsDontMove())
         {
             return;
         }
-
+        if (_isJumpPressing && _moveGage.MoveTimeProperty.Value >0)
+        {
+            _moveGage.Moveing();
+            _jump.JumpProtocol();
+        }
         if (_isShootCoolTime)
         {
             ShootCoolTimeCounter();
@@ -122,15 +131,20 @@ public class PlayerInputManager : MonoBehaviour
         }
 
     }
-    private void JumpProtocol(InputAction.CallbackContext context)
+    private void JumpSwitchTrue(InputAction.CallbackContext context)
     {
         if (IsDontMove())
         {
             return;
         }
-        _jump.JumpProtocol();
-        _anim.JumpAnim();
+        _isJumpPressing = true;
 
+        _anim.JumpAnim();
+    }
+
+    private void JumpSwitchFalse(InputAction.CallbackContext context)
+    {
+        _isJumpPressing = false;
     }
     private void DashProtocol(InputAction.CallbackContext context)
     {
@@ -195,7 +209,8 @@ public class PlayerInputManager : MonoBehaviour
             Debug.Log("撃破");
             _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
             _actionMap.Player.Dash.performed -= DashProtocol;
-            _actionMap.Player.Jump.performed -= JumpProtocol;
+            _actionMap.Player.Jump.started -= JumpSwitchTrue;
+        _actionMap.Player.Jump.canceled -= JumpSwitchFalse;
             _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
             _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;
             _actionMap.Player.Move.started -= MoveProtocol;

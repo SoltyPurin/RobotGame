@@ -20,7 +20,10 @@ public class CameraSwitchScript : MonoBehaviour
     {
         Debug.Log("スタック戻し");
         _currentCamera.Priority = 0;
-        _currentCamera = _camera.Pop();
+        if( _camera.Count > 0)
+        {
+            _currentCamera = _camera.Pop();
+        }
         _currentCamera.Priority = 1;
     }
 }

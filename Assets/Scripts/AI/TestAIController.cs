@@ -102,6 +102,10 @@ public class TestAIController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_status.IsTutorialEnemy)
+        {
+            return;
+        }
         if (!_isAlive)
         {
             return;

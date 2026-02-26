@@ -22,7 +22,7 @@ public class GroundDetect : MonoBehaviour
         {
             _animator.SetBool("IsTouchGround", true);
             _effect.StopThrusterEffect();
-            _jump.JumpCountReset();
+            _jump.CanJumpSwitch();
             if (!_move.IsRunning.Value)
             {
                 _move.DashTimeHeal();

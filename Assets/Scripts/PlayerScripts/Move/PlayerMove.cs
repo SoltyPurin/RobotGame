@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UniRx;
-using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -21,14 +19,7 @@ public class PlayerMove : MonoBehaviour
     private GameObject _robotObj = default;
     [SerializeField, Header("ダッシュのパーティクル")]
     private ParticleSystem _dashParticle = default;
-    [SerializeField, Header("ダッシュできる時間")]
-    private FloatReactiveProperty _dashTime;
 
-    private float _saveDashTime;
-    public IReadOnlyReactiveProperty<float> DashTimeProperty
-    {
-        get { return _dashTime; }
-    }
     [SerializeField, Header("地面の検知")]
     private GroundDetect _groundDetect = default;
 
@@ -49,14 +40,15 @@ public class PlayerMove : MonoBehaviour
     private GameObject _activeCamera = default;
     private LockOn _lockOn = default;
     private PlayerSoundPlayScript _soundPlay = default;
+    private MoveGage _moveGage = default;
     private void Start()
     {
         _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
         _dashParticle.Stop();
         _isRunning.Value = false;
-        _saveDashTime = _dashTime.Value;
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
         _lockOn = GetComponent<LockOn>();
+        _moveGage = GetComponent<MoveGage>();
         _activeCamera = _lockOnCamera;
     }
     private void Update()
@@ -81,7 +73,7 @@ public class PlayerMove : MonoBehaviour
 
     public void DashTimeHeal()
     {
-        _dashTime.Value = _saveDashTime;
+        _moveGage.ResetMoveValue();
     }
     public void DashProtocol()
     {
@@ -94,7 +86,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            if (_dashTime.Value >= 0)
+            if (_moveGage.MoveTimeProperty.Value >= 0)
             {
                 _soundPlay.PlayDashSound(_isRunning.Value);
                 _dashParticle.Play();
@@ -114,8 +106,8 @@ public class PlayerMove : MonoBehaviour
         }
         curPos.y = _lockYAxis;
         _onBallRigidBody.MovePosition(curPos);
-        _dashTime.Value -= Time.fixedDeltaTime;
-        if(_dashTime.Value < 0 )
+        _moveGage.Moveing();
+        if(_moveGage.MoveTimeProperty.Value < 0 )
         {
             _soundPlay.PlayDashSound(_isRunning.Value);
             _dashParticle.Stop();

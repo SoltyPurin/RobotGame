@@ -22,7 +22,8 @@ public class ScramblePlayer : MonoBehaviour
         _soundManager = FindAnyObjectByType<TitleSoundManager>();
 
     }
-    public void PlayScrambleAnim(CinemachineCamera titleCamera,CinemachineCamera scrambleCamera,GameObject currentCanvas)
+    public void PlayScrambleAnim(CinemachineCamera titleCamera,CinemachineCamera scrambleCamera,
+        GameObject currentCanvas,GameObject returnButtonCanvas)
     {
         _playableDirector.Play();
         _animator.SetTrigger("ScrambleWait");
@@ -32,6 +33,10 @@ public class ScramblePlayer : MonoBehaviour
         titleCanvas.alpha = 0;
         titleCanvas.blocksRaycasts = false;
         titleCanvas.interactable = false;
+        CanvasGroup returnCanvas = returnButtonCanvas.GetComponent<CanvasGroup>();
+        returnCanvas.alpha = 0;
+        returnCanvas.blocksRaycasts = false;
+        returnCanvas.interactable = false ;
         StartCoroutine(ScrambleStart());
     }
 
