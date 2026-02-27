@@ -19839,7 +19839,7 @@ MonoBehaviour:
   _anim: {fileID: 6559886222491615541}
   _state: {fileID: 1327413361591796148}
   _damageValue: 50
-  _blowAwayPower: 200
+  _blowAwayPower: 500
 --- !u!1 &530073847012954013
 GameObject:
   m_ObjectHideFlags: 0
@@ -262335,6 +262335,7 @@ GameObject:
   - component: {fileID: 8058938130753209199}
   - component: {fileID: 2486990525998137046}
   - component: {fileID: 4228072715281462202}
+  - component: {fileID: 4975473455259760094}
   - component: {fileID: 641573716783176673}
   - component: {fileID: 4424170228513651156}
   - component: {fileID: 4800877092700124769}
@@ -262346,7 +262347,6 @@ GameObject:
   - component: {fileID: 4925597671857197346}
   - component: {fileID: 7947985176177807263}
   - component: {fileID: 5694632386000944696}
-  - component: {fileID: 5157697145451280288}
   - component: {fileID: 7907670376561626159}
   - component: {fileID: 6246299830555716319}
   - component: {fileID: 3375663779228381230}
@@ -262430,6 +262430,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 10, z: 3}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4975473455259760094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6758536495786028917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ac815fef397ec4d8e5b7ed639cbce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveGage
+  _moveValue:
+    value: 5
+  _jumpValueMultiplier: 2.1
 --- !u!114 &641573716783176673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262444,7 +262459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
   _meleeAttack: {fileID: 3282368169460273911}
   _shootCoolTime:
-    value: 1
+    value: 1.5
   _meleeCoolTime: 1
   _tempTarget: {fileID: 4845939601995404608}
 --- !u!114 &4424170228513651156
@@ -262461,15 +262476,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   _ballRigidBody: {fileID: 4732940692926257492}
   _onBallRigidBody: {fileID: 2486990525998137046}
-  _accelarationValue: 0.5
   _moveSpeed: 50
   _dashPlusValue: 20
   _downForce: 200
   _lockOnCamera: {fileID: 0}
-  _dunbine: {fileID: 5634127083768990864}
+  _robotObj: {fileID: 5634127083768990864}
   _dashParticle: {fileID: 0}
-  _dashTime:
-    value: 3.5
   _groundDetect: {fileID: 3191547510620835241}
 --- !u!114 &4800877092700124769
 MonoBehaviour:
@@ -262483,10 +262495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac1cb3f24bedf341985eebee84d4ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jump
-  _jumpForce: 100
-  _canJumpCount: 2
+  _jumpForce: 8
   _ballRigidBody: {fileID: 4732940692926257492}
-  _effect: {fileID: 5157697145451280288}
+  _effect: {fileID: 0}
 --- !u!114 &810292591663481083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262500,7 +262511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LockOn
   _lockOnCamera: {fileID: 0}
-  _notLockOnObject: {fileID: 3994977900606052311}
 --- !u!114 &1504089564368994117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262553,7 +262563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 2486990525998137046}
-  _stopFlame: 45
+  _stopTime: 0.3
 --- !u!114 &4925597671857197346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262580,7 +262590,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerTakeDamage
   _meleeBlowAwayTime: 1
   _shootBlowAwayTime: 0.3
-  _userHP: 600
   _meleeDuration: 1
   _shootDuration: 0.5
   _frontAngle: 20
@@ -262638,20 +262647,6 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 1, y: 0, z: 0}
---- !u!114 &5157697145451280288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6758536495786028917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c200bf6f5073a084c9723e952fcc831a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerEffectPlay
-  _rightThruster: {fileID: 671567561256015612}
-  _leftThruster: {fileID: 6272261690658978144}
 --- !u!114 &7907670376561626159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262689,7 +262684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cba91b31ed0cd04db80d56c22f9bd04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AuraBurst
-  _attackBurstTime: 4.5
+  _attackBurstTime: 10
   _burstUpAttackValue: 100
   _speedBurstTime: 15
   _burstSpeed: 100
@@ -356486,7 +356481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetect
   _jump: {fileID: 4800877092700124769}
   _move: {fileID: 4424170228513651156}
-  _effect: {fileID: 5157697145451280288}
   _rayDistance: 0.5
   _animator: {fileID: 5989838876354775001}
 --- !u!1 &9000711643105655156

@@ -47,7 +47,7 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap = new InputSystem_Actions();
         _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
         _actionMap.Player.Dash.performed += DashProtocol;
-        _actionMap.Player.Jump.started += JumpSwitchTrue;
+        _actionMap.Player.Jump.started += JumpOrDash;
         _actionMap.Player.Jump.canceled += JumpSwitchFalse;
         _actionMap.Player.RightAttack.performed += RightAttackProtocol;
         _actionMap.Player.LeftAttack.performed += LeftAttackProtocol;
@@ -89,7 +89,7 @@ public class PlayerInputManager : MonoBehaviour
         }
         if (_isJumpPressing && _moveGage.MoveTimeProperty.Value >0)
         {
-            _moveGage.Moveing();
+            _moveGage.Moveing(true);
             _jump.JumpProtocol();
         }
         if (_isShootCoolTime)
@@ -131,7 +131,7 @@ public class PlayerInputManager : MonoBehaviour
         }
 
     }
-    private void JumpSwitchTrue(InputAction.CallbackContext context)
+    private void JumpOrDash(InputAction.CallbackContext context)
     {
         if (IsDontMove())
         {
@@ -152,7 +152,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             return ;
         }
-
+        Debug.Log("ƒ_ƒbƒVƒ…“ü—Í");
         _move.DashProtocol();
     }
     private void RightAttackProtocol(InputAction.CallbackContext context)
@@ -209,7 +209,7 @@ public class PlayerInputManager : MonoBehaviour
             Debug.Log("Œ‚”j");
             _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
             _actionMap.Player.Dash.performed -= DashProtocol;
-            _actionMap.Player.Jump.started -= JumpSwitchTrue;
+            _actionMap.Player.Jump.started -= JumpOrDash;
         _actionMap.Player.Jump.canceled -= JumpSwitchFalse;
             _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
             _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;

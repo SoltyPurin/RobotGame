@@ -106,7 +106,7 @@ public class PlayerMove : MonoBehaviour
         }
         curPos.y = _lockYAxis;
         _onBallRigidBody.MovePosition(curPos);
-        _moveGage.Moveing();
+        _moveGage.Moveing(false);
         if(_moveGage.MoveTimeProperty.Value < 0 )
         {
             _soundPlay.PlayDashSound(_isRunning.Value);
