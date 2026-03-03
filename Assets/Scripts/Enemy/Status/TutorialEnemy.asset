@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   _isTutorialEnemy: 1
   _enemyType: 2
-  _enemyHP: 5000
+  _enemyHP: 600
   _escapeHpThreshold: 300
   _jumpDistanceThreshould: 20
   _dodgeRange: 5
-  _moveMaxDistance: 10
-  _escapeDistance: 10
-  _escapeSpeed: 70
+  _moveMaxDistance: 0
+  _escapeDistance: 0
+  _escapeSpeed: 0
   _meleeAtosuki: 1
   _rushSpeed: 40
   _rushTime: 1.4
@@ -31,7 +31,7 @@ MonoBehaviour:
   _bulletAliveTime: 5
   _bulletMoveSpeed: 240
   _gravity: 150
-  _nearTargetPosDistance: 5
+  _nearTargetPosDistance: 1000
   _aiMoveSpeed: 0
   _dodgePower: 10
   _dodgeTime: 0.5

@@ -12,6 +12,8 @@ public class PlayerTakeDamage : TakeDamageScript
     private float _frontAngle = 20;
     [SerializeField, Header("ロックオンカメラ")]
     private CinemachineCamera _lockOnCamera = default;
+    [SerializeField,Header("練習モードか？")]
+    private bool _isPractice = false;
     
     private PlayerSoundPlayScript _soundPlayer = default;
     private DamageEffect _effect = default;
@@ -78,18 +80,23 @@ public class PlayerTakeDamage : TakeDamageScript
 
     public override void DeathCheck()
     {
-        base.DeathCheck();
-        if(_userHP <= 0)
+        if(_userHP <= _halfHP)
         {
+            _auraBurst.AuraBurstUseableProtocol();
+        }
+        if (_isPractice)
+        {
+            return;
+        }
+        if (_userHP <= 0)
+        {
+            _anim.DeathAnim();
             _lockOnCamera.LookAt = transform;
             _soundPlayer.PlayDeathSound();
             _input.Dead();
             _deathManager.PlayerCheckHP(_userHP);
         }
-        if(_userHP <= _halfHP)
-        {
-            _auraBurst.AuraBurstUseableProtocol();
-        }
+
     }
 
     private void CallViberationCoroutine(Vector3 attackDirection,float duration,bool isMelee)

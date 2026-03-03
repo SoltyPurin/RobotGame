@@ -23,7 +23,7 @@ public class ScramblePlayer : MonoBehaviour
 
     }
     public void PlayScrambleAnim(CinemachineCamera titleCamera,CinemachineCamera scrambleCamera,
-        GameObject currentCanvas,GameObject returnButtonCanvas)
+        GameObject currentCanvas,GameObject returnButtonCanvas, string sceneName)
     {
         _playableDirector.Play();
         _animator.SetTrigger("ScrambleWait");
@@ -37,18 +37,18 @@ public class ScramblePlayer : MonoBehaviour
         returnCanvas.alpha = 0;
         returnCanvas.blocksRaycasts = false;
         returnCanvas.interactable = false ;
-        StartCoroutine(ScrambleStart());
+        StartCoroutine(ScrambleStart(sceneName));
     }
 
-    private IEnumerator ScrambleStart()
+    private IEnumerator ScrambleStart(string sceneName)
     {
         yield return new WaitForSeconds(1f);
         _soundManager.PlayRobotStartSE();
         yield return new WaitForSeconds(4.5f);
-        StartCoroutine(ScrambleFade());
+        StartCoroutine(ScrambleFade(sceneName));
     }
 
-    private IEnumerator ScrambleFade()
+    private IEnumerator ScrambleFade(string sceneName)
     {
         var color = _fadeImage.color;
         for (int i = 0; i < 255; i++)
@@ -58,7 +58,7 @@ public class ScramblePlayer : MonoBehaviour
             _fadeImage.color = color;
         }
 
-        _loadManager.StartLoad();
+        _loadManager.StartLoad(sceneName);
     }
 
 }

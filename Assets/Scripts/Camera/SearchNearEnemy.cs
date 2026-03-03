@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SearchNearEnemy : MonoBehaviour
 {
-    private GameObject[] _enemys;
-    private int _currentEnemyIndex = 0;
+    protected GameObject[] _enemys;
+    protected int _currentEnemyIndex = 0;
     private void Awake()
     {
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
@@ -13,7 +13,7 @@ public class SearchNearEnemy : MonoBehaviour
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
         _currentEnemyIndex = -1;
     }
-    public GameObject SearchAndReturnNearEnemy()
+    public virtual GameObject SearchAndReturnNearEnemy()
     {
         if (_enemys == null || _enemys.Length == 0)
         {

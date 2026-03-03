@@ -7,16 +7,21 @@ public class StartWait : MonoBehaviour
     private float _animationTime = 2.4f;
     [SerializeField, Header("ユーザーのキャンバス")]
     private GameObject _userCanvas = default;
+    [SerializeField,Header("練習中か？")]
+    private bool _isPractice = false;
 
     private void Awake()
     {
         PlayerInputManager input = FindAnyObjectByType<PlayerInputManager>();
         DeathManager deathManager = FindAnyObjectByType<DeathManager>();
-        var aiCOntroller = FindObjectsByType<TestAIController>(FindObjectsSortMode.None);
-        var stackDetect  = FindObjectsByType<EnemyStackDetect>(FindObjectsSortMode.None);
-        var takeDamages = FindObjectsByType<TakeDamageScript>(FindObjectsSortMode.None);
+        TestAIController[] aiCOntroller = FindObjectsByType<TestAIController>(FindObjectsSortMode.None);
+        EnemyStackDetect[] stackDetect  = FindObjectsByType<EnemyStackDetect>(FindObjectsSortMode.None);
+        TakeDamageScript[] takeDamages = FindObjectsByType<TakeDamageScript>(FindObjectsSortMode.None);
         input.enabled = false;
-        deathManager.enabled = false;
+        if (!_isPractice)
+        {
+            deathManager.enabled = false;
+        }
         _userCanvas.SetActive(false);
         foreach (var ai in aiCOntroller)
         {
@@ -51,7 +56,10 @@ public class StartWait : MonoBehaviour
         {
             takeDamage.enabled =true;
         }
-        deathManager.enabled=true;
+        if (!_isPractice)
+        {
+            deathManager.enabled = true;
+        }
         _userCanvas.SetActive(true);
     }
 }

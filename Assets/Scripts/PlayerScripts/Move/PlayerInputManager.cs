@@ -64,7 +64,6 @@ public class PlayerInputManager : MonoBehaviour
         float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue;
         _shootCoolTime.Value = Mathf.Clamp(_shootCoolTime.Value, 0.1f, _shootCoolTime.Value - shotCoolTimeMinusValue);
         _saveShootCoolTime = _shootCoolTime.Value;
-        Debug.Log("クールタイムは" + _saveShootCoolTime);
 
 
         _burst = GetComponent<AuraBurst>();
@@ -106,11 +105,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void LockOnProtocol(InputAction.CallbackContext context)
     {
-        Debug.Log("ロックオン変更");
-
         _lockOn.ChangeCamera();
-
-
     }
 
     private void MoveProtocol(InputAction.CallbackContext context)

@@ -50,16 +50,16 @@ public class EnemyTakeDamage : TakeDamageScript
     public override void DeathCheck()
     {
         base.DeathCheck();
-        if(_userHP <= 0)
-        {
-            _soundPlay.PlayDeathExplosionSE();
-            _controller.Dead();
-            StartCoroutine(DeathDelay());
-        }
         if(_userHP <= _damgerHP && _canUseBurst)
         {
             _canUseBurst = false;
             _burstPerformance.AuraBurstCutIn(this.gameObject);
+        }
+        if (_userHP <= 0)
+        {
+            _soundPlay.PlayDeathExplosionSE();
+            _controller.Dead();
+            StartCoroutine(DeathDelay());
         }
     }
 

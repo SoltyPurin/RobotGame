@@ -9,17 +9,17 @@ public enum CameraState
 public class LockOn : MonoBehaviour
 {
     [SerializeField, Header("ロックオンカメラ")]
-    private CinemachineCamera _lockOnCamera = default;
+    protected CinemachineCamera _lockOnCamera = default;
 
-    private LockOnMarkerViewer _lockOnMarker = default;
-    private SearchNearEnemy _nearEnemy = default;
-    private Transform _targetTransform = default;
+    protected LockOnMarkerViewer _lockOnMarker = default;
+    protected SearchNearEnemy _nearEnemy = default;
+    protected Transform _targetTransform = default;
     public Transform TargetTransform
     {
         get { return _targetTransform; }
     }
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         _lockOnMarker = FindAnyObjectByType<LockOnMarkerViewer>();
         _nearEnemy = this.gameObject.AddComponent<SearchNearEnemy>();
@@ -39,7 +39,7 @@ public class LockOn : MonoBehaviour
     }
 
 
-    public void ChangeCamera()
+    public virtual void ChangeCamera()
     {
         GameObject enemy = _nearEnemy.SearchAndReturnNearEnemy();
         if (enemy == null)

@@ -36358,7 +36358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d47c0276e8d3648be2e5c53950cc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestAIController
-  _status: {fileID: 11400000, guid: 044f4ddc32b461849aaa2a58827b8fc6, type: 2}
+  _status: {fileID: 11400000, guid: 2103e4ff17309e94cb44dcecd3a59832, type: 2}
   _onBallRigidBody: {fileID: 6518367681128184011}
   _ballRigidBody: {fileID: 7842442799748084575}
   _detectGround: {fileID: 6759507131949666305}

@@ -690,6 +690,7 @@ MonoBehaviour:
   _openScrambleButton: {fileID: 1241319952}
   _settingButton: {fileID: 1097614496}
   _startButton: {fileID: 973325191}
+  _practiceButton: {fileID: 1660575996}
   _exitButton: {fileID: 448407232}
   _currentCanvas: {fileID: 119168508}
   _returnButtonCanvas: {fileID: 2076923445}
@@ -51787,7 +51788,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tutorial
+  m_text: 'Practice
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5a6c1802eb129d04293818688bca956f, type: 2}
   m_sharedMaterial: {fileID: -2979464109188158242, guid: 5a6c1802eb129d04293818688bca956f, type: 2}
@@ -59029,12 +59032,12 @@ GameObject:
   - component: {fileID: 1660575997}
   - component: {fileID: 1660575996}
   m_Layer: 5
-  m_Name: TutorialButton
+  m_Name: PracticeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1660575995
 RectTransform:
   m_ObjectHideFlags: 0

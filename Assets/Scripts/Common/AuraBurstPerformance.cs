@@ -52,10 +52,6 @@ public class AuraBurstPerformance : MonoBehaviour
         _ui.BurstStart();
         Time.timeScale = 0;
     }
-    private void Update()
-    {
-        Debug.Log("現在のタイムスケールは" + Time.timeScale);
-    }
 
     private IEnumerator CutInEnd(Animator animator)
     {

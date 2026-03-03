@@ -12,6 +12,8 @@ public class TitleCanvasInput : MonoBehaviour
     private Button _settingButton = default;
     [SerializeField,Header("スタートボタン")]
     private Button _startButton = default;
+    [SerializeField, Header("練習場のボタン")]
+    private Button _practiceButton = default;
     [SerializeField,Header("終了ボタン")]
     private Button _exitButton = default;
     [SerializeField, Header("その時のキャンバス")]
@@ -44,6 +46,7 @@ public class TitleCanvasInput : MonoBehaviour
         _openScrambleButton.onClick.AddListener(OpenScrambleCanvas);
         _settingButton.onClick.AddListener(OpenSetting);
         _startButton.onClick.AddListener(GameStart);
+        _practiceButton.onClick.AddListener(PracticeStart);
         _exitButton.onClick.AddListener(GameExit);
     }
 
@@ -64,7 +67,14 @@ public class TitleCanvasInput : MonoBehaviour
     private void GameStart()
     {
         _sound.PlayButtonTapSE();
-        _scramblePlayer.PlayScrambleAnim(_settingCamera, _scrambleCamera, _scrambleCanvas,_returnButtonCanvas);
+        _scramblePlayer.PlayScrambleAnim(_settingCamera, _scrambleCamera, _scrambleCanvas,_returnButtonCanvas,"Honpen");
+    }
+
+    private void PracticeStart()
+    {
+        _sound.PlayButtonTapSE();
+        _scramblePlayer.PlayScrambleAnim(_settingCamera, _scrambleCamera, _scrambleCanvas, _returnButtonCanvas, "Practice");
+
     }
 
     private void GameExit()

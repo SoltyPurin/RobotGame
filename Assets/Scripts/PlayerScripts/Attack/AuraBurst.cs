@@ -113,4 +113,11 @@ public class AuraBurst : MonoBehaviour
         _canUseBurst.Value = true;
         _soundPlay.PlayBurstReadySound();
     }
+
+    public void PracticeAuraBurstUseableProtocol()
+    {
+        _canUseBurst.Value = true;
+        _soundPlay.PlayBurstReadySound();
+        _useableBurstCount++;
+    }
 }

@@ -17,19 +17,19 @@ public class LoadManager : MonoBehaviour
     private AsyncOperation async;
 
     // ロードを開始するメソッド
-    public void StartLoad()
+    public void StartLoad(string sceneName)
     {
-        StartCoroutine(Load());
+        StartCoroutine(Load(sceneName));
     }
 
     // コルーチンを使用してロードを実行するメソッド
-    private IEnumerator Load()
+    private IEnumerator Load(string sceneName)
     {
         // ロード画面を表示する
         loadingUI.SetActive(true);
 
         // シーンを非同期でロードする
-        async = SceneManager.LoadSceneAsync(_nextSceneName);
+        async = SceneManager.LoadSceneAsync(sceneName);
 
         // ロードが完了するまで待機する
         while (!async.isDone)
