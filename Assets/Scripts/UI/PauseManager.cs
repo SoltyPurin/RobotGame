@@ -23,7 +23,7 @@ public class PauseManager : MonoBehaviour
         _aura = FindAnyObjectByType<AuraBurst>();
         _resumeButton.onClick.AddListener(Resume);
         _exitButton.onClick.AddListener(Exit);
-        if(_aura != null)
+        if(_auraBurstButton != null)
         {
             _auraBurstButton.onClick.AddListener(AuraBurstOnline);
         }
