@@ -41,14 +41,20 @@ public class PlayerMove : MonoBehaviour
     private LockOn _lockOn = default;
     private PlayerSoundPlayScript _soundPlay = default;
     private MoveGage _moveGage = default;
-    private void Start()
+    private PlayAnimationScript _anim;
+
+    private Transform _rockTransform = default;
+    private bool _isBurstPerformancing = false;
+    public void Initialize(PlayAnimationScript anim,LockOn lockOn,MoveGage moveGage)
     {
+        _anim = anim;
+        _rockTransform = transform;
         _soundPlay = FindAnyObjectByType<PlayerSoundPlayScript>();
         _dashParticle.Stop();
         _isRunning.Value = false;
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
-        _lockOn = GetComponent<LockOn>();
-        _moveGage = GetComponent<MoveGage>();
+        _lockOn = lockOn;
+        _moveGage = moveGage;
         _activeCamera = _lockOnCamera;
     }
     private void Update()
@@ -61,13 +67,39 @@ public class PlayerMove : MonoBehaviour
         _verticalValue = _v2MoveValue.y;
         _horizontalValue = _v2MoveValue.x;
     }
+    /// <summary>
+    /// バーストが発動した時と非発動時のフラグを帰る
+    /// </summary>
+    /// <param name="isActive">バーストが発動したか</param>
+    public void InBurstMove(bool isActive)
+    {
+        if (isActive)
+        {
+            _isBurstPerformancing = true;
+            _rockTransform.position = transform.position;
+            _rockTransform.rotation = transform.rotation;
+        }
+        else
+        {
+            _isBurstPerformancing = false;
+        }
+    }
 
     private void FixedUpdate()
     {
-        MoveProtocol();
-        if (_isRunning.Value)
+        if(!_isBurstPerformancing)
         {
-            YAxisLock();
+            MoveProtocol();
+            if (_isRunning.Value)
+            {
+                YAxisLock();
+            }
+        }
+        else
+        {
+            Debug.Log("回転と座標を固定中");
+            transform.position = _rockTransform.position;
+            transform.rotation = _rockTransform.rotation;
         }
     }
 
@@ -79,6 +111,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isRunning.Value)
         {
+            _anim.DashSwitch(_isRunning.Value);
             _soundPlay.PlayDashSound(_isRunning.Value);
             _dashParticle.Stop();
             _isRunning.Value = false;
@@ -93,10 +126,14 @@ public class PlayerMove : MonoBehaviour
                 _isRunning.Value = true;
                 _lockYAxis = this.transform.position.y;
                 _moveSpeed += _dashPlusValue;
+                _anim.DashSwitch(_isRunning.Value);
             }
         }
     }
-
+    public void Landing()
+    {
+        _anim.LandingAnim();
+    }
     private void YAxisLock()
     {
         Vector3 curPos = this.transform.position;
@@ -137,6 +174,7 @@ public class PlayerMove : MonoBehaviour
 
     private void LockOnMoveProtocol(GameObject activeCamera, Vector3 curVelocity)
     {
+
         Vector3 targetPos = _lockOn.TargetTransform.position;
         Vector3 dir = targetPos - _onBallRigidBody.position;
         dir.y = 0f;
@@ -150,7 +188,7 @@ public class PlayerMove : MonoBehaviour
             _robotObj.transform.localRotation = targetRot;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
-            _useVelocity = moveForward * _moveSpeed;
+            _useVelocity = moveForward * _moveSpeed * Time.deltaTime;
             _useVelocity.y = curVelocity.y;
             _ballRigidBody.linearVelocity = _useVelocity;
         }
@@ -170,7 +208,7 @@ public class PlayerMove : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
             Quaternion temp = Quaternion.RotateTowards(_onBallRigidBody.rotation, targetRot, 600 * Time.fixedDeltaTime);
             _onBallRigidBody.rotation = temp;
-            _useVelocity = moveForward * _moveSpeed;
+            _useVelocity = moveForward * _moveSpeed * Time.deltaTime;
             _useVelocity.y = curVelocity.y;
             _ballRigidBody.linearVelocity = _useVelocity;
         }

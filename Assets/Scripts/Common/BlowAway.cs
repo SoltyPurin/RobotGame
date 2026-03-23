@@ -26,23 +26,22 @@ public class BlowAway : MonoBehaviour
         _direction = direction;
         _blowAwayPower=blowAwayPower;
         _canHitStop = true;
-        Time.timeScale = 0.3f;
+        //Time.timeScale = 0.3f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_canHitStop)
         {
             return;
         }
-        //Debug.Log("ヒットストップ");
         _currentStopTime += Time.unscaledDeltaTime;
         if( _currentStopTime > _stopTime)
         {
-            if (!_performance.IsBurstPerformancing)
-            {
-                Time.timeScale = 1;
-            }
+            //if (!_performance.IsBurstPerformancing)
+            //{
+            //    Time.timeScale = 1;
+            //}
             _canHitStop = false;
             _onBallRigidBody.AddForce(_direction * _blowAwayPower, ForceMode.Impulse);
         }

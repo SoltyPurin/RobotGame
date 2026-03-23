@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7f05a5efb034b41a693a9d6569cfd8, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
+  _isTutorialEnemy: 0
   _enemyType: 0
   _enemyHP: 1000
   _escapeHpThreshold: 400
@@ -21,7 +22,7 @@ MonoBehaviour:
   _escapeDistance: 20
   _escapeSpeed: 200
   _meleeAtosuki: 1
-  _rushSpeed: 500
+  _rushSpeed: 200
   _rushTime: 0.4
   _meleeDamageValue: 150
   _meleeBlowAwayPower: 1500
@@ -31,7 +32,7 @@ MonoBehaviour:
   _bulletMoveSpeed: 240
   _gravity: 200
   _nearTargetPosDistance: 10
-  _aiMoveSpeed: 100
+  _aiMoveSpeed: 60
   _dodgePower: 50
   _dodgeTime: 0.5
   _jumpPower: 100

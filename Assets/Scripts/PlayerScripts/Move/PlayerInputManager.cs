@@ -37,6 +37,7 @@ public class PlayerInputManager : MonoBehaviour
     private bool _isShootCoolTime = false;
     private bool _isMeleeCoolTime = false;
     private bool _isJumpPressing = false;
+    private bool _isBurstPermancing = false;
 
     private float _prevMeleeInputTime = 0;
 
@@ -59,7 +60,7 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap.Enable();
     }
 
-    private void Start()
+    private void Awake()
     {
         float shotCoolTimeMinusValue = PlayerPrefs.GetInt(AssemblyPointDispatcher.CoolTime) * _getCoolTimeDivisionValue;
         _shootCoolTime.Value = Mathf.Clamp(_shootCoolTime.Value, 0.1f, _shootCoolTime.Value - shotCoolTimeMinusValue);
@@ -77,6 +78,7 @@ public class PlayerInputManager : MonoBehaviour
         _pause = FindAnyObjectByType<PauseManager>();
         _prevMeleeInputTime = Time.time;
         _currentMeleeCoolTime = _meleeCoolTime;
+        _move.Initialize(_anim,_lockOn,_moveGage);
         _lockOn.Initialize();
     }
 
@@ -134,12 +136,13 @@ public class PlayerInputManager : MonoBehaviour
         }
         _isJumpPressing = true;
 
-        _anim.JumpAnim();
+        _anim.JumpingAnim();
     }
 
     private void JumpSwitchFalse(InputAction.CallbackContext context)
     {
         _isJumpPressing = false;
+        _anim.FallingAnim();
     }
     private void DashProtocol(InputAction.CallbackContext context)
     {
@@ -149,6 +152,7 @@ public class PlayerInputManager : MonoBehaviour
         }
         Debug.Log("ダッシュ入力");
         _move.DashProtocol();
+        _anim.DashSwitch(_move.IsRunning.Value);
     }
     private void RightAttackProtocol(InputAction.CallbackContext context)
     {
@@ -247,10 +251,25 @@ public class PlayerInputManager : MonoBehaviour
             _anim.RightAttackAnim();
         }
     }
+/// <summary>
+/// バーストが発動した時と非発動時のフラグを帰る
+/// </summary>
+/// <param name="isActive">バーストが発動したか</param>
+public void InBurstMove(bool isActive)
+{
+        if (isActive)
+        {
+            _isBurstPermancing = true;
+        }
+        else
+        {
+            _isBurstPermancing= false;
+        }
+}
 
-    private bool IsDontMove()
+private bool IsDontMove()
     {
-        bool canMove = !_isAlive && _takeDamage.IsBlowning && _meleeAttack.IsRushing;
+        bool canMove = !_isAlive && _takeDamage.IsBlowning && _meleeAttack.IsRushing && !_isBurstPermancing;
         return canMove;
     }
 

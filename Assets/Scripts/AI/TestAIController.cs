@@ -47,6 +47,8 @@ public class TestAIController : MonoBehaviour
     private Rigidbody _plRigidBody = default;
     private EnemySoundPlayScript _soundPlay = default;
 
+    private Transform _rockTransfrom = default;
+
     private bool _isAttacked = false;
 
     private bool _isJumped = false;
@@ -57,6 +59,7 @@ public class TestAIController : MonoBehaviour
 
     private void Start()
     {
+        _rockTransfrom = transform;
         _takeDamage = GetComponent<EnemyTakeDamage>();
         _takeDamage.SetStatus(_status);
         _anim = GetComponent<PlayAnimationScript>();
@@ -102,31 +105,54 @@ public class TestAIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isAlive)
+        if (_isAlive)
         {
-            return;
+            _ballRigidBody.AddForce(-transform.up * _status.Gravity * _ballRigidBody.mass);
+            _ctx.PlayerTransform = _playerObj.transform;
+            _ctx.PlayerPosition = PredictionPlayerPos();
+            Vector3 eur = transform.eulerAngles;
+            eur.x = 0;
+            eur.z = 0;
+            transform.rotation = Quaternion.Euler(eur);
+            if (_takeDamage.IsBlowning)
+            {
+                return;
+            }
+            _stateMachine.FixedUpdate();
+            _ctx.Transform = this.transform;
         }
-        _ballRigidBody.AddForce(-transform.up * _status.Gravity * _ballRigidBody.mass);
-        _ctx.PlayerTransform = _playerObj.transform;
-        _ctx.PlayerPosition = PredictionPlayerPos();
-        Vector3 eur = transform.eulerAngles;
-        eur.x = 0;
-        eur.z = 0;
-        transform.rotation = Quaternion.Euler(eur);
-        if (_takeDamage.IsBlowning)
+        else
         {
-            return;
+            transform.position = _rockTransfrom.transform.position;
+            transform.rotation = _rockTransfrom.transform.rotation;
         }
-        _stateMachine.FixedUpdate(); 
-        _ctx.Transform = this.transform;
 
+    }
+    /// <summary>
+    /// バーストが発動した時と非発動時のフラグを帰る
+    /// </summary>
+    /// <param name="isActive">バーストが発動したか</param>
+    public void InBurstMove(bool isActive)
+    {
+        if (isActive)
+        {
+            _isAlive = false;
+            _rockTransfrom.transform.position = this.transform.position;
+            _rockTransfrom.rotation = this.transform.rotation;
+        }
+        else
+        {
+            _isAlive = true;
+        }
     }
 
     public void Dead()
     {
         _isAlive = false;
     }
-
+    /// <summary>
+    /// 次の行動を思考する関数
+    /// </summary>
     public void ThinkNextMove()
     {
         _isTargetCalculated = false;
@@ -149,6 +175,10 @@ public class TestAIController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 攻撃の分岐
+    /// </summary>
+    /// <param name="distance">プレイヤーとの距離</param>
     public void AttackThinkProtocol(float distance)
     {
         switch (_status.EnemyType)
@@ -194,7 +224,9 @@ public class TestAIController : MonoBehaviour
             return false;
         }
     }
-
+    /// <summary>
+    /// 射撃タイプの思考関数
+    /// </summary>
     private void ShotWeaponThink()
     {
         if (_isJumped)
@@ -215,6 +247,10 @@ public class TestAIController : MonoBehaviour
             _isJumped = false;
         }
     }
+    /// <summary>
+    /// ノーマルタイプの思考関数
+    /// </summary>
+    /// <param name="distance">プレイヤーとの距離</param>
     private void NormalEnemyThink(float distance)
     {
         if (_isJumped)
@@ -249,7 +285,10 @@ public class TestAIController : MonoBehaviour
             _isJumped = false;
         }
     }
-
+    /// <summary>
+    /// 次の行動を考える関数
+    /// </summary>
+    /// <param name="distance"></param>
     private void MoveThinkProtocol(float distance)
     {
         bool isHPSafe = _takeDamage.UserHP > _status.EscapeHPThreshould;
@@ -266,7 +305,10 @@ public class TestAIController : MonoBehaviour
         }
         _isAttacked = false;
     }
-
+    /// <summary>
+    ///体力が大丈夫な時の行動
+    /// </summary>
+    /// <param name="distance"></param>
     private void HPSafeMove(float distance)
     {
         if (distance > _status.JumpDistanceThreshould)
@@ -287,6 +329,10 @@ public class TestAIController : MonoBehaviour
             _stateMachine.ChangeState(new JumpState(), this, _ctx);
         }
     }
+    /// <summary>
+    /// 体力が危なくなった時の行動分岐
+    /// </summary>
+    /// <param name="distance">プレイヤーとの距離</param>
     private void HPDangerMoveBranch(float distance)
     {
         switch (_status.EnemyType)
@@ -300,6 +346,10 @@ public class TestAIController : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 近接タイプの敵のピンチ時の行動
+    /// </summary>
+    /// <param name="distance">プレイヤーとの距離</param>
     private void MeleeHPDangerMove(float distance)
     {
         if (distance > _status.JumpDistanceThreshould)

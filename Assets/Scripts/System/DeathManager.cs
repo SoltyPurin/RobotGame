@@ -46,7 +46,7 @@ public class DeathManager : MonoBehaviour
         }
         if(hp <= 0)
         {
-            Time.timeScale = 0.2f;
+            //Time.timeScale = 0.2f;
             _canJudge = false;
             _enemyCount--;
             StartCoroutine(ReturnTimeScale(enemy));

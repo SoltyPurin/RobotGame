@@ -18,9 +18,24 @@ public class PlayAnimationScript : MonoBehaviour
         _animator.SetBool("Moveing", true);
     }
 
-    public void JumpAnim()
+    public void DashSwitch(bool isDash)
+    {
+        _animator.SetBool("isDashing", isDash);
+    }
+
+    public void JumpingAnim()
     {
         _animator.SetTrigger("Jump");
+    }
+
+    public void FallingAnim()
+    {
+        _animator.SetBool("Fall",true);
+    }
+
+    public void LandingAnim()
+    {
+        _animator.SetBool("Fall", false);
     }
 
     public void RightAttackAnim()

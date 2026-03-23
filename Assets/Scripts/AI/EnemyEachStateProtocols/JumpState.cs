@@ -15,7 +15,7 @@ public class JumpState : IEnemyState
         _ctx = ctx; 
         _ground = _ctx.Ground;
         _jumpCurrentTime = 0;
-        _ctx.Animation.JumpAnim();
+        _ctx.Animation.JumpingAnim();
         if (!_ground.IsTouchTheGround)
         {
             return;

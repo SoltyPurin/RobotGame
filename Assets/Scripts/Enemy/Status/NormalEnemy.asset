@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7f05a5efb034b41a693a9d6569cfd8, type: 3}
   m_Name: NormalEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
+  _isTutorialEnemy: 0
   _enemyType: 2
   _enemyHP: 600
   _escapeHpThreshold: 300
@@ -31,7 +32,7 @@ MonoBehaviour:
   _bulletMoveSpeed: 240
   _gravity: 150
   _nearTargetPosDistance: 10
-  _aiMoveSpeed: 100
+  _aiMoveSpeed: 60
   _dodgePower: 50
   _dodgeTime: 0.5
   _jumpPower: 100

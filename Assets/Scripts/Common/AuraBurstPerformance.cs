@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AuraBurstPerformance : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class AuraBurstPerformance : MonoBehaviour
     private UIViewer _ui = default;
     private AudioSource _audioSource = default;
 
+    private TestAIController[] _aiControllers = new TestAIController[2];
+    private GameObject _playerObj = default;
+    private PlayerMove _playerMove = default;
+    private PlayerInputManager _input = default;
+
     private bool _isBurstPerformancing = false;
     public bool IsBurstPerformancing
     {
@@ -26,6 +32,10 @@ public class AuraBurstPerformance : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _ui = FindAnyObjectByType<UIViewer>();
+        _aiControllers = FindObjectsByType<TestAIController>(FindObjectsSortMode.None);
+        _playerObj = GameObject.FindWithTag("Player");
+        _playerMove = _playerObj.GetComponent<PlayerMove>();
+        _input = _playerObj.GetComponent<PlayerInputManager>();
     }
 
     public void AuraBurstCutIn(GameObject burstUser)
@@ -35,13 +45,22 @@ public class AuraBurstPerformance : MonoBehaviour
         animator.speed = 0;
         var childrens = burstUser.GetComponentsInChildren<Transform>();
         GameObject head = null;
-        foreach (var child in childrens)
+        foreach (Transform child in childrens)
         {
             if (child.tag == "Head")
             {
                 head = child.gameObject;
             }
         }
+        foreach(TestAIController controller in _aiControllers)
+        {
+            if(controller != null)
+            {
+                controller.InBurstMove(_isBurstPerformancing);
+            }
+        }
+        _playerMove.InBurstMove(_isBurstPerformancing);
+        _input.InBurstMove(_isBurstPerformancing);
         transform.parent = head.transform;
         transform.localPosition = _positionOffset;
         transform.LookAt(head.transform);
@@ -50,7 +69,6 @@ public class AuraBurstPerformance : MonoBehaviour
         _audioSource.PlayOneShot(_burstSound);
         StartCoroutine(CutInEnd(animator));
         _ui.BurstStart();
-        Time.timeScale = 0;
     }
 
     private IEnumerator CutInEnd(Animator animator)
@@ -58,8 +76,17 @@ public class AuraBurstPerformance : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
         _isBurstPerformancing = false;
         animator.speed = 1;
+        foreach (TestAIController controller in _aiControllers)
+        {
+            if (controller != null)
+            {
+                controller.InBurstMove(_isBurstPerformancing);
+            }
+        }
+
+        _playerMove.InBurstMove(_isBurstPerformancing);
+        _input.InBurstMove(_isBurstPerformancing);
         transform.parent = null;
-        Time.timeScale = 1;
         _mainCamera.Priority = 1;
         _burstCamera.Priority=0;
         _ui.BurstEnd();

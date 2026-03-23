@@ -27,6 +27,7 @@ public class GroundDetect : MonoBehaviour
             {
                 _move.DashTimeHeal();
             }
+            _move.Landing();
         }
     }
 

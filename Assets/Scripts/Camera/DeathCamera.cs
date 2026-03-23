@@ -14,7 +14,7 @@ public class DeathCamera : MonoBehaviour
         curCamera.Priority = 0;
         _deathCamera.Priority = 1;
         _isDestroying=true;
-        Time.timeScale = 0.5f;
+        //Time.timeScale = 0.5f;
     }
 
     private void Update()
