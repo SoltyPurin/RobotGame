@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using System.Collections;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class PlayerMove : MonoBehaviour
 
     private Transform _rockTransform = default;
     private bool _isBurstPerformancing = false;
+    private bool _isLandingAnimation = false;
     public void Initialize(PlayAnimationScript anim,LockOn lockOn,MoveGage moveGage)
     {
         _anim = anim;
@@ -87,6 +89,10 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isLandingAnimation)
+        {
+            return;
+        }
         if(!_isBurstPerformancing)
         {
             MoveProtocol();
@@ -112,6 +118,7 @@ public class PlayerMove : MonoBehaviour
         if (_isRunning.Value)
         {
             _anim.DashSwitch(_isRunning.Value);
+            Landing();
             _soundPlay.PlayDashSound(_isRunning.Value);
             _dashParticle.Stop();
             _isRunning.Value = false;
@@ -133,6 +140,14 @@ public class PlayerMove : MonoBehaviour
     public void Landing()
     {
         _anim.LandingAnim();
+        _isLandingAnimation = true;
+        StartCoroutine(LandingEndLag());
+    }
+
+    private IEnumerator LandingEndLag()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _isLandingAnimation = false;
     }
     private void YAxisLock()
     {
