@@ -7,6 +7,12 @@ public class PracticeSearchNearEnemy : SearchNearEnemy
     {
         _enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
+        if (_enemys == null || _enemys.Length == 0)
+        {
+            return null;
+        }
+
+
         for (int i = 0; i < _enemys.Length; i++)
         {
             _currentEnemyIndex = (_currentEnemyIndex + 1) % _enemys.Length;
