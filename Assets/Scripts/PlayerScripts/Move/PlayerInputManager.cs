@@ -48,7 +48,7 @@ public class PlayerInputManager : MonoBehaviour
         _actionMap = new InputSystem_Actions();
         _actionMap.Player.AuraBurst.performed += AuraBurstProtocol;
         _actionMap.Player.Dash.performed += DashProtocol;
-        _actionMap.Player.Jump.started += JumpOrDash;
+        _actionMap.Player.Jump.started += JumpProtocol;
         _actionMap.Player.Jump.canceled += JumpSwitchFalse;
         _actionMap.Player.RightAttack.performed += RightAttackProtocol;
         _actionMap.Player.LeftAttack.performed += LeftAttackProtocol;
@@ -128,7 +128,7 @@ public class PlayerInputManager : MonoBehaviour
         }
 
     }
-    private void JumpOrDash(InputAction.CallbackContext context)
+    private void JumpProtocol(InputAction.CallbackContext context)
     {
         if (IsDontMove())
         {
@@ -136,12 +136,13 @@ public class PlayerInputManager : MonoBehaviour
         }
         _isJumpPressing = true;
 
-        _anim.JumpingAnim();
+        _anim.JumpingAnim(true);
     }
 
     private void JumpSwitchFalse(InputAction.CallbackContext context)
     {
         _isJumpPressing = false;
+        _anim.JumpingAnim(false);
         _anim.FallingAnim();
     }
     private void DashProtocol(InputAction.CallbackContext context)
@@ -208,7 +209,7 @@ public class PlayerInputManager : MonoBehaviour
             Debug.Log("Œ‚”j");
             _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
             _actionMap.Player.Dash.performed -= DashProtocol;
-            _actionMap.Player.Jump.started -= JumpOrDash;
+            _actionMap.Player.Jump.started -= JumpProtocol;
         _actionMap.Player.Jump.canceled -= JumpSwitchFalse;
             _actionMap.Player.RightAttack.performed -= RightAttackProtocol;
             _actionMap.Player.LeftAttack.performed -= LeftAttackProtocol;

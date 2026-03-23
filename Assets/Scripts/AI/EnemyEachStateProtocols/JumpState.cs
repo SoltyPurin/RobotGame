@@ -15,7 +15,7 @@ public class JumpState : IEnemyState
         _ctx = ctx; 
         _ground = _ctx.Ground;
         _jumpCurrentTime = 0;
-        _ctx.Animation.JumpingAnim();
+        _ctx.Animation.JumpingAnim(true);
         if (!_ground.IsTouchTheGround)
         {
             return;
@@ -28,6 +28,7 @@ public class JumpState : IEnemyState
         if (_ground.IsTouchTheGround)
         {
             _controller.ThinkNextMove();
+            _ctx.Animation.JumpingAnim(false);
         }
         else
         {
@@ -35,6 +36,7 @@ public class JumpState : IEnemyState
             if (_jumpCurrentTime >= 1)
             {
                 _controller.AttackThinkProtocol(_controller.CalcTargetDistance());
+                _ctx.Animation.JumpingAnim(false);
                 _jumpCurrentTime = 0;
             }
         }

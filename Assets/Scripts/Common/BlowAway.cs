@@ -9,6 +9,8 @@ public class BlowAway : MonoBehaviour
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("ヒットストップさせるフレーム数")]
     private float _stopTime = 30;
+    [SerializeField, Header("隠し味に少しだけ浮かせる力")]
+    private float _vUpPower = 0.2f;
     private float _currentStopTime = 0;
     private bool _canHitStop = false;
 
@@ -43,6 +45,9 @@ public class BlowAway : MonoBehaviour
             //    Time.timeScale = 1;
             //}
             _canHitStop = false;
+            _direction.y = 0;
+            _direction = _direction.normalized;
+            _direction.y = _vUpPower;
             _onBallRigidBody.AddForce(_direction * _blowAwayPower, ForceMode.Impulse);
         }
     }
