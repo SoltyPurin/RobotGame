@@ -1,8 +1,9 @@
+using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Unity.Cinemachine;
-using System.Collections;
 
 public class TitleCanvasInput : MonoBehaviour
 {
@@ -55,13 +56,13 @@ public class TitleCanvasInput : MonoBehaviour
         _sound.PlayButtonTapSE();
         _switcher.StuckIn(_currentCanvas,_scrambleCanvas);
         _cameraSwitch.StuckIn(_titleCamera,_settingCamera);
+        EventSystem.current.SetSelectedGameObject(_settingButton.gameObject);
     }
 
     private void OpenSetting()
     {
         _sound.PlayButtonTapSE();
         _switcher.StuckIn(_scrambleCanvas, _assembleCanvas);
-        //_cameraSwitch.StuckIn(_titleCamera, _settingCamera);
     }
 
     private void GameStart()

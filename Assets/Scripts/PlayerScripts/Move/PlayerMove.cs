@@ -200,28 +200,60 @@ public class PlayerMove : MonoBehaviour
 
     private void LockOnMoveProtocol(GameObject activeCamera, Vector3 curVelocity)
     {
-
         Vector3 targetPos = _lockOn.TargetTransform.position;
         Vector3 dir = targetPos - _onBallRigidBody.position;
         dir.y = 0f;
 
+        // カメラの向きに基づいた移動方向の計算
         Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
-        Vector3 rotationInput = new Vector3(_horizontalValue,0, _verticalValue);
+
         if (_v2MoveValue.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
-            _robotObj.transform.localRotation = targetRot;
+            // 【修正ポイント】rotationInputを使わず、moveForwardを使う
+            // これで「進む方向」と「見た目の向き」が一致します
+            Quaternion targetRot = Quaternion.LookRotation(moveForward, Vector3.up);
+
+            // DBD風にするならここを Quaternion.RotateTowards にすると滑らかになります
+            _robotObj.transform.rotation = Quaternion.RotateTowards(
+                _robotObj.transform.rotation,
+                targetRot,
+                600 * Time.fixedDeltaTime
+            );
+
+            // 物理的な体の回転（ロックオン対象を向く）
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
-            _useVelocity = moveForward * _moveSpeed * Time.deltaTime;
-            _useVelocity.y = curVelocity.y;
-            _ballRigidBody.linearVelocity = _useVelocity;
+
+            // 力を加える
+            _ballRigidBody.AddForce(moveForward * _moveSpeed);
         }
         else
         {
             _ballRigidBody.linearVelocity *= 0.9f;
         }
+        //Vector3 targetPos = _lockOn.TargetTransform.position;
+        //Vector3 dir = targetPos - _onBallRigidBody.position;
+        //dir.y = 0f;
+
+        //Vector3 cameraForward = Vector3.Scale(activeCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
+        //Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
+        //Vector3 rotationInput = new Vector3(_horizontalValue,0, _verticalValue);
+        //if (_v2MoveValue.sqrMagnitude > 0.01f)
+        //{
+        //    Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
+        //    _robotObj.transform.localRotation = targetRot;
+        //    Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
+        //    _onBallRigidBody.MoveRotation(rot);
+        //    _useVelocity = moveForward * _moveSpeed /** Time.fixedDeltaTime*/;
+        //    _useVelocity.y = curVelocity.y;
+        //    _ballRigidBody.AddForce(moveForward * _moveSpeed);
+        //    //_ballRigidBody.linearVelocity = _useVelocity;
+        //}
+        //else
+        //{
+        //    _ballRigidBody.linearVelocity *= 0.9f;
+        //}
     }
 
     private void NormalProtocol(GameObject activeCamera,Vector3 curVelocity)

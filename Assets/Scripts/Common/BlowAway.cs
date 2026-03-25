@@ -40,10 +40,6 @@ public class BlowAway : MonoBehaviour
         _currentStopTime += Time.unscaledDeltaTime;
         if( _currentStopTime > _stopTime)
         {
-            //if (!_performance.IsBurstPerformancing)
-            //{
-            //    Time.timeScale = 1;
-            //}
             _canHitStop = false;
             _direction.y = 0;
             _direction = _direction.normalized;
