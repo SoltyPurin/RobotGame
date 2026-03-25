@@ -7769,7 +7769,7 @@ MonoBehaviour:
   _shotWeaponCoolTimeSlider: {fileID: 937838807055497261}
   _dashEffect: {fileID: 289369898}
   _goText: {fileID: 519507373}
-  _playerUI: {fileID: 0}
+  _playerUI: {fileID: 2192389512390236658}
   _performanceCanvas: {fileID: 8557398862312164241}
   _pauseMenu: {fileID: 1977973410}
 --- !u!114 &1562067391
@@ -11169,6 +11169,10 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819653}
+    - target: {fileID: 3375663779228381230, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _burstSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _dashParticle
       value: 

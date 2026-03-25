@@ -10,6 +10,7 @@ public class GroundDetect : MonoBehaviour
     private PlayerEffectPlay _effect = default;
     [SerializeField, Header("地面に照射するレイの長さ")]
     private float _rayDistance = 0.5f;
+    public float RayDistance {  get { return _rayDistance; } }
     [SerializeField, Header("アニメーター")]
     private Animator _animator = default;
 
