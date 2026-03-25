@@ -23,9 +23,9 @@ public class PlayAnimationScript : MonoBehaviour
         _animator.SetBool("isDashing", isDash);
     }
 
-    public void JumpingAnim()
+    public void JumpingAnim(bool isJumpInputing)
     {
-        _animator.SetTrigger("Jump");
+        _animator.SetBool("isJumping",isJumpInputing);
     }
 
     public void FallingAnim()

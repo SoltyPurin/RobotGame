@@ -89,24 +89,30 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_isRunning.Value)
+        {
+            _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
+
+        }
         if (_isLandingAnimation)
         {
             return;
         }
-        if(!_isBurstPerformancing)
-        {
             MoveProtocol();
             if (_isRunning.Value)
             {
                 YAxisLock();
             }
-        }
-        else
-        {
-            Debug.Log("回転と座標を固定中");
-            transform.position = _rockTransform.position;
-            transform.rotation = _rockTransform.rotation;
-        }
+        //if(!_isBurstPerformancing)
+        //{
+        //}
+        //else
+        //{
+        //    Debug.Log("回転と座標を固定中");
+        //    transform.position = _rockTransform.position;
+        //    transform.rotation = _rockTransform.rotation;
+        //}
+
     }
 
     public void DashTimeHeal()
@@ -117,25 +123,36 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isRunning.Value)
         {
-            _anim.DashSwitch(_isRunning.Value);
-            Landing();
-            _soundPlay.PlayDashSound(_isRunning.Value);
-            _dashParticle.Stop();
-            _isRunning.Value = false;
-            _moveSpeed -= _dashPlusValue;
+            DashUnLockProtocol();
         }
         else
         {
             if (_moveGage.MoveTimeProperty.Value >= 0)
             {
-                _soundPlay.PlayDashSound(_isRunning.Value);
-                _dashParticle.Play();
-                _isRunning.Value = true;
-                _lockYAxis = this.transform.position.y;
-                _moveSpeed += _dashPlusValue;
-                _anim.DashSwitch(_isRunning.Value);
+                DashOnLineProtocol();
             }
         }
+    }
+
+    private void DashOnLineProtocol()
+    {
+        Debug.Log("ダッシュ中");
+        _soundPlay.PlayDashSound(_isRunning.Value);
+        _dashParticle.Play();
+        _isRunning.Value = true;
+        _lockYAxis = this.transform.position.y;
+        _moveSpeed += _dashPlusValue;
+        _anim.DashSwitch(true);
+    }
+    private void DashUnLockProtocol()
+    {
+        Debug.Log("ダッシュ解除");
+        _anim.DashSwitch(false);
+        Landing();
+        _soundPlay.PlayDashSound(_isRunning.Value);
+        _dashParticle.Stop();
+        _isRunning.Value = false;
+        _moveSpeed -= _dashPlusValue;
     }
     public void Landing()
     {
@@ -161,20 +178,14 @@ public class PlayerMove : MonoBehaviour
         _moveGage.Moveing(false);
         if(_moveGage.MoveTimeProperty.Value < 0 )
         {
-            _soundPlay.PlayDashSound(_isRunning.Value);
-            _dashParticle.Stop();
-            _isRunning.Value = false;
-            _moveSpeed -= _dashPlusValue;
+            DashUnLockProtocol();
+
         }
     }
 
     private void MoveProtocol()
     {
-        if (!_isRunning.Value)
-        {
-            _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
 
-        }
         Vector3 curVelocity = _ballRigidBody.linearVelocity;
         if(_lockOn.TargetTransform == null)
         {

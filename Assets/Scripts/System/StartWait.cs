@@ -6,7 +6,7 @@ public class StartWait : MonoBehaviour
     [SerializeField, Header("最初のアニメーションが終わるまでの時間")]
     private float _animationTime = 2.4f;
     [SerializeField, Header("ユーザーのキャンバス")]
-    private GameObject _userCanvas = default;
+    private CanvasGroup _userCanvas = default;
     [SerializeField,Header("練習中か？")]
     private bool _isPractice = false;
 
@@ -22,7 +22,7 @@ public class StartWait : MonoBehaviour
         {
             deathManager.enabled = false;
         }
-        _userCanvas.SetActive(false);
+        _userCanvas.alpha = 0;
         foreach (var ai in aiCOntroller)
         {
             ai.enabled = false;
@@ -60,6 +60,6 @@ public class StartWait : MonoBehaviour
         {
             deathManager.enabled = true;
         }
-        _userCanvas.SetActive(true);
+        _userCanvas.alpha = 1;
     }
 }

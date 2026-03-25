@@ -31,6 +31,21 @@ public class GroundDetect : MonoBehaviour
         }
     }
 
+    public bool IsGround()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, _rayDistance);
+    }
+    private void Update()
+    {
+        // 毎フレーム判定を更新（アニメーターに反映）
+        bool grounded = IsGround();
+        _animator.SetBool("IsTouchGround", grounded);
+
+        if (grounded)
+        {
+            _jump.CanJumpSwitch();
+        }
+    }
     private void OnCollisionExit(Collision collision)
     {
         GameObject obj = collision.gameObject;
@@ -46,5 +61,10 @@ public class GroundDetect : MonoBehaviour
         Vector3 startPos = new Vector3(x, transform.position.y, z);
         Physics.Raycast(startPos, Vector3.down, out hit, _rayDistance);
         return hit.point.y;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * _rayDistance, Color.red);
     }
 }
