@@ -103,15 +103,12 @@ public class PlayerMove : MonoBehaviour
             {
                 YAxisLock();
             }
-        //if(!_isBurstPerformancing)
-        //{
-        //}
-        //else
-        //{
-        //    Debug.Log("回転と座標を固定中");
-        //    transform.position = _rockTransform.position;
-        //    transform.rotation = _rockTransform.rotation;
-        //}
+        if (_isBurstPerformancing)
+        {
+            transform.position = _rockTransform.position;
+            transform.rotation = _rockTransform.rotation;
+        }
+
 
     }
 
@@ -136,7 +133,6 @@ public class PlayerMove : MonoBehaviour
 
     private void DashOnLineProtocol()
     {
-        Debug.Log("ダッシュ中");
         _soundPlay.PlayDashSound(_isRunning.Value);
         _dashParticle.Play();
         _isRunning.Value = true;
@@ -146,7 +142,6 @@ public class PlayerMove : MonoBehaviour
     }
     private void DashUnLockProtocol()
     {
-        Debug.Log("ダッシュ解除");
         _anim.DashSwitch(false);
         Landing();
         _soundPlay.PlayDashSound(_isRunning.Value);
@@ -169,17 +164,17 @@ public class PlayerMove : MonoBehaviour
     private void YAxisLock()
     {
         Vector3 curPos = this.transform.position;
-        if(_lockYAxis<=_groundDetect.GroundYAxis(curPos.x, curPos.z))
-        {
-            _lockYAxis = _groundDetect.GroundYAxis(curPos.x, curPos.z);
-        }
-        curPos.y = _lockYAxis;
+        //if(_lockYAxis<=_groundDetect.GroundYAxis(curPos.x, curPos.z))
+        //{
+        //    _lockYAxis = _groundDetect.GroundYAxis(curPos.x, curPos.z);
+        //    Debug.Log("高さ更新");
+        //}
+        ////curPos.y = _lockYAxis;
         _onBallRigidBody.MovePosition(curPos);
         _moveGage.Moveing(false);
         if(_moveGage.MoveTimeProperty.Value < 0 )
         {
             DashUnLockProtocol();
-
         }
     }
 

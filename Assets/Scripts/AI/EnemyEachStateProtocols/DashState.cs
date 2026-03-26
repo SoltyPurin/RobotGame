@@ -19,7 +19,6 @@ public class DashState : IEnemyState
         Vector3 direction = (targetPos - _ctx.Transform.position).normalized;
         direction.y = 0;
         _ctx.BallRigidBody.AddForce(direction * _ctx.DodgePower, ForceMode.Impulse);
-        Debug.Log("“G‚ª‰ñ”ð");
     }
 
     public void FixedUpdate()

@@ -61,20 +61,17 @@ public class AuraBurst : MonoBehaviour
         switch (_burstTypeIndex)
         {
             case (int)BurstName.Attack:
-                Debug.Log("攻撃力上昇");
                 _rightAttack.AuraBurst(_burstUpAttackValue,true);
                 _leftAttack.AuraBurst(_burstUpAttackValue, true);
                 StartCoroutine(UnLockBurst(_attackBurstTime));
                 break;
 
             case (int)BurstName.Speed:
-                Debug.Log("スピード上昇");
                 _playerMove.AuraBurst(_burstSpeed, true);
                 StartCoroutine(UnLockBurst(_speedBurstTime));
                 break;
 
             case (int)BurstName.Guard:
-                Debug.Log("無敵化");
                 _takeDamage.AuraBurst(true);
                 StartCoroutine(UnLockBurst(_invincibleTime));
                 break;
@@ -87,7 +84,6 @@ public class AuraBurst : MonoBehaviour
     {
         yield return new WaitForSeconds(unlockTime);
 
-        Debug.Log("解除");
         switch (_burstTypeIndex)
         {
             case (int)BurstName.Attack:

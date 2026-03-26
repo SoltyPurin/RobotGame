@@ -206,7 +206,6 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Dead()
     {
-            Debug.Log("åÇîj");
             _actionMap.Player.AuraBurst.performed -= AuraBurstProtocol;
             _actionMap.Player.Dash.performed -= DashProtocol;
             _actionMap.Player.Jump.started -= JumpProtocol;
@@ -231,7 +230,6 @@ public class PlayerInputManager : MonoBehaviour
         }
         if (!_isMeleeCoolTime)
         {
-            Debug.Log("ãﬂê⁄êUÇ¡ÇƒÇÈ");
             _attack.LeftAttack(enemy);
             _anim.LeftATKRush();
             _isMeleeCoolTime=true;

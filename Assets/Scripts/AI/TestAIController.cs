@@ -159,7 +159,6 @@ public class TestAIController : MonoBehaviour
         float distance = CalcTargetDistance();
         if (IsNearBullet())
         {
-            Debug.Log("‰ñ”ð");
             _stateMachine.ChangeState(new DashState(), this, _ctx);
             return;
         }

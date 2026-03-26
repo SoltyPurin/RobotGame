@@ -2678,11 +2678,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/VFX_Fire_01_Small
+    path: U3DRoot/robotCOG/waist_jnt/body_jnt/Engine flames green
     classID: 1
     script: {fileID: 0}
     flags: 16
@@ -2699,11 +2708,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/VFX_Fire_01_Small
+    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/Engine flames yellow
     classID: 1
     script: {fileID: 0}
     flags: 16
@@ -2720,11 +2738,21 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/waist_jnt/body_jnt/GNFrame
+    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/Engine
+      flames yellow (1)
     classID: 1
     script: {fileID: 0}
     flags: 16
@@ -3151,7 +3179,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2832594941
+      path: 4127721842
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -3160,7 +3188,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 1530140059
+      path: 1597991104
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -3169,7 +3197,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 271913522
+      path: 2462678547
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -14156,11 +14184,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/VFX_Fire_01_Small
+    path: U3DRoot/robotCOG/waist_jnt/body_jnt/Engine flames green
     classID: 1
     script: {fileID: 0}
     flags: 16
@@ -14177,11 +14214,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/VFX_Fire_01_Small
+    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/Engine flames yellow
     classID: 1
     script: {fileID: 0}
     flags: 16
@@ -14198,11 +14244,21 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 1.8833333
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: U3DRoot/robotCOG/waist_jnt/body_jnt/GNFrame
+    path: U3DRoot/robotCOG/pelvis_jnt/hip_rt_jnt/knee1_rt_jnt/knee2_rt_jnt/Engine
+      flames yellow (1)
     classID: 1
     script: {fileID: 0}
     flags: 16
