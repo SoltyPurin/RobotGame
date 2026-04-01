@@ -18,7 +18,7 @@ MonoBehaviour:
   _escapeHpThreshold: 300
   _jumpDistanceThreshould: 20
   _dodgeRange: 5
-  _moveMaxDistance: 10
+  _moveMaxDistance: 30
   _escapeDistance: 10
   _escapeSpeed: 70
   _meleeAtosuki: 1
@@ -38,6 +38,6 @@ MonoBehaviour:
   _jumpPower: 100
   _stopTime: 1
   _moveCountUntilJump: 3
-  _sakiyomiTime: 2
+  _sakiyomiTime: 1
   _sakiyomiStopSpeed: 10
   _meleeAttackRange: 50

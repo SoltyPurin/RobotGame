@@ -27,16 +27,16 @@ public class JumpState : IEnemyState
     {
         if (_ground.IsTouchTheGround)
         {
-            _controller.ThinkNextMove();
             _ctx.Animation.JumpingAnim(false);
+            _controller.ThinkNextMove();
         }
         else
         {
             _jumpCurrentTime += Time.fixedDeltaTime;
             if (_jumpCurrentTime >= 1)
             {
-                _controller.AttackThinkProtocol(_controller.CalcTargetDistance());
                 _ctx.Animation.JumpingAnim(false);
+                _controller.AttackThinkProtocol(_controller.CalcTargetDistance());
                 _jumpCurrentTime = 0;
             }
         }

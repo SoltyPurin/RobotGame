@@ -157,11 +157,6 @@ public class TestAIController : MonoBehaviour
     {
         _isTargetCalculated = false;
         float distance = CalcTargetDistance();
-        if (IsNearBullet())
-        {
-            _stateMachine.ChangeState(new DashState(), this, _ctx);
-            return;
-        }
 
         if (_isAttacked)
         {

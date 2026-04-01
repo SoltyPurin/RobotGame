@@ -181,7 +181,7 @@ AnimatorStateMachine:
     m_Position: {x: 780, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6250480703080670222}
-    m_Position: {x: 490, y: -170, z: 0}
+    m_Position: {x: 520, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1926004277362276075}
     m_Position: {x: 30, y: -180, z: 0}
@@ -242,6 +242,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsTouchGround
+    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Fall
     m_EventTreshold: 0
@@ -706,9 +709,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Shoot
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: IsTouchGround
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6519129204956346419}
