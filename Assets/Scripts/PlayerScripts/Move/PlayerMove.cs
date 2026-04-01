@@ -143,11 +143,22 @@ public class PlayerMove : MonoBehaviour
     private void DashUnLockProtocol()
     {
         _anim.DashSwitch(false);
+
+        if (_groundDetect.IsGround())
+        {
+            DashTimeHeal(); 
+        }
         Landing();
         _soundPlay.PlayDashSound(_isRunning.Value);
         _dashParticle.Stop();
         _isRunning.Value = false;
         _moveSpeed -= _dashPlusValue;
+        //_anim.DashSwitch(false);
+        //Landing();
+        //_soundPlay.PlayDashSound(_isRunning.Value);
+        //_dashParticle.Stop();
+        //_isRunning.Value = false;
+        //_moveSpeed -= _dashPlusValue;
     }
     public void Landing()
     {

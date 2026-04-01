@@ -243094,7 +243094,7 @@ MonoBehaviour:
   _attackBurstTime: 10
   _burstUpAttackValue: 100
   _speedBurstTime: 15
-  _burstSpeed: 2000
+  _burstSpeed: 40
   _invincibleTime: 5
 --- !u!114 &5497625644688270491
 MonoBehaviour:
@@ -313148,7 +313148,7 @@ MonoBehaviour:
   _jump: {fileID: 4800877092700124769}
   _move: {fileID: 4424170228513651156}
   _effect: {fileID: 2628663908658020393}
-  _rayDistance: 1.5
+  _rayDistance: 5.5
   _animator: {fileID: 5989838876354775001}
 --- !u!153 &8244244203717748794
 ConfigurableJoint:

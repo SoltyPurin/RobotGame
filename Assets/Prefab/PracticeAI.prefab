@@ -36371,6 +36371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlowAway
   _onBallRigidBody: {fileID: 6518367681128184011}
   _stopTime: 0.3
+  _vUpPower: 0.2
 --- !u!114 &7926966110680637094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82038,6 +82039,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6214c8581ba299f40a6605094343415d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetectGround
+  _animator: {fileID: 4073017283675775773}
+  _animScript: {fileID: 3739863925387088383}
 --- !u!1 &6012246980606391840
 GameObject:
   m_ObjectHideFlags: 0

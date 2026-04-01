@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class GroundDetect : MonoBehaviour
@@ -14,21 +15,31 @@ public class GroundDetect : MonoBehaviour
     [SerializeField, Header("アニメーター")]
     private Animator _animator = default;
 
+    private bool _wasGrounded = false;
+
     private readonly string GROUND_TAG = "Ground";
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    GameObject obj = collision.gameObject;
+    //    if (obj.CompareTag(GROUND_TAG))
+    //    {
+    //        _animator.SetBool("IsTouchGround", true);
+    //        _effect.StopThrusterEffect();
+    //        _jump.CanJumpSwitch();
+    //        if (!_move.IsRunning.Value)
+    //        {
+    //            _move.DashTimeHeal();
+    //        }
+    //        _move.Landing();
+    //    }
+    //}
+
+    public void TryHealDashGage()
     {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag(GROUND_TAG))
+        if (IsGround())
         {
-            _animator.SetBool("IsTouchGround", true);
-            _effect.StopThrusterEffect();
-            _jump.CanJumpSwitch();
-            if (!_move.IsRunning.Value)
-            {
-                _move.DashTimeHeal();
-            }
-            _move.Landing();
+            _move.DashTimeHeal();
         }
     }
 
@@ -39,30 +50,54 @@ public class GroundDetect : MonoBehaviour
     private void Update()
     {
         // 毎フレーム判定を更新（アニメーターに反映）
-        bool grounded = IsGround();
-        _animator.SetBool("IsTouchGround", grounded);
+        bool isGrounded = IsGround();
+        _animator.SetBool("IsTouchGround", isGrounded);
 
-        if (grounded)
+        if (isGrounded && !_wasGrounded)
+        {
+            OnJustLanded();
+            TryHealDashGage();
+        }
+
+        if (isGrounded)
+        {
+            _jump.CanJumpSwitch();
+        }
+
+        _wasGrounded = isGrounded;
+        if (isGrounded)
         {
             _jump.CanJumpSwitch();
         }
     }
-    private void OnCollisionExit(Collision collision)
-    {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag(GROUND_TAG))
-        {
-            _animator.SetBool("IsTouchGround",false);
-        }
-        }
 
-    public float GroundYAxis(float x, float z)
+    private void OnJustLanded()
     {
-        RaycastHit hit;
-        Vector3 startPos = new Vector3(x, transform.position.y, z);
-        Physics.Raycast(startPos, Vector3.down, out hit, _rayDistance);
-        return hit.point.y;
+        _effect.StopThrusterEffect();
+        _jump.CanJumpSwitch();
+
+        if (!_move.IsRunning.Value)
+        {
+            _move.DashTimeHeal();
+        }
+        _move.Landing();
     }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    GameObject obj = collision.gameObject;
+    //    if (obj.CompareTag(GROUND_TAG))
+    //    {
+    //        _animator.SetBool("IsTouchGround",false);
+    //    }
+    //    }
+
+    //public float GroundYAxis(float x, float z)
+    //{
+    //    RaycastHit hit;
+    //    Vector3 startPos = new Vector3(x, transform.position.y, z);
+    //    Physics.Raycast(startPos, Vector3.down, out hit, _rayDistance);
+    //    return hit.point.y;
+    //}
 
     private void OnDrawGizmos()
     {

@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletMove
   _rigidBody: {fileID: 3682235616340386628}
-  _moveSpeed: 240
   _bulletTrajectory: {fileID: 2021023701919993080}
 --- !u!33 &1547755772834496641
 MeshFilter:
@@ -286,7 +285,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 996813845524306983, guid: cd198be47ec520344af487857ee0c4d5, type: 3}
       propertyPath: m_Positions.Array.data[1].z
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 996813845524306983, guid: cd198be47ec520344af487857ee0c4d5, type: 3}
       propertyPath: m_Parameters.widthMultiplier

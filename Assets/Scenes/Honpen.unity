@@ -11411,23 +11411,7 @@ PrefabInstance:
       objectReference: {fileID: 1626819653}
     - target: {fileID: 3191547510620835241, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _rayDistance
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3375663779228381230, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _burstSpeed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _downForce
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _moveSpeed
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
-      propertyPath: _speedLimit
-      value: 60
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _dashParticle
