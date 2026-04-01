@@ -89,7 +89,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isRunning.Value)
+        if (!_isRunning.Value && !_groundDetect.IsGround())
         {
             _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
 
@@ -205,20 +205,21 @@ public class PlayerMove : MonoBehaviour
         Vector3 moveForward = cameraForward * _verticalValue + activeCamera.transform.right * _horizontalValue;
         //カメラを無視した、ワールド座標の固定方向
         Vector3 rotationInput = new Vector3(_horizontalValue, 0, _verticalValue);
-        if (_v2MoveValue.sqrMagnitude > 0.01f)
+        if (_v2MoveValue.magnitude > 0.01f)
         {
+            //Debug.Log("移動");
             Quaternion targetRot = Quaternion.LookRotation(rotationInput, Vector3.up);
             _robotObj.transform.localRotation = targetRot;
             Quaternion rot = Quaternion.LookRotation(dir, Vector3.up);
             _onBallRigidBody.MoveRotation(rot);
             _useVelocity = moveForward * _moveSpeed /** Time.fixedDeltaTime*/;
             _useVelocity.y = curVelocity.y;
-            //_ballRigidBody.AddForce(moveForward * _moveSpeed);
-            //if(_ballRigidBody.linearVelocity >=)
+            //_ballRigidBody.AddForce(_useVelocity);
             _ballRigidBody.linearVelocity = _useVelocity;
         }
         else
         {
+
             _ballRigidBody.linearVelocity *= 0.9f;
         }
     }

@@ -1,7 +1,4 @@
-using System.Drawing;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public enum ParamName
 {

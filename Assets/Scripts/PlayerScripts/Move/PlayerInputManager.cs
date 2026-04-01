@@ -1,7 +1,6 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class PlayerInputManager : MonoBehaviour
 {
@@ -88,7 +87,8 @@ public class PlayerInputManager : MonoBehaviour
         {
             return;
         }
-        if (_isJumpPressing && _moveGage.MoveTimeProperty.Value >0)
+
+        if (_isJumpPressing && _moveGage.MoveTimeProperty.Value > 0)
         {
             _moveGage.Moveing(true);
             _jump.JumpProtocol();
