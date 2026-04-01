@@ -18,14 +18,14 @@ MonoBehaviour:
   _escapeHpThreshold: 400
   _jumpDistanceThreshould: 20
   _dodgeRange: 10
-  _moveMaxDistance: 30
+  _moveMaxDistance: 70
   _escapeDistance: 20
   _escapeSpeed: 200
   _meleeAtosuki: 1
   _rushSpeed: 200
   _rushTime: 0.4
   _meleeDamageValue: 150
-  _meleeBlowAwayPower: 1500
+  _meleeBlowAwayPower: 500
   _bulletDamageValue: 50
   _bulletBlowAwayPower: 50
   _bulletAliveTime: 5

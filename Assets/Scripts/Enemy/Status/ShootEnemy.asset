@@ -18,7 +18,7 @@ MonoBehaviour:
   _escapeHpThreshold: 300
   _jumpDistanceThreshould: 20
   _dodgeRange: 5
-  _moveMaxDistance: 30
+  _moveMaxDistance: 100
   _escapeDistance: 10
   _escapeSpeed: 70
   _meleeAtosuki: 1
