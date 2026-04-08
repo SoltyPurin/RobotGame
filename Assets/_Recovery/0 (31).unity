@@ -6689,8 +6689,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949176738}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.003864834, y: -0.854414, z: -0.0063559497, w: 0.5195397}
-  m_LocalPosition: {x: 390.52548, y: 109.4, z: 173.18079}
+  m_LocalRotation: {x: -0.0066243648, y: -0.85436815, z: -0.010894162, w: 0.5195118}
+  m_LocalPosition: {x: 390.52548, y: 105.4, z: 173.18079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8313,7 +8313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0, y: 9, z: 0}
+  ShoulderOffset: {x: 0, y: 5, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 15
@@ -8377,8 +8377,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626819651}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.003864834, y: -0.854414, z: -0.0063559497, w: 0.5195397}
-  m_LocalPosition: {x: 390.52548, y: 109.4, z: 173.18079}
+  m_LocalRotation: {x: -0.0066243648, y: -0.85436815, z: -0.010894162, w: 0.5195118}
+  m_LocalPosition: {x: 390.52548, y: 105.4, z: 173.18079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11221,14 +11221,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 949176742}
-    - target: {fileID: 6522545889279104858, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522545889279104858, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7668374945580867206, guid: 93dc3ca0f64cc284fb82abb4291cde34, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11417,6 +11409,10 @@ PrefabInstance:
       propertyPath: _lockOnCamera
       value: 
       objectReference: {fileID: 1626819653}
+    - target: {fileID: 3191547510620835241, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
+      propertyPath: _rayDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4424170228513651156, guid: 9d4593f07d5e8204695959d32ce2ae17, type: 3}
       propertyPath: _dashParticle
       value: 

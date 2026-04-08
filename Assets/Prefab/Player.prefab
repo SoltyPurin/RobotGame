@@ -14931,7 +14931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632acb3ff5374e248bf4c79b82ec43c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeftAttack
-  _dashSpeed: 20
+  _dashSpeed: 100
   _rushTime: 0.7
   _onBallRigidBody: {fileID: 2486990525998137046}
   _anim: {fileID: 6559886222491615541}
@@ -313148,7 +313148,7 @@ MonoBehaviour:
   _jump: {fileID: 4800877092700124769}
   _move: {fileID: 4424170228513651156}
   _effect: {fileID: 2628663908658020393}
-  _rayDistance: 5.5
+  _rayDistance: 1.5
   _animator: {fileID: 5989838876354775001}
 --- !u!153 &8244244203717748794
 ConfigurableJoint:
